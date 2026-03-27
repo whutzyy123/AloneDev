@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Requirements Management - Fluid Professional</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#a3c9ff",
+              "surface-tint": "#0060ab",
+              "on-tertiary-fixed-variant": "#743500",
+              "tertiary": "#974700",
+              "outline-variant": "#c0c7d4",
+              "on-primary-fixed-variant": "#004883",
+              "secondary-fixed": "#d3e3ff",
+              "surface-variant": "#e0e2ea",
+              "on-tertiary-fixed": "#311300",
+              "on-error": "#ffffff",
+              "on-secondary": "#ffffff",
+              "on-error-container": "#93000a",
+              "tertiary-fixed-dim": "#ffb689",
+              "secondary-fixed-dim": "#adc8f2",
+              "primary-fixed": "#d3e3ff",
+              "primary": "#005faa",
+              "surface-container": "#ebeef6",
+              "primary-fixed-dim": "#a3c9ff",
+              "primary-container": "#0078d4",
+              "outline": "#717783",
+              "on-tertiary": "#ffffff",
+              "on-primary": "#ffffff",
+              "surface-dim": "#d7dae2",
+              "inverse-on-surface": "#eef0f9",
+              "error-container": "#ffdad6",
+              "surface-container-highest": "#e0e2ea",
+              "on-primary-container": "#ffffff",
+              "tertiary-container": "#bc5b00",
+              "on-secondary-fixed": "#001c39",
+              "surface-container-lowest": "#ffffff",
+              "tertiary-fixed": "#ffdbc8",
+              "error": "#ba1a1a",
+              "surface": "#f8f9ff",
+              "on-secondary-container": "#405b7f",
+              "on-surface-variant": "#404752",
+              "on-secondary-fixed-variant": "#2d486b",
+              "inverse-surface": "#2d3137",
+              "secondary": "#456084",
+              "on-tertiary-container": "#ffffff",
+              "on-background": "#181c22",
+              "background": "#f8f9ff",
+              "surface-container-high": "#e6e8f0",
+              "on-primary-fixed": "#001c39",
+              "surface-container-low": "#f1f3fc",
+              "on-surface": "#181c22",
+              "surface-bright": "#f8f9ff",
+              "secondary-container": "#b8d3fd"
+            },
+            fontFamily: {
+              "headline": ["Inter", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        .glass { backdrop-filter: blur(40px); background: rgba(248, 249, 255, 0.6); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface overflow-hidden">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen flex flex-col py-4 bg-slate-100/50 dark:bg-slate-900/50 backdrop-blur-2xl w-64 border-r-0 z-50">
+<div class="px-6 mb-8">
+<h1 class="text-lg font-semibold text-slate-900 dark:text-slate-100 leading-tight">Fluid Professional</h1>
+<p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold opacity-70">Management Suite</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg mx-2 transition-colors duration-200 font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+                Projects
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-blue-600 dark:text-blue-400 bg-slate-200 dark:bg-slate-800 rounded-lg mx-2 before:content-[''] before:absolute before:left-0 before:w-1 before:h-6 before:bg-blue-600 before:rounded-full font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+                Requirements
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg mx-2 transition-colors duration-200 font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="task_alt">task_alt</span>
+                Tasks
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg mx-2 transition-colors duration-200 font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="sync">sync</span>
+                Iterations
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg mx-2 transition-colors duration-200 font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                Documents
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg mx-2 transition-colors duration-200 font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+                Data
+            </a>
+</nav>
+<div class="mt-auto px-2">
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-colors duration-200 font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+<div class="mt-4 pt-4 border-t border-slate-200/50 dark:border-slate-800/50 flex items-center gap-3 px-4">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Close up portrait of a professional male architect in a bright modern office studio with natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDyWFedfbYTedjfMwCQr3JMo6x36HUx1l3vtUmDcnk8Kp_yg3TON3nT2fZHX4TM4YE1xewHP9eetQy8j5eMwqQgYwCZhHzkX8IdQzHsTU6hqI0MMcC8-MGGEM0VhVmsrEveEiOLnrYruZPk0Gw6oK9G-L-98D_e1fXqnOzbZITnsvR9TfJIFpqPhLOyAtNNDKvJCV9ub0uezhBDpYsVlMEx4vqmdtQpQMEi5OP6iTq7MaScQE4oATEp5E9ppyVbWh0nl9Kl1KlBdo"/>
+<div class="overflow-hidden">
+<p class="text-xs font-semibold truncate">Alex Chen</p>
+<p class="text-[10px] text-slate-500 truncate">Product Owner</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen flex flex-col relative transition-all duration-300">
+<!-- TopNavBar -->
+<header class="h-16 w-full sticky top-0 z-40 bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200/20 dark:border-slate-800/20 flex items-center justify-between px-8">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-50">Requirements</span>
+<nav class="flex gap-6 mt-1">
+<a class="text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 pb-4 text-sm font-semibold" href="#">Table</a>
+<a class="text-slate-500 dark:text-slate-400 pb-4 hover:text-slate-900 dark:hover:text-slate-100 text-sm font-semibold transition-all" href="#">Kanban</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="bg-surface-container-highest border-none rounded-md pl-9 pr-4 py-1.5 text-sm w-64 focus:ring-2 focus:ring-primary/20 placeholder:text-slate-400 transition-all" placeholder="Search requirements..." type="text"/>
+</div>
+<button class="flex items-center gap-2 bg-primary text-white px-4 py-1.5 rounded-md text-sm font-medium hover:bg-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-sm">add</span>
+                    Add Requirement
+                </button>
+<div class="flex gap-2 text-slate-500 border-l border-slate-200 dark:border-slate-800 ml-2 pl-4">
+<button class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-md transition-all opacity-80 hover:opacity-100">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-md transition-all opacity-80 hover:opacity-100">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Operation Bar (Sub-Header) -->
+<section class="px-8 py-4 flex flex-wrap items-center gap-3 bg-surface border-b border-slate-200/10">
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low rounded-lg text-sm font-medium text-on-surface-variant cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+<span>Status: All</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low rounded-lg text-sm font-medium text-on-surface-variant cursor-pointer hover:bg-surface-container-high transition-colors">
+<span>Priority: High</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low rounded-lg text-sm font-medium text-on-surface-variant cursor-pointer hover:bg-surface-container-high transition-colors">
+<span>Assignee: Me</span>
+</div>
+<div class="h-4 w-[1px] bg-outline-variant mx-1"></div>
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low rounded-lg text-sm font-medium text-on-surface-variant cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">swap_vert</span>
+<span>Sort: Recently Updated</span>
+</div>
+</section>
+<!-- Content Area: DataGrid -->
+<div class="flex-1 overflow-auto p-8 pt-4 no-scrollbar">
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-slate-200/30 overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low/50 sticky top-0 z-10">
+<tr>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200/50">Requirement Name</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200/50">Project</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200/50">Priority</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200/50">Status</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200/50">Assignee</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200/50">Deadline</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100">
+<!-- Row 1 (Selected) -->
+<tr class="hover:bg-blue-50/50 cursor-pointer bg-blue-50/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-blue-600 text-sm">description</span>
+<span class="text-sm font-semibold text-slate-900">Implement Biometric Auth</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600">Mobile App V2</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-red-100 text-red-700">P0</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 bg-amber-100 text-amber-800 px-3 py-1 rounded-md text-[11px] font-bold w-fit">
+<div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+                                    In Progress
+                                    <span class="material-symbols-outlined text-[14px]">expand_more</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full" data-alt="Portrait of a focused young asian developer working in a minimalist white tech office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiA56_8qGARXTzH1g4WjXuLw8JWMW_CtWtrVZt6sLLvPNMFFQfjVjcReVXXW-VgOPuMHNnWixYpdj2dbWxjncXxYmDdMyVMED6HoFIKjkNr-eWp5gLbAkayn4kDTD2eyfEio97pIIePTVw5U7YRYahRT-LYeidOcsz39Q7Yx-Bp2WREeuplHWbxgM7RznMPZDL0H8ry6sNDQ8xbU640mRhMRY8gC8AKKB-vQuBkTGAMWR42XhxfvhUdtcr-Mbym6jMmvh6pZxPMKU"/>
+<span class="text-sm text-slate-700">Sarah K.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500">Oct 24, 2023</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50 transition-colors cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-sm">description</span>
+<span class="text-sm font-semibold text-slate-900">Mica Material Theme Logic</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600">Core UI Kit</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-orange-700">P1</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 bg-slate-100 text-slate-600 px-3 py-1 rounded-md text-[11px] font-bold w-fit">
+                                    Planned
+                                    <span class="material-symbols-outlined text-[14px]">expand_more</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full" data-alt="Profile photo of a middle-aged creative director with glasses smiling in a modern design studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwSydmDAy6ymsiW2oTO_aKvi28GPssDiZ7BP5yfuRO5gJf8kUOyyut1_8wcM_NIVqRzc9VSiupLSAppzpSf5boWcjPCrt7kodqczXQpjoLrOQ5ByxoWnOVaOmQCkHlytZlfTyRqXQIyWo4qV2F8sRw-bynjdvjsqjSYoiOOw07rEAEr9OzsL7oplDVGTJOcoUYU5tmP7h_q4duaDbBmyq-m3HAksquOdrZrMSBEevCQb-kHvgjt84RxIcx3goI6jID-P2bW9GpENw"/>
+<span class="text-sm text-slate-700">James W.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500">Nov 12, 2023</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50 transition-colors cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-sm">description</span>
+<span class="text-sm font-semibold text-slate-900">Cloud Sync Optimization</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600">Database Engine</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-700">P2</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 bg-emerald-100 text-emerald-800 px-3 py-1 rounded-md text-[11px] font-bold w-fit">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                    Completed
+                                    <span class="material-symbols-outlined text-[14px]">expand_more</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary-container flex items-center justify-center text-[10px] text-white font-bold">ML</div>
+<span class="text-sm text-slate-700">Mark L.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500">Sep 30, 2023</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50 transition-colors cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-sm">description</span>
+<span class="text-sm font-semibold text-slate-900">API Documentation Update</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600">Dev Portal</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-200 text-slate-700">P3</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 bg-purple-100 text-purple-800 px-3 py-1 rounded-md text-[11px] font-bold w-fit">
+                                    Launched
+                                    <span class="material-symbols-outlined text-[14px]">expand_more</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full" data-alt="Portrait of a young professional woman in a crisp white shirt with soft natural lighting and neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSMobo7uqiAoJvyGwd9sqSB3VEdXSW9L-lnKtaow5i-TIlUukF9Jb1EORX6lSrX03_k3wnUFEoCzbF1MqtoL2OGey46uVqNE8IBjVVg732gBi6hW_4IVILt4P0omsCX9eaauMoAMONU7-gc5to0GW5Hk3ZTcmTKeoNEN_tAr8t_bxEsPIIv1qkJFh3P0I1lJCcj0lM40HEtLWtkeQQjp1rzwFEPlv_T0DYwydqifCZ6Y1cklfV6yJa18rzgeXBjBwL0Nm7J04G56Q"/>
+<span class="text-sm text-slate-700">Anna R.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500">Oct 05, 2023</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Detail Panel (Fixed Right) -->
+<aside class="w-[420px] h-screen fixed right-0 top-0 glass shadow-2xl z-30 flex flex-col translate-x-0 transition-transform duration-500 border-l border-white/20">
+<div class="p-8 pb-4 flex items-center justify-between">
+<h2 class="text-xl font-bold tracking-tight">Detail View</h2>
+<button class="p-2 hover:bg-slate-200/50 rounded-full transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto px-8 no-scrollbar pb-12">
+<!-- Header Stats -->
+<div class="flex items-center gap-4 mb-8">
+<span class="px-3 py-1 bg-red-100 text-red-700 text-[10px] font-bold rounded-md">P0 PRIORITY</span>
+<span class="px-3 py-1 bg-amber-100 text-amber-700 text-[10px] font-bold rounded-md uppercase">In Progress</span>
+</div>
+<!-- Field: Title -->
+<div class="mb-6">
+<label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Requirement Name</label>
+<h3 class="text-lg font-semibold text-slate-900 leading-snug">Implement Biometric Auth across mobile platforms</h3>
+</div>
+<!-- Field: Description -->
+<div class="mb-8">
+<label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Description</label>
+<p class="text-sm text-slate-600 leading-relaxed">
+                        Add support for FaceID and Fingerprint scanning in the Mobile App V2. This needs to be integrated into the existing login flow and must comply with the latest security standards.
+                    </p>
+</div>
+<!-- Field: Meta Grid -->
+<div class="grid grid-cols-2 gap-6 mb-10">
+<div>
+<label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Assignee</label>
+<div class="flex items-center gap-2">
+<img class="w-8 h-8 rounded-full" data-alt="Portrait of a focused young asian developer working in a minimalist white tech office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfP32bLjvW1oSR6AzmNPbdN94XTiyRPu4PG7kU25bimULSC0aObY6j7IYQEZf4ITsFak-B2ZknOgCSzz_SKpmo_OEPevKPayZKRp-_K9GZyN4If9WAawyPclEA0OaGegF0eIUxaMv8aGll2gJsZd9O2Bki662OowH3u74qMgj32ioVt_aPnQZ9DrvfGUJvn4Nx7x0jYClhu9aZBVgMj4ywB_Guo9kXyqyj7qPrS9FwreD3VKg3rV0AbasTifB03HzRHjn9kii7qYo"/>
+<div>
+<p class="text-sm font-medium">Sarah K.</p>
+<p class="text-[10px] text-slate-500">Lead Dev</p>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Deadline</label>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-sm">event</span>
+<span class="text-sm font-medium">Oct 24, 2023</span>
+</div>
+</div>
+</div>
+<!-- Attachments -->
+<div class="mb-10">
+<label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Attachments (2)</label>
+<div class="space-y-2">
+<div class="flex items-center justify-between p-3 bg-white/50 rounded-lg border border-slate-200/40 hover:border-primary/30 cursor-pointer transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-blue-500">picture_as_pdf</span>
+<span class="text-xs font-medium">Security_Specs_V1.pdf</span>
+</div>
+<span class="material-symbols-outlined text-sm text-slate-400">download</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-white/50 rounded-lg border border-slate-200/40 hover:border-primary/30 cursor-pointer transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-emerald-500">image</span>
+<span class="text-xs font-medium">Design_Mockups.fig</span>
+</div>
+<span class="material-symbols-outlined text-sm text-slate-400">open_in_new</span>
+</div>
+</div>
+</div>
+<!-- Comments -->
+<div class="mb-4">
+<label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Comments</label>
+<div class="space-y-4">
+<div class="flex gap-3">
+<div class="w-7 h-7 rounded-full bg-slate-200 flex items-center justify-center text-[10px] font-bold">JC</div>
+<div class="flex-1 bg-slate-100/50 p-3 rounded-xl rounded-tl-none">
+<p class="text-[11px] font-bold mb-1">James Cooper <span class="text-slate-400 font-normal ml-2">2h ago</span></p>
+<p class="text-xs text-slate-600">Please ensure we check compatibility with older Android versions too.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Panel Footer Actions -->
+<div class="p-6 bg-white/30 backdrop-blur-md border-t border-slate-200/50 flex gap-3">
+<button class="flex-1 bg-primary text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-primary-container shadow-md transition-all">Edit Details</button>
+<button class="px-4 py-2.5 bg-red-50 text-red-600 rounded-lg text-sm font-semibold hover:bg-red-100 transition-all border border-red-100">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</aside>
+</main>
+</body></html>
