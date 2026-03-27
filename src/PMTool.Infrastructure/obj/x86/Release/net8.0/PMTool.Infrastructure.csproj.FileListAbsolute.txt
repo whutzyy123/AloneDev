@@ -1,0 +1,16 @@
+D:\AloneDev\src\PMTool.Infrastructure\bin\x86\Release\net8.0\PMTool.Infrastructure.deps.json
+D:\AloneDev\src\PMTool.Infrastructure\bin\x86\Release\net8.0\PMTool.Infrastructure.dll
+D:\AloneDev\src\PMTool.Infrastructure\bin\x86\Release\net8.0\PMTool.Infrastructure.pdb
+D:\AloneDev\src\PMTool.Infrastructure\bin\x86\Release\net8.0\PMTool.Core.dll
+D:\AloneDev\src\PMTool.Infrastructure\bin\x86\Release\net8.0\PMTool.Core.pdb
+D:\AloneDev\src\PMTool.Infrastructure\obj\x86\Release\net8.0\PMTool.Infrastructure.csproj.AssemblyReference.cache
+D:\AloneDev\src\PMTool.Infrastructure\obj\x86\Release\net8.0\PMTool.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\AloneDev\src\PMTool.Infrastructure\obj\x86\Release\net8.0\PMTool.Infrastructure.AssemblyInfoInputs.cache
+D:\AloneDev\src\PMTool.Infrastructure\obj\x86\Release\net8.0\PMTool.Infrastructure.AssemblyInfo.cs
+D:\AloneDev\src\PMTool.Infrastructure\obj\x86\Release\net8.0\PMTool.Infrastructure.csproj.CoreCompileInputs.cache
+D:\AloneDev\src\PMTool.Infrastructure\obj\x86\Release\net8.0\PMTool.Infrastructure.sourcelink.json
+D:\AloneDev\src\PMTool.Infrastructure\obj\x86\Release\net8.0\PMTool.I.FDE9A73D.Up2Date
+D:\AloneDev\src\PMTool.Infrastructure\obj\x86\Release\net8.0\PMTool.Infrastructure.dll
+D:\AloneDev\src\PMTool.Infrastructure\obj\x86\Release\net8.0\refint\PMTool.Infrastructure.dll
+D:\AloneDev\src\PMTool.Infrastructure\obj\x86\Release\net8.0\PMTool.Infrastructure.pdb
+D:\AloneDev\src\PMTool.Infrastructure\obj\x86\Release\net8.0\ref\PMTool.Infrastructure.dll

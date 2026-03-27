@@ -1,0 +1,33 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="AlonePrimaryButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource AlonePrimaryGradientBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource AloneOnPrimaryBrush}" />
+        <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
+        <Setter Property="Padding" Value="16,10" />
+        <Setter Property="FontFamily" Value="Segoe UI Variable" />
+        <Setter Property="FontSize" Value="{StaticResource BodyMdFontSize}" />
+    </Style>
+
+    <Style x:Key="AloneSecondaryButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource AloneSurfaceContainerLowBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource AloneOnSurfaceBrush}" />
+        <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
+        <Setter Property="Padding" Value="16,10" />
+        <Setter Property="FontFamily" Value="Segoe UI Variable" />
+        <Setter Property="FontSize" Value="{StaticResource BodyMdFontSize}" />
+    </Style>
+
+    <Style x:Key="AloneNavItemButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource AloneOnSurfaceVariantBrush}" />
+        <Setter Property="Padding" Value="12,10" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+</ResourceDictionary>
+

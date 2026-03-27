@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UserControl
+    x:Class="PMTool.App.Controls.OperationBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:PMTool.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="Root"
+    x:DataType="local:OperationBar"
+    mc:Ignorable="d">
+    <Grid
+        Height="{StaticResource OperationBarHeight}"
+        Padding="16,0,24,0"
+        Background="{StaticResource AloneSurfaceBrush}"
+        ColumnSpacing="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBlock
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            Style="{StaticResource AloneHeadlineSmTextBlockStyle}"
+            Text="{x:Bind Title, Mode=OneWay}" />
+        <AutoSuggestBox
+            x:Name="ModuleSearchBox"
+            Grid.Column="1"
+            MinWidth="200"
+            MaxWidth="480"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="{StaticResource AloneSurfaceContainerHighestBrush}"
+            BorderThickness="0"
+            CornerRadius="{StaticResource DefaultCornerRadius}"
+            PlaceholderText="搜索当前模块…" />
+        <StackPanel
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            Orientation="Horizontal"
+            Spacing="8">
+            <Button Content="{x:Bind FilterLabel, Mode=OneWay}" Style="{StaticResource AloneSecondaryButtonStyle}" />
+            <Button Content="{x:Bind PrimaryActionLabel, Mode=OneWay}" Style="{StaticResource AlonePrimaryButtonStyle}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

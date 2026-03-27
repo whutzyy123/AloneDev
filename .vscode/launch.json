@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "PMTool.App (exe unpackaged x64)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build: PMTool.App (Debug x64)",
+      "program": "${workspaceFolder}/src/PMTool.App/bin/x64/Debug/net8.0-windows10.0.19041.0/win-x64/PMTool.App.exe",
+      "cwd": "${workspaceFolder}/src/PMTool.App/bin/x64/Debug/net8.0-windows10.0.19041.0/win-x64",
+      "stopAtEntry": false
+    }
+  ]
+}

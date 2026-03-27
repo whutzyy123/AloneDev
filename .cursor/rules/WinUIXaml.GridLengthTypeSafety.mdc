@@ -1,0 +1,30 @@
+---
+description: Prevent WinUI GridLength type-mismatch in XAML
+globs: src/PMTool.App/**/*.xaml
+alwaysApply: false
+---
+
+# WinUI XAML GridLength Type Safety
+
+## Hard Rule
+
+- Do not assign `x:Double` resources to `ColumnDefinition.Width` or `RowDefinition.Height`.
+- These properties require `GridLength`, not `Double`.
+
+## Required Patterns
+
+- For fixed values, use literals directly:
+  - `ColumnDefinition Width="256"`
+  - `RowDefinition Height="56"`
+- For dynamic/resource values, ensure resource type is `GridLength` (not `x:Double`) before using `{StaticResource ...}`.
+
+## Pre-Commit Check
+
+- When editing shell/layout XAML, scan changed lines for:
+  - `ColumnDefinition Width="{StaticResource ...}"`
+  - `RowDefinition Height="{StaticResource ...}"`
+- If found, verify resource type is `GridLength`; otherwise replace with a valid `GridLength` literal or resource.
+
+## Why
+
+- Avoid runtime `XamlParseException` during `Frame.Navigate(...)` caused by `Double -> GridLength` assignment failures.

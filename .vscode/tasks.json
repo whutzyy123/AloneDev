@@ -1,0 +1,55 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build: PMTool.App (Debug x64)",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/src/PMTool.App/PMTool.App.csproj",
+        "-c",
+        "Debug",
+        "-p:Platform=x64",
+        "-v:m"
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "watch: PMTool.App (Debug x64)",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "watch",
+        "run",
+        "--project",
+        "${workspaceFolder}/src/PMTool.App/PMTool.App.csproj",
+        "-c",
+        "Debug",
+        "-p:Platform=x64",
+        "-v:m"
+      ],
+      "problemMatcher": "$msCompile",
+      "isBackground": true
+    },
+    {
+      "label": "watch: PMTool.App (no hot reload)",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "watch",
+        "run",
+        "--no-hot-reload",
+        "--project",
+        "${workspaceFolder}/src/PMTool.App/PMTool.App.csproj",
+        "-c",
+        "Debug",
+        "-p:Platform=x64",
+        "-v:m"
+      ],
+      "problemMatcher": "$msCompile",
+      "isBackground": true
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "dotnet.defaultSolution": "src/PMTool.sln",
+  "files.watcherExclude": {
+    "**/obj/**": true,
+    "**/bin/**": true
+  },
+  "search.exclude": {
+    "**/obj": true,
+    "**/bin": true
+  }
+}

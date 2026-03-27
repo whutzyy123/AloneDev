@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="PMTool.App.Views.Projects.ProjectListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:PMTool.App.Views.Projects"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:PMTool.App.ViewModels"
+    x:Name="ProjectPageRoot"
+    x:DataType="local:ProjectListPage"
+    Background="{StaticResource AloneSurfaceBrush}"
+    mc:Ignorable="d">
+    <Grid Padding="24">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="{StaticResource Spacing4}">
+                <ItemsControl ItemsSource="{x:Bind ViewModel.Projects, Mode=OneWay}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="vm:ProjectRowViewModel">
+                            <Button
+                                Padding="0"
+                                Margin="0,0,0,16"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Command="{Binding ElementName=ProjectPageRoot, Path=ViewModel.SelectProjectCommand}"
+                                CommandParameter="{x:Bind}"
+                                CornerRadius="{StaticResource DefaultCornerRadius}">
+                                <Border
+                                    Padding="16"
+                                    HorizontalAlignment="Stretch"
+                                    Background="{StaticResource AloneSurfaceContainerLowestBrush}"
+                                    CornerRadius="{StaticResource DefaultCornerRadius}">
+                                    <StackPanel Spacing="6">
+                                        <TextBlock Style="{StaticResource AloneTitleSmTextBlockStyle}" Text="{x:Bind Name, Mode=OneWay}" />
+                                        <TextBlock
+                                            Opacity="0.85"
+                                            Style="{StaticResource AloneLabelMdTextBlockStyle}"
+                                            Text="{x:Bind Status, Mode=OneWay}" />
+                                        <TextBlock
+                                            Opacity="0.9"
+                                            Style="{StaticResource AloneBodyMdTextBlockStyle}"
+                                            Text="{x:Bind SummaryLine, Mode=OneWay}" />
+                                    </StackPanel>
+                                </Border>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border
+            x:Name="DetailPanel"
+            Grid.Column="1"
+            Margin="24,0,0,0"
+            Padding="16"
+            Width="{StaticResource DetailPanelWidth}"
+            HorizontalAlignment="Stretch"
+            Background="{StaticResource AloneSurfaceContainerLowestBrush}"
+            CornerRadius="{StaticResource DefaultCornerRadius}"
+            Visibility="{x:Bind ViewModel.DetailPanelVisibility, Mode=OneWay}">
+            <StackPanel Spacing="12">
+                <TextBlock Style="{StaticResource AloneTitleLgTextBlockStyle}" Text="{x:Bind ViewModel.DetailTitle, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource AloneLabelMdTextBlockStyle}" Text="{x:Bind ViewModel.DetailStatus, Mode=OneWay}" />
+                <TextBlock
+                    TextWrapping="WrapWholeWords"
+                    Style="{StaticResource AloneBodyMdTextBlockStyle}"
+                    Text="{x:Bind ViewModel.DetailBody, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="{x:Bind ViewModel.DetailStats, Mode=OneWay}" />
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button Content="编辑" Style="{StaticResource AloneSecondaryButtonStyle}" />
+                    <Button Content="归档" Style="{StaticResource AloneSecondaryButtonStyle}" />
+                    <Button Content="删除" Style="{StaticResource AloneSecondaryButtonStyle}" />
+                </StackPanel>
+                <Button
+                    HorizontalAlignment="Stretch"
+                    Command="{x:Bind ViewModel.ClearSelectionCommand, Mode=OneWay}"
+                    Content="关闭详情"
+                    Style="{StaticResource AloneSecondaryButtonStyle}" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

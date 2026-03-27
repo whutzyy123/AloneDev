@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "PMTool.App (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "PMTool.App (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

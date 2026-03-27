@@ -1,0 +1,12 @@
+D:\AloneDev\src\PMTool.Core\bin\x64\Debug\net8.0\PMTool.Core.deps.json
+D:\AloneDev\src\PMTool.Core\bin\x64\Debug\net8.0\PMTool.Core.dll
+D:\AloneDev\src\PMTool.Core\bin\x64\Debug\net8.0\PMTool.Core.pdb
+D:\AloneDev\src\PMTool.Core\obj\x64\Debug\net8.0\PMTool.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\AloneDev\src\PMTool.Core\obj\x64\Debug\net8.0\PMTool.Core.AssemblyInfoInputs.cache
+D:\AloneDev\src\PMTool.Core\obj\x64\Debug\net8.0\PMTool.Core.AssemblyInfo.cs
+D:\AloneDev\src\PMTool.Core\obj\x64\Debug\net8.0\PMTool.Core.csproj.CoreCompileInputs.cache
+D:\AloneDev\src\PMTool.Core\obj\x64\Debug\net8.0\PMTool.Core.sourcelink.json
+D:\AloneDev\src\PMTool.Core\obj\x64\Debug\net8.0\PMTool.Core.dll
+D:\AloneDev\src\PMTool.Core\obj\x64\Debug\net8.0\refint\PMTool.Core.dll
+D:\AloneDev\src\PMTool.Core\obj\x64\Debug\net8.0\PMTool.Core.pdb
+D:\AloneDev\src\PMTool.Core\obj\x64\Debug\net8.0\ref\PMTool.Core.dll
