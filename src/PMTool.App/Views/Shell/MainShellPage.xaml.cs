@@ -1,14 +1,14 @@
-using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using PMTool.Application.Abstractions;
-using PMTool.App.Diagnostics;
 using PMTool.App.Services;
 using PMTool.App.UI;
 using PMTool.App.ViewModels;
@@ -20,8 +20,14 @@ namespace PMTool.App.Views.Shell;
 public sealed partial class MainShellPage : Page
 {
     private const string GlobalSearchShortcutTipSettingsKey = "AloneDev.Ui.GlobalSearchShortcutTipShown";
+    private const double ExpandedSearchBoxWidth = 680d;
+    private const double CollapsedSearchBoxScale = 0.92d;
+    private static bool _globalSearchShortcutTipShownThisSession;
 
     private readonly KeyEventHandler _shellGlobalSearchKeyDownHandler;
+    private bool _isGlobalSearchExpanded;
+    private bool _isSearchAnimating;
+    private bool _isGlobalSearchShortcutTipScheduled;
 
     public ShellViewModel ViewModel { get; }
     public AccountManagementViewModel AccountVm { get; }
@@ -45,6 +51,7 @@ public sealed partial class MainShellPage : Page
 
     private void OnUnloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
+        ViewModel.PropertyChanged -= OnShellViewModelPropertyChanged;
         ShellGlobalSearchBox.RemoveHandler(UIElement.KeyDownEvent, _shellGlobalSearchKeyDownHandler);
         ContentFrame.NavigationFailed -= ContentFrame_NavigationFailed;
         MainShellShortcutReload.RequestReload = null;
@@ -52,17 +59,6 @@ public sealed partial class MainShellPage : Page
 
     private void ContentFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
     {
-        // #region agent log
-        DebugAgentLog.Write(
-            "N",
-            "MainShellPage.ContentFrame.NavigationFailed",
-            "inner frame",
-            new Dictionary<string, string>
-            {
-                ["page"] = e.SourcePageType?.Name ?? "",
-                ["msg"] = e.Exception?.Message ?? "",
-            });
-        // #endregion
     }
 
     private async void OnLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
@@ -82,32 +78,55 @@ public sealed partial class MainShellPage : Page
         MainShellShortcutReload.RequestReload = () => { _ = shortcutController.ReloadAsync(this); };
 
         ViewModel.ActivateDefaultNav();
+        ViewModel.PropertyChanged += OnShellViewModelPropertyChanged;
+        SyncGlobalSearchScopeToCurrentModule();
+        SetGlobalSearchExpanded(false);
         TryScheduleGlobalSearchShortcutTip();
+    }
+
+    private void OnShellViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(ShellViewModel.ActiveNavKey)
+            || e.PropertyName == nameof(ShellViewModel.ModuleTitle))
+        {
+            SyncGlobalSearchScopeToCurrentModule();
+        }
+    }
+
+    private void SyncGlobalSearchScopeToCurrentModule()
+    {
+        GlobalSearchVm.ApplyCurrentModuleScope(ViewModel.ActiveNavKey, ViewModel.ModuleTitle);
     }
 
     private void TryScheduleGlobalSearchShortcutTip()
     {
-        if (ApplicationData.Current.LocalSettings.Values.TryGetValue(GlobalSearchShortcutTipSettingsKey, out var v)
-            && v is true)
+        if (_globalSearchShortcutTipShownThisSession || _isGlobalSearchShortcutTipScheduled || IsGlobalSearchShortcutTipSeen())
         {
             return;
         }
 
+        _isGlobalSearchShortcutTipScheduled = true;
         DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, () =>
         {
-            GlobalSearchShortcutTip.Target = ShellGlobalSearchBox;
+            if (IsGlobalSearchShortcutTipSeen())
+            {
+                return;
+            }
+
+            GlobalSearchShortcutTip.Target = SearchExpandButton;
             GlobalSearchShortcutTip.IsOpen = true;
+            _globalSearchShortcutTipShownThisSession = true;
         });
     }
 
     private void GlobalSearchShortcutTip_Closing(TeachingTip sender, TeachingTipClosingEventArgs args)
     {
-        ApplicationData.Current.LocalSettings.Values[GlobalSearchShortcutTipSettingsKey] = true;
+        MarkGlobalSearchShortcutTipSeen();
     }
 
     private void GlobalSearchShortcutTip_ActionButtonClick(TeachingTip sender, object e)
     {
-        ApplicationData.Current.LocalSettings.Values[GlobalSearchShortcutTipSettingsKey] = true;
+        MarkGlobalSearchShortcutTipSeen();
         GlobalSearchShortcutTip.IsOpen = false;
     }
 
@@ -172,8 +191,8 @@ public sealed partial class MainShellPage : Page
 
         var confirm = AloneDialogFactory.CreateDestructiveConfirm(
             XamlRoot,
-            "删除本地账号",
-            $"将移除账号「{name}」及其数据目录（含 pmtool.db），且不可恢复。是否继续？",
+            "删除工作空间",
+            $"将移除工作空间「{name}」及其数据目录（含 pmtool.db），且不可恢复。是否继续？",
             "删除");
 
         if (await confirm.ShowAsync().AsTask().ConfigureAwait(true) != ContentDialogResult.Primary)
@@ -195,6 +214,12 @@ public sealed partial class MainShellPage : Page
 
     private void ShellGlobalSearchBox_GotFocus(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
+        ExpandGlobalSearch();
+        EnqueueOpenGlobalSearch();
+    }
+
+    private void SearchExpandButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
         EnqueueOpenGlobalSearch();
     }
 
@@ -214,11 +239,13 @@ public sealed partial class MainShellPage : Page
 
     private void OpenGlobalSearchCore()
     {
+        ExpandGlobalSearch();
         try
         {
             if (GlobalSearchShortcutTip is { } tip)
             {
                 tip.IsOpen = false;
+                MarkGlobalSearchShortcutTipSeen();
             }
         }
         catch
@@ -235,6 +262,7 @@ public sealed partial class MainShellPage : Page
         }
 
         flyoutSvc.TryOpen(anchor);
+        _ = ShellGlobalSearchBox.Focus(FocusState.Programmatic);
     }
 
     private void ShellGlobalSearchBox_SearchKeyDown(object sender, KeyRoutedEventArgs e)
@@ -251,6 +279,11 @@ public sealed partial class MainShellPage : Page
             case Windows.System.VirtualKey.Escape:
                 e.Handled = true;
                 flyoutSvc.Close();
+                if (string.IsNullOrWhiteSpace(ShellGlobalSearchBox.Text))
+                {
+                    CollapseGlobalSearch();
+                }
+
                 return;
             case Windows.System.VirtualKey.Enter:
                 e.Handled = true;
@@ -336,5 +369,187 @@ public sealed partial class MainShellPage : Page
         }
 
         return false;
+    }
+
+    private void SetGlobalSearchExpanded(bool expanded)
+    {
+        if (expanded)
+        {
+            ExpandGlobalSearch();
+            return;
+        }
+
+        _isSearchAnimating = false;
+        _isGlobalSearchExpanded = false;
+        ShellGlobalSearchBox.Visibility = Visibility.Collapsed;
+        ShellGlobalSearchBox.Width = ExpandedSearchBoxWidth;
+        ShellGlobalSearchBox.Opacity = 0;
+        if (ShellGlobalSearchBox.RenderTransform is ScaleTransform st)
+        {
+            st.ScaleX = CollapsedSearchBoxScale;
+            st.ScaleY = 1;
+        }
+
+        ShellGlobalSearchBox.Text = "";
+    }
+
+    private void RootLayout_PointerPressed(object sender, PointerRoutedEventArgs e)
+    {
+        if (GlobalSearchShortcutTip.IsOpen)
+        {
+            GlobalSearchShortcutTip.IsOpen = false;
+            MarkGlobalSearchShortcutTipSeen();
+        }
+
+        if (!_isGlobalSearchExpanded || _isSearchAnimating)
+        {
+            return;
+        }
+
+        if (!string.IsNullOrWhiteSpace(ShellGlobalSearchBox.Text))
+        {
+            return;
+        }
+
+        var src = e.OriginalSource as DependencyObject;
+        if (IsDescendantOfSearchHost(src, ShellGlobalSearchBox) || IsDescendantOfSearchHost(src, SearchExpandButton))
+        {
+            return;
+        }
+
+        CollapseGlobalSearch();
+    }
+
+    private void ExpandGlobalSearch()
+    {
+        if (_isSearchAnimating || _isGlobalSearchExpanded)
+        {
+            return;
+        }
+
+        _isSearchAnimating = true;
+        ShellGlobalSearchBox.Visibility = Visibility.Visible;
+        ShellGlobalSearchBox.Width = ExpandedSearchBoxWidth;
+        ShellGlobalSearchBox.Opacity = 0;
+        if (ShellGlobalSearchBox.RenderTransform is ScaleTransform st)
+        {
+            st.ScaleX = CollapsedSearchBoxScale;
+            st.ScaleY = 1;
+        }
+
+        var sb = new Storyboard();
+        var ease = new CubicEase { EasingMode = EasingMode.EaseOut };
+        var duration = TimeSpan.FromMilliseconds(200);
+
+        var scaleXAnim = new DoubleAnimation
+        {
+            From = CollapsedSearchBoxScale,
+            To = 1,
+            Duration = duration,
+            EasingFunction = ease,
+        };
+        Storyboard.SetTarget(scaleXAnim, ShellGlobalSearchBox);
+        Storyboard.SetTargetProperty(scaleXAnim, "(UIElement.RenderTransform).(ScaleTransform.ScaleX)");
+        sb.Children.Add(scaleXAnim);
+
+        var opacityAnim = new DoubleAnimation
+        {
+            From = 0,
+            To = 1,
+            Duration = duration,
+            EasingFunction = ease,
+        };
+        Storyboard.SetTarget(opacityAnim, ShellGlobalSearchBox);
+        Storyboard.SetTargetProperty(opacityAnim, "Opacity");
+        sb.Children.Add(opacityAnim);
+
+        sb.Completed += (_, _) =>
+        {
+            _isSearchAnimating = false;
+            _isGlobalSearchExpanded = true;
+        };
+        sb.Begin();
+    }
+
+    private void CollapseGlobalSearch(bool force = false)
+    {
+        if (_isSearchAnimating || (!_isGlobalSearchExpanded && !force))
+        {
+            return;
+        }
+
+        if (!force && !string.IsNullOrWhiteSpace(ShellGlobalSearchBox.Text))
+        {
+            return;
+        }
+
+        _isSearchAnimating = true;
+        var sb = new Storyboard();
+        var ease = new CubicEase { EasingMode = EasingMode.EaseIn };
+        var duration = TimeSpan.FromMilliseconds(150);
+
+        var scaleXAnim = new DoubleAnimation
+        {
+            From = 1,
+            To = CollapsedSearchBoxScale,
+            Duration = duration,
+            EasingFunction = ease,
+        };
+        Storyboard.SetTarget(scaleXAnim, ShellGlobalSearchBox);
+        Storyboard.SetTargetProperty(scaleXAnim, "(UIElement.RenderTransform).(ScaleTransform.ScaleX)");
+        sb.Children.Add(scaleXAnim);
+
+        var opacityAnim = new DoubleAnimation
+        {
+            From = ShellGlobalSearchBox.Opacity <= 0 ? 1 : ShellGlobalSearchBox.Opacity,
+            To = 0,
+            Duration = duration,
+            EasingFunction = ease,
+        };
+        Storyboard.SetTarget(opacityAnim, ShellGlobalSearchBox);
+        Storyboard.SetTargetProperty(opacityAnim, "Opacity");
+        sb.Children.Add(opacityAnim);
+
+        sb.Completed += (_, _) =>
+        {
+            _isSearchAnimating = false;
+            _isGlobalSearchExpanded = false;
+            try
+            {
+                App.Services.GetRequiredService<IGlobalSearchFlyout>().Close();
+            }
+            catch
+            {
+                // Service transient failure is non-fatal for UI collapse.
+            }
+
+            ShellGlobalSearchBox.Visibility = Visibility.Collapsed;
+            if (string.IsNullOrWhiteSpace(ShellGlobalSearchBox.Text))
+            {
+                ShellGlobalSearchBox.Text = "";
+            }
+        };
+        sb.Begin();
+    }
+
+    private static bool IsGlobalSearchShortcutTipSeen()
+    {
+        if (ApplicationData.Current.LocalSettings.Values.TryGetValue(GlobalSearchShortcutTipSettingsKey, out var v))
+        {
+            return v switch
+            {
+                true => true,
+                string s when bool.TryParse(s, out var b) && b => true,
+                _ => false,
+            };
+        }
+
+        return false;
+    }
+
+    private static void MarkGlobalSearchShortcutTipSeen()
+    {
+        _globalSearchShortcutTipShownThisSession = true;
+        ApplicationData.Current.LocalSettings.Values[GlobalSearchShortcutTipSettingsKey] = true;
     }
 }

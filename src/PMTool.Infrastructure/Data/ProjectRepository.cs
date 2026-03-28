@@ -21,7 +21,7 @@ public sealed class ProjectRepository(ISqliteConnectionHolder holder) : IProject
 
             if (!string.IsNullOrWhiteSpace(query.SearchText))
             {
-                where += " AND (LOWER(p.name) LIKE LOWER($like) OR LOWER(p.description) LIKE LOWER($like))";
+                where += " AND (LOWER(p.name) LIKE LOWER($like) OR LOWER(p.description) LIKE LOWER($like) OR LOWER(p.tech_stack) LIKE LOWER($like))";
             }
 
             var orderCol = query.SortField switch
@@ -36,7 +36,7 @@ public sealed class ProjectRepository(ISqliteConnectionHolder holder) : IProject
             cmd.CommandText =
                 $"""
                  SELECT
-                     p.id, p.name, p.description, p.status, p.category, p.created_at, p.updated_at, p.is_deleted, p.row_version,
+                     p.id, p.name, p.description, p.status, p.category, p.tech_stack, p.created_at, p.updated_at, p.is_deleted, p.row_version, p.local_git_root,
                      (SELECT COUNT(*) FROM features f WHERE f.project_id = p.id AND f.is_deleted = 0),
                      (SELECT COUNT(*) FROM tasks t WHERE t.project_id = p.id AND t.is_deleted = 0),
                      (SELECT COUNT(*) FROM releases r WHERE r.project_id = p.id AND r.is_deleted = 0),
@@ -65,11 +65,11 @@ public sealed class ProjectRepository(ISqliteConnectionHolder holder) : IProject
                 list.Add(new ProjectListItem
                 {
                     Project = ReadProject(reader, 0),
-                    FeatureCount = reader.GetInt32(9),
-                    TaskCount = reader.GetInt32(10),
-                    ReleaseCount = reader.GetInt32(11),
-                    DocumentCount = reader.GetInt32(12),
-                    LinkedIdeaCount = reader.GetInt32(13),
+                    FeatureCount = reader.GetInt32(11),
+                    TaskCount = reader.GetInt32(12),
+                    ReleaseCount = reader.GetInt32(13),
+                    DocumentCount = reader.GetInt32(14),
+                    LinkedIdeaCount = reader.GetInt32(15),
                 });
             }
 
@@ -86,7 +86,7 @@ public sealed class ProjectRepository(ISqliteConnectionHolder holder) : IProject
             await using var cmd = db.CreateCommand();
             cmd.CommandText =
                 """
-                SELECT id, name, description, status, category, created_at, updated_at, is_deleted, row_version
+                SELECT id, name, description, status, category, tech_stack, created_at, updated_at, is_deleted, row_version, local_git_root
                 FROM projects
                 WHERE id = $id AND is_deleted = 0;
                 """;
@@ -108,16 +108,18 @@ public sealed class ProjectRepository(ISqliteConnectionHolder holder) : IProject
             await using var cmd = db.CreateCommand();
             cmd.CommandText =
                 """
-                INSERT INTO projects (id, name, description, status, category, created_at, updated_at, is_deleted, row_version)
-                VALUES ($id, $name, $desc, $status, $cat, $ca, $ua, 0, 1);
+                INSERT INTO projects (id, name, description, status, category, tech_stack, created_at, updated_at, is_deleted, row_version, local_git_root)
+                VALUES ($id, $name, $desc, $status, $cat, $tstack, $ca, $ua, 0, 1, $git);
                 """;
             AddParam(cmd, "$id", project.Id);
             AddParam(cmd, "$name", project.Name);
             AddParam(cmd, "$desc", project.Description);
             AddParam(cmd, "$status", project.Status);
             AddParam(cmd, "$cat", project.Category ?? (object)DBNull.Value);
+            AddParam(cmd, "$tstack", project.TechStack ?? string.Empty);
             AddParam(cmd, "$ca", project.CreatedAt);
             AddParam(cmd, "$ua", project.UpdatedAt);
+            AddParam(cmd, "$git", project.LocalGitRoot ?? (object)DBNull.Value);
             try
             {
                 _ = await cmd.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
@@ -143,6 +145,8 @@ public sealed class ProjectRepository(ISqliteConnectionHolder holder) : IProject
                     description = $desc,
                     status = $status,
                     category = $cat,
+                    tech_stack = $tstack,
+                    local_git_root = $git,
                     updated_at = $ua,
                     row_version = row_version + 1
                 WHERE id = $id AND is_deleted = 0;
@@ -152,6 +156,8 @@ public sealed class ProjectRepository(ISqliteConnectionHolder holder) : IProject
             AddParam(cmd, "$desc", project.Description);
             AddParam(cmd, "$status", project.Status);
             AddParam(cmd, "$cat", project.Category ?? (object)DBNull.Value);
+            AddParam(cmd, "$tstack", project.TechStack ?? string.Empty);
+            AddParam(cmd, "$git", project.LocalGitRoot ?? (object)DBNull.Value);
             AddParam(cmd, "$ua", project.UpdatedAt);
             try
             {
@@ -225,10 +231,12 @@ public sealed class ProjectRepository(ISqliteConnectionHolder holder) : IProject
             Description = reader.IsDBNull(offset + 2) ? string.Empty : reader.GetString(offset + 2),
             Status = reader.GetString(offset + 3),
             Category = reader.IsDBNull(offset + 4) ? null : reader.GetString(offset + 4),
-            CreatedAt = reader.GetString(offset + 5),
-            UpdatedAt = reader.GetString(offset + 6),
-            IsDeleted = reader.GetInt32(offset + 7) != 0,
-            RowVersion = reader.GetInt64(offset + 8),
+            TechStack = reader.IsDBNull(offset + 5) ? string.Empty : reader.GetString(offset + 5),
+            CreatedAt = reader.GetString(offset + 6),
+            UpdatedAt = reader.GetString(offset + 7),
+            IsDeleted = reader.GetInt32(offset + 8) != 0,
+            RowVersion = reader.GetInt64(offset + 9),
+            LocalGitRoot = reader.IsDBNull(offset + 10) ? null : reader.GetString(offset + 10),
         };
     }
 

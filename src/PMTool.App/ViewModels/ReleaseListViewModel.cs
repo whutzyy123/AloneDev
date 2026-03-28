@@ -18,6 +18,7 @@ public partial class ReleaseListViewModel(
     IProjectRepository projectRepository,
     IFeatureRepository featureRepository,
     ITaskRepository taskRepository,
+    IGitChangelogService gitChangelogService,
     ICurrentAccountContext accountContext) : ObservableObject, IOperationBarViewModel
 {
     private DispatcherQueueTimer? _searchDebounceTimer;
@@ -105,6 +106,15 @@ public partial class ReleaseListViewModel(
 
     public Visibility SelectProjectVisibility => ShowSelectProject ? Visibility.Visible : Visibility.Collapsed;
 
+    /// <summary>当前选中项目是否已配置本地 Git 根路径（供版本页提示）。</summary>
+    [ObservableProperty]
+    private bool _selectedProjectHasLocalGit;
+
+    public Visibility GitMissingHintVisibility =>
+        !string.IsNullOrEmpty(SelectedProjectId) && !SelectedProjectHasLocalGit
+            ? Visibility.Visible
+            : Visibility.Collapsed;
+
     public Visibility GlobalEmptyVisibility => ShowGlobalEmpty ? Visibility.Visible : Visibility.Collapsed;
 
     public Visibility NoMatchVisibility => ShowNoMatch ? Visibility.Visible : Visibility.Collapsed;
@@ -131,6 +141,8 @@ public partial class ReleaseListViewModel(
         SelectedRelease is not null
         && (GetDetailStatus() == ReleaseStatuses.NotStarted || GetDetailStatus() == ReleaseStatuses.InProgress);
 
+    public bool CanShowGitChangelogButton => SelectedRelease is not null;
+
     public event EventHandler? NewReleaseUiRequested;
 
     public event EventHandler? EditReleaseUiRequested;
@@ -143,6 +155,28 @@ public partial class ReleaseListViewModel(
         OnPropertyChanged(nameof(ShowSelectProject));
         OnPropertyChanged(nameof(SelectProjectVisibility));
         _ = RefreshReleasesOnlyAsync();
+        _ = UpdateSelectedProjectGitHintAsync();
+    }
+
+    partial void OnSelectedProjectHasLocalGitChanged(bool value) => OnPropertyChanged(nameof(GitMissingHintVisibility));
+
+    private async Task UpdateSelectedProjectGitHintAsync()
+    {
+        if (string.IsNullOrEmpty(SelectedProjectId))
+        {
+            SelectedProjectHasLocalGit = false;
+            return;
+        }
+
+        try
+        {
+            var p = await projectRepository.GetByIdAsync(SelectedProjectId).ConfigureAwait(true);
+            SelectedProjectHasLocalGit = !string.IsNullOrWhiteSpace(p?.LocalGitRoot);
+        }
+        catch
+        {
+            SelectedProjectHasLocalGit = false;
+        }
     }
 
     partial void OnSelectedReleaseChanged(ReleaseRowViewModel? value)
@@ -278,11 +312,75 @@ public partial class ReleaseListViewModel(
             OnPropertyChanged(nameof(EmptyProjectsVisibility));
             OnPropertyChanged(nameof(SelectProjectVisibility));
             await RefreshReleasesOnlyAsync().ConfigureAwait(true);
+            await UpdateSelectedProjectGitHintAsync().ConfigureAwait(true);
         }
         catch (Exception ex)
         {
             ErrorBanner = ex.Message;
         }
+    }
+
+    public async Task<string> GenerateGitChangelogMarkdownAsync(CancellationToken cancellationToken = default)
+    {
+        if (SelectedRelease is null)
+        {
+            throw new InvalidOperationException("请先选择一个版本。");
+        }
+
+        if (string.IsNullOrEmpty(SelectedProjectId))
+        {
+            throw new InvalidOperationException("请先选择项目。");
+        }
+
+        var proj = await projectRepository.GetByIdAsync(SelectedProjectId, cancellationToken).ConfigureAwait(true)
+            ?? throw new InvalidOperationException("项目不存在。");
+        if (string.IsNullOrWhiteSpace(proj.LocalGitRoot))
+        {
+            throw new InvalidOperationException("请先在「项目」中为当前项目设置本地 Git 仓库路径。");
+        }
+
+        return await gitChangelogService
+            .BuildMarkdownChangelogAsync(proj.LocalGitRoot, SelectedRelease.StartAt, SelectedRelease.EndAt, cancellationToken)
+            .ConfigureAwait(true);
+    }
+
+    public async Task ApplyGitChangelogToSelectedReleaseAsync(string markdown, bool append, CancellationToken cancellationToken = default)
+    {
+        if (SelectedRelease is null)
+        {
+            return;
+        }
+
+        var existing = await releaseRepository.GetByIdAsync(SelectedRelease.Id, cancellationToken).ConfigureAwait(true)
+            ?? throw new InvalidOperationException("版本不存在。");
+
+        var merged = append
+            ? string.IsNullOrWhiteSpace(existing.Description)
+                ? markdown
+                : existing.Description.TrimEnd() + Environment.NewLine + Environment.NewLine + markdown
+            : markdown;
+        _ = ReleaseFieldValidator.ValidateDescription(merged);
+
+        var now = Now();
+        await releaseRepository.UpdateAsync(
+            new Release
+            {
+                Id = existing.Id,
+                ProjectId = existing.ProjectId,
+                Name = existing.Name,
+                Description = merged,
+                StartAt = existing.StartAt,
+                EndAt = existing.EndAt,
+                Status = existing.Status,
+                CreatedAt = existing.CreatedAt,
+                UpdatedAt = now,
+                IsDeleted = existing.IsDeleted,
+                RowVersion = existing.RowVersion,
+            },
+            cancellationToken).ConfigureAwait(true);
+
+        await RefreshAsync().ConfigureAwait(true);
+        SelectedRelease = Releases.FirstOrDefault(x => x.Id == existing.Id);
     }
 
     private async Task RefreshReleasesOnlyAsync()
@@ -340,7 +438,7 @@ public partial class ReleaseListViewModel(
         {
             var prog = await releaseRepository.GetProgressAsync(releaseId).ConfigureAwait(true);
             DetailProgressText =
-                $"特性 完成 {prog.CompletedFeatures}/{prog.TotalFeatures} · 任务 完成 {prog.CompletedTasks}/{prog.TotalTasks} · 综合进度 {prog.Percent:0.0}%（PRD 6.5.2）";
+                $"模块 完成 {prog.CompletedFeatures}/{prog.TotalFeatures} · 任务 完成 {prog.CompletedTasks}/{prog.TotalTasks} · 综合进度 {prog.Percent:0.0}%（PRD 6.5.2）";
 
             var rels = await releaseRepository.ListRelationsAsync(releaseId).ConfigureAwait(true);
             DetailRelations.Clear();
@@ -364,6 +462,7 @@ public partial class ReleaseListViewModel(
         OnPropertyChanged(nameof(CanStartSelected));
         OnPropertyChanged(nameof(CanFinishSelected));
         OnPropertyChanged(nameof(CanAddRelation));
+        OnPropertyChanged(nameof(CanShowGitChangelogButton));
     }
 
     [RelayCommand]
@@ -483,7 +582,7 @@ public partial class ReleaseListViewModel(
                     开始 = entity.StartAt,
                     结束 = entity.EndAt,
                     描述 = entity.Description,
-                    特性完成 = $"{prog.CompletedFeatures}/{prog.TotalFeatures}",
+                    模块完成 = $"{prog.CompletedFeatures}/{prog.TotalFeatures}",
                     任务完成 = $"{prog.CompletedTasks}/{prog.TotalTasks}",
                     进度百分比 = Math.Round(prog.Percent, 1),
                 },

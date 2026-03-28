@@ -27,6 +27,6 @@ public interface IOperationBarViewModel : INotifyPropertyChanged
     /// <summary>占位模块等场景下隐藏主按钮与筛选/排序。</summary>
     bool IsOperationBarInteractive { get; }
 
-    /// <summary>数据管理、设置等页不显示模块内搜索框（与顶栏全局搜索区分）。</summary>
-    bool ShowModuleSearch => true;
+    /// <summary>模块内搜索已收敛到顶栏全局搜索，操作栏不再渲染局部搜索框。</summary>
+    bool ShowModuleSearch => false;
 }

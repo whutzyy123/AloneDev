@@ -1,11 +1,9 @@
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
-using PMTool.App.Diagnostics;
 using PMTool.App.Models;
 using PMTool.Core;
 using PMTool.Core.Abstractions;
@@ -246,9 +244,6 @@ public partial class ProjectListViewModel(
     [RelayCommand]
     private void RequestNewProjectUi()
     {
-        // #region agent log
-        DebugAgentLog.Write("A", "ProjectListViewModel.RequestNewProjectUi", "command invoked", new Dictionary<string, string> { ["thread"] = Environment.CurrentManagedThreadId.ToString() });
-        // #endregion
         NewProjectUiRequested?.Invoke(this, EventArgs.Empty);
     }
 
@@ -338,6 +333,8 @@ public partial class ProjectListViewModel(
                 Description = p.Description,
                 Status = ProjectStatuses.Archived,
                 Category = p.Category,
+                TechStack = p.TechStack,
+                LocalGitRoot = p.LocalGitRoot,
                 CreatedAt = p.CreatedAt,
                 UpdatedAt = now,
                 IsDeleted = p.IsDeleted,
@@ -390,6 +387,8 @@ public partial class ProjectListViewModel(
                 Description = ProjectFieldValidator.ValidateDescription(p.Description),
                 Status = ProjectStatuses.InProgress,
                 Category = p.Category,
+                TechStack = p.TechStack,
+                LocalGitRoot = p.LocalGitRoot,
                 CreatedAt = p.CreatedAt,
                 UpdatedAt = now,
                 IsDeleted = p.IsDeleted,
@@ -432,10 +431,12 @@ public partial class ProjectListViewModel(
         }
     }
 
-    public async Task CreateProjectAsync(string name, string description)
+    public async Task CreateProjectAsync(string name, string description, string? localGitRoot = null, string? techStack = null)
     {
         var n = ProjectFieldValidator.ValidateName(name);
         var d = ProjectFieldValidator.ValidateDescription(description);
+        var stack = ProjectFieldValidator.ValidateTechStack(techStack);
+        var git = ProjectFieldValidator.ValidateOptionalLocalGitRoot(localGitRoot);
         if (await projectRepository.ExistsNameInStatusAsync(n, ProjectStatuses.InProgress, null).ConfigureAwait(true))
         {
             throw new InvalidOperationException("该项目名称已存在，请修改。");
@@ -449,6 +450,8 @@ public partial class ProjectListViewModel(
             Description = d,
             Status = ProjectStatuses.InProgress,
             Category = null,
+            TechStack = stack,
+            LocalGitRoot = git,
             CreatedAt = now,
             UpdatedAt = now,
             IsDeleted = false,
@@ -460,7 +463,7 @@ public partial class ProjectListViewModel(
         ReselectById(p.Id);
     }
 
-    public async Task UpdateProjectAsync(string id, string name, string description)
+    public async Task UpdateProjectAsync(string id, string name, string description, string? localGitRoot = null, string? techStack = null)
     {
         var existing = await projectRepository.GetByIdAsync(id).ConfigureAwait(true)
             ?? throw new InvalidOperationException("项目不存在。");
@@ -471,6 +474,8 @@ public partial class ProjectListViewModel(
 
         var n = ProjectFieldValidator.ValidateName(name);
         var d = ProjectFieldValidator.ValidateDescription(description);
+        var stack = ProjectFieldValidator.ValidateTechStack(techStack);
+        var git = ProjectFieldValidator.ValidateOptionalLocalGitRoot(localGitRoot);
         if (await projectRepository.ExistsNameInStatusAsync(n, existing.Status, id).ConfigureAwait(true))
         {
             throw new InvalidOperationException("该项目名称在当前状态下已存在，请修改。");
@@ -484,6 +489,8 @@ public partial class ProjectListViewModel(
             Description = d,
             Status = existing.Status,
             Category = existing.Category,
+            TechStack = stack,
+            LocalGitRoot = git,
             CreatedAt = existing.CreatedAt,
             UpdatedAt = now,
             IsDeleted = existing.IsDeleted,
@@ -492,6 +499,22 @@ public partial class ProjectListViewModel(
 
         await RefreshAsync().ConfigureAwait(true);
         ReselectById(id);
+    }
+
+    public Task<string?> GetLocalGitRootForSelectedAsync(CancellationToken cancellationToken = default)
+    {
+        if (SelectedProject is null)
+        {
+            return Task.FromResult<string?>(null);
+        }
+
+        return GetLocalGitRootForProjectIdAsync(SelectedProject.Id, cancellationToken);
+    }
+
+    public async Task<string?> GetLocalGitRootForProjectIdAsync(string projectId, CancellationToken cancellationToken = default)
+    {
+        var p = await projectRepository.GetByIdAsync(projectId, cancellationToken).ConfigureAwait(true);
+        return p?.LocalGitRoot;
     }
 
     private void ReselectById(string id)

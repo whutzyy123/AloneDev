@@ -19,8 +19,6 @@ public partial class NavEntryViewModel : ObservableObject
     [ObservableProperty]
     private bool _isActive;
 
-    public double AccentOpacity => IsActive ? 1.0 : 0.0;
-
     public double RowHighlightOpacity => IsActive ? 1.0 : 0.0;
 
     public FontWeight NavLabelFontWeight =>
@@ -28,7 +26,6 @@ public partial class NavEntryViewModel : ObservableObject
 
     partial void OnIsActiveChanged(bool value)
     {
-        OnPropertyChanged(nameof(AccentOpacity));
         OnPropertyChanged(nameof(RowHighlightOpacity));
         OnPropertyChanged(nameof(NavLabelFontWeight));
     }

@@ -5,4 +5,6 @@ namespace PMTool.App.Services;
 public sealed class ShellNavCoordinator(ShellViewModel shellViewModel) : IShellNavCoordinator
 {
     public void SelectFooterNav(string navKey) => shellViewModel.SelectFooterNav(navKey);
+
+    public void ActivatePrimaryNav(string navKey) => shellViewModel.NavigateToPrimaryModule(navKey);
 }

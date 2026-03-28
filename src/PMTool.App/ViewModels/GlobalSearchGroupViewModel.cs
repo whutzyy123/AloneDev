@@ -8,14 +8,16 @@ namespace PMTool.App.ViewModels;
 public partial class GlobalSearchGroupViewModel : ObservableObject
 {
     private readonly List<GlobalSearchHit> _all;
+    private readonly string? _highlightNeedle;
 
     /// <summary>DisplayedHits 重建后触发，供 <see cref="GlobalSearchViewModel"/> 扁平编号与键盘焦点校正。</summary>
     public event EventHandler? DisplayedHitsRebuilt;
 
-    public GlobalSearchGroupViewModel(GlobalSearchModule module, List<GlobalSearchHit> hits)
+    public GlobalSearchGroupViewModel(GlobalSearchModule module, List<GlobalSearchHit> hits, string? highlightNeedle)
     {
         Module = module;
         _all = hits;
+        _highlightNeedle = string.IsNullOrEmpty(highlightNeedle) ? null : highlightNeedle;
         Title = ModuleToLabel(module);
         RefreshDisplayed();
     }
@@ -50,7 +52,7 @@ public partial class GlobalSearchGroupViewModel : ObservableObject
         var take = IsExpanded ? _all.Count : Math.Min(5, _all.Count);
         foreach (var h in _all.Take(take))
         {
-            DisplayedHits.Add(new GlobalSearchHitRowViewModel(h));
+            DisplayedHits.Add(new GlobalSearchHitRowViewModel(h, _highlightNeedle));
         }
 
         DisplayedHitsRebuilt?.Invoke(this, EventArgs.Empty);
@@ -59,7 +61,7 @@ public partial class GlobalSearchGroupViewModel : ObservableObject
     private static string ModuleToLabel(GlobalSearchModule m) => m switch
     {
         GlobalSearchModule.Project => "项目",
-        GlobalSearchModule.Feature => "特性",
+        GlobalSearchModule.Feature => "模块",
         GlobalSearchModule.Task => "任务",
         GlobalSearchModule.Document => "文档",
         GlobalSearchModule.Idea => "灵感池",

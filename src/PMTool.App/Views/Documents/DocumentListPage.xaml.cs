@@ -35,13 +35,15 @@ public sealed partial class DocumentListPage : Page
         _ = ViewModel.RefreshAsync();
     }
 
-    private void OnUnloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    private async void OnUnloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         ViewModel.NewDocumentUiRequested -= OnNewDocumentUiRequested;
         ViewModel.ExportHtmlUiRequested -= OnExportHtmlUiRequested;
         ViewModel.CaretMoveRequested -= OnCaretMoveRequested;
         DocList.ContainerContentChanging -= DocList_ContainerContentChanging;
         MarkdownEditor.Paste -= MarkdownEditor_Paste;
+        await ViewModel.FlushPendingDebouncedAutosaveAsync().ConfigureAwait(true);
+        ViewModel.ReleaseDebouncedAutosaveTimer();
     }
 
     private void OnCaretMoveRequested(object? sender, int index)
@@ -106,7 +108,7 @@ public sealed partial class DocumentListPage : Page
         var typeRb = new RadioButtons { Header = "关联" };
         typeRb.Items.Add("全局文档");
         typeRb.Items.Add("项目");
-        typeRb.Items.Add("特性");
+        typeRb.Items.Add(DocumentRelateTypes.Feature);
         typeRb.SelectedIndex = 0;
 
         var projectCb = new ComboBox
@@ -118,15 +120,17 @@ public sealed partial class DocumentListPage : Page
             Margin = new Microsoft.UI.Xaml.Thickness(0, 8, 0, 0),
             Visibility = Microsoft.UI.Xaml.Visibility.Collapsed,
         };
+        AloneThemeChrome.ApplyComboBoxStyle(projectCb);
 
         var featureCb = new ComboBox
         {
-            Header = "特性",
+            Header = DocumentRelateTypes.Feature,
             DisplayMemberPath = "Name",
             SelectedValuePath = "Id",
             Margin = new Microsoft.UI.Xaml.Thickness(0, 8, 0, 0),
             Visibility = Microsoft.UI.Xaml.Visibility.Collapsed,
         };
+        AloneThemeChrome.ApplyComboBoxStyle(featureCb);
 
         var nameBox = new TextBox { Header = "文档名称", Margin = new Microsoft.UI.Xaml.Thickness(0, 8, 0, 0), MaxLength = 100 };
         AloneDialogFactory.ApplyFormTextBoxStyle(nameBox);
@@ -198,7 +202,7 @@ public sealed partial class DocumentListPage : Page
 
                     if (featureCb.SelectedValue is not string fid || string.IsNullOrEmpty(fid))
                     {
-                        ViewModel.ErrorBanner = "请选择特性。";
+                        ViewModel.ErrorBanner = "请选择模块。";
                         return;
                     }
 

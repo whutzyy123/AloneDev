@@ -14,8 +14,11 @@ public sealed partial class DocumentListRowViewModel : ObservableObject
 
     public PmDocument? Document { get; init; }
 
-    /// <summary>副标题，如所属项目/特性。</summary>
+    /// <summary>副标题，如所属项目/模块。</summary>
     public string Subtitle { get; init; } = string.Empty;
+
+    public Visibility SubtitleVisibility =>
+        string.IsNullOrEmpty(Subtitle) ? Visibility.Collapsed : Visibility.Visible;
 
     public string PrimaryText =>
         IsSectionHeader ? (SectionTitle ?? string.Empty) : (Document?.Name ?? string.Empty);

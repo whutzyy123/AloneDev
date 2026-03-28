@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:PMTool.App.Views.Projects"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="using:System"
     xmlns:vm="using:PMTool.App.ViewModels"
     x:Name="ProjectPageRoot"
                                       
@@ -15,73 +16,94 @@
     <Page.Resources>
         <DataTemplate x:Key="ProjectRowCardTemplate"                                    >
             <Button x:ConnectionId='3'
+                Margin="0,0,16,16"
                 Padding="0"
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
                 Background="Transparent"
                 BorderThickness="0"
                 Command="{Binding ElementName=ProjectPageRoot, Path=ViewModel.SelectProjectCommand}"
-                                           
+                                                        
                 CornerRadius="{StaticResource CornerRadiusLarge}">
                 <Border x:ConnectionId='4'
                     HorizontalAlignment="Stretch"
                                                                                                                                  
                     CornerRadius="{StaticResource CornerRadiusLarge}"
                     Style="{StaticResource AloneElevatedCardBorderStyle}">
-                    <Grid Padding="{StaticResource AloneListCardPadding}" ColumnSpacing="{StaticResource AloneSpace16}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Border
-                            Grid.Column="0"
-                            Width="52"
-                            Height="52"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Background="{ThemeResource AloneSurfaceContainerHighBrush}"
-                            CornerRadius="{StaticResource CornerRadiusSmall}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Border x:ConnectionId='5'
+                            Grid.Row="0"
+                            Height="56"
+                                                                                                                                   
+                            CornerRadius="16,16,0,0">
                             <Viewbox
-                                Width="26"
-                                Height="26"
+                                Width="28"
+                                Height="28"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
-                                <SymbolIcon Foreground="{ThemeResource AlonePrimaryBrush}" Symbol="Library" />
+                                <SymbolIcon Foreground="{ThemeResource AloneOnPrimaryBrush}" Symbol="Library" />
                             </Viewbox>
                         </Border>
-                        <StackPanel Grid.Column="1" Spacing="{StaticResource AloneSpace8}">
-                            <Grid ColumnSpacing="{StaticResource AloneSpace12}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock x:ConnectionId='7'
-                                    Grid.Column="0"
+                        <StackPanel
+                            Grid.Row="1"
+                            Padding="{StaticResource AloneListCardPadding}"
+                            Spacing="{StaticResource AloneSpace8}">
+                            <StackPanel Orientation="Horizontal" Spacing="{StaticResource AloneSpace8}">
+                                <TextBlock x:ConnectionId='12'
+                                    MaxWidth="188"
                                     VerticalAlignment="Center"
+                                    MaxLines="1"
                                     Style="{StaticResource AloneListCardTitleStyle}"
-                                                                      />
-                                <Border x:ConnectionId='8'
-                                    Grid.Column="1"
+                                                                     
+                                    TextTrimming="CharacterEllipsis" />
+                                <Border x:ConnectionId='13'
                                     VerticalAlignment="Center"
                                                                                                                                          
                                     Style="{StaticResource AloneStatusChipBorderStyle}">
-                                    <TextBlock x:ConnectionId='9'
+                                    <TextBlock x:ConnectionId='14'
                                         MaxWidth="120"
-                                        Foreground="{ThemeResource AloneOnSurfaceVariantBrush}"
+                                                                                                                                                                            
                                         Style="{StaticResource AloneStatusChipTextStyle}"
                                                                            
                                         TextTrimming="CharacterEllipsis" />
                                 </Border>
-                            </Grid>
-                            <TextBlock x:ConnectionId='5'
+                            </StackPanel>
+                            <TextBlock x:ConnectionId='6'
                                 Style="{StaticResource AloneListCardMetaStyle}"
                                                                          />
-                            <ProgressBar x:ConnectionId='6'
+                            <ItemsControl x:ConnectionId='7'
+                                                                                 
+                                                                                                                                         >
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <ItemsWrapGrid Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate                        >
+                                        <Border x:ConnectionId='10'
+                                            Margin="0,0,8,8"
+                                            Padding="8,4"
+                                            Background="{ThemeResource AloneSurfaceContainerHighBrush}"
+                                            CornerRadius="{StaticResource DefaultCornerRadius}">
+                                            <TextBlock x:ConnectionId='11'
+                                                FontSize="12"
+                                                               
+                                                TextTrimming="CharacterEllipsis" />
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <ProgressBar x:ConnectionId='8'
                                 Height="4"
                                 Maximum="1"
-                                                                           
+                                Background="{ThemeResource AloneSurfaceContainerHighBrush}"
                                 Foreground="{ThemeResource AloneSecondaryContainerBrush}"
-                                Background="{ThemeResource AloneSurfaceContainerHighBrush}" />
+                                                                            />
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -94,7 +116,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <InfoBar x:ConnectionId='10'
+        <InfoBar x:ConnectionId='15'
             Grid.Row="0"
             Margin="{StaticResource AloneMarginBottom12}"
             IsClosable="True"
@@ -110,7 +132,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
-                <controls:ListEmptyState x:ConnectionId='21'
+                <controls:ListEmptyState x:ConnectionId='26'
                     Margin="{StaticResource AloneMarginTop24}"
                     Title="准备好开启你的下一个伟大的 Side Project 了吗？"
                     Description="代码还没写，Bug 还没来，真香。先建个项目，把想法落进 SQLite。"
@@ -119,7 +141,7 @@
                     PrimaryLabel="新建项目"
                                                                                       />
 
-                <StackPanel x:ConnectionId='22'
+                <StackPanel x:ConnectionId='27'
                     Margin="{StaticResource AloneMarginTop24}"
                     HorizontalAlignment="Center"
                     Spacing="{StaticResource AloneSpace8}"
@@ -130,19 +152,24 @@
                         Text="无匹配项目，请调整筛选或搜索关键词。" />
                 </StackPanel>
 
-                <ScrollViewer x:ConnectionId='23'
+                <ScrollViewer x:ConnectionId='28'
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto"
                                                                                >
-                    <StackPanel Spacing="{StaticResource AloneListCardSpacing}">
-                        <ItemsControl x:ConnectionId='24'
-                            ItemTemplate="{StaticResource ProjectRowCardTemplate}"
-                                                                                   />
-                    </StackPanel>
+                    <ItemsControl x:ConnectionId='29' ItemTemplate="{StaticResource ProjectRowCardTemplate}"                                                       >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsWrapGrid
+                                    HorizontalAlignment="Stretch"
+                                    ItemWidth="{StaticResource AloneProjectCardGridItemWidth}"
+                                    Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
                 </ScrollViewer>
             </Grid>
 
-            <Border x:ConnectionId='11'
+            <Border x:ConnectionId='16'
                 x:Name="DetailPanel"
                 Grid.Column="1"
                 Margin="{StaticResource AloneDetailPanelMargin}"
@@ -150,36 +177,36 @@
                 HorizontalAlignment="Stretch"
                 Style="{StaticResource AloneDetailPanelBorderStyle}"
                                                                                   >
-                <StackPanel Spacing="{StaticResource AloneSpace12}">
-                    <TextBlock x:ConnectionId='12' Style="{StaticResource AloneTitleLgTextBlockStyle}"                                                    />
-                    <TextBlock x:ConnectionId='13' Style="{StaticResource AloneLabelMdTextBlockStyle}"                                                     />
-                    <TextBlock x:ConnectionId='14'
+                <StackPanel Spacing="{StaticResource AloneSpace16}">
+                    <TextBlock x:ConnectionId='17' Style="{StaticResource AloneTitleLgTextBlockStyle}"                                                    />
+                    <TextBlock x:ConnectionId='18' Style="{StaticResource AloneLabelMdTextBlockStyle}"                                                     />
+                    <TextBlock x:ConnectionId='19'
                         TextWrapping="WrapWholeWords"
                         Style="{StaticResource AloneBodyMdTextBlockStyle}"
                                                                           />
-                    <TextBlock x:ConnectionId='15' Style="{StaticResource AloneBodyMdTextBlockStyle}"                                                    />
+                    <TextBlock x:ConnectionId='20' Style="{StaticResource AloneBodyMdTextBlockStyle}"                                                    />
                     <StackPanel Orientation="Horizontal" Spacing="{StaticResource AloneSpace8}">
-                        <Button x:ConnectionId='17'
+                        <Button x:ConnectionId='22'
                                                                                                  
                             Content="编辑"
                                                                                      
                             Style="{StaticResource AloneSecondaryButtonStyle}" />
-                        <Button x:ConnectionId='18'
+                        <Button x:ConnectionId='23'
                                                                                             
                             Content="归档"
                             Style="{StaticResource AloneSecondaryButtonStyle}"
                                                                                                  />
-                        <Button x:ConnectionId='19'
+                        <Button x:ConnectionId='24'
                                                                                             
                             Content="恢复"
                             Style="{StaticResource AloneSecondaryButtonStyle}"
                                                                                                  />
-                        <Button x:ConnectionId='20'
+                        <Button x:ConnectionId='25'
                                                        
                             Content="删除"
                             Style="{StaticResource AloneSecondaryButtonStyle}" />
                     </StackPanel>
-                    <Button x:ConnectionId='16'
+                    <Button x:ConnectionId='21'
                         HorizontalAlignment="Stretch"
                                                                                        
                         Content="关闭详情"

@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using PMTool.App.Models;
+using PMTool.App.Services;
 using PMTool.Core;
 using PMTool.Core.Abstractions;
 using PMTool.Core.Models;
@@ -14,7 +15,11 @@ namespace PMTool.App.ViewModels;
 
 public partial class IdeaListViewModel(
     IIdeaRepository ideaRepository,
-    IProjectRepository projectRepository) : ObservableObject, IOperationBarViewModel
+    IProjectRepository projectRepository,
+    ITaskRepository taskRepository,
+    IFeatureRepository featureRepository,
+    Func<IShellNavCoordinator> getShellNavCoordinator,
+    TaskListViewModel taskListViewModel) : ObservableObject, IOperationBarViewModel
 {
     private bool _detailLoadSilence;
     private DispatcherQueueTimer? _searchHighlightClearTimer;
@@ -97,6 +102,8 @@ public partial class IdeaListViewModel(
     public Visibility DetailPanelVisibility =>
         SelectedIdeaRow is not null ? Visibility.Visible : Visibility.Collapsed;
 
+    public bool CanConvertToTask => DetailIdea is not null;
+
     public Visibility ListVisibility => Ideas.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
 
     public Visibility GlobalEmptyVisibility =>
@@ -146,17 +153,21 @@ public partial class IdeaListViewModel(
 
     public event EventHandler? AddDocumentsUiRequested;
 
+    public event EventHandler? ConvertToTaskUiRequested;
+
     partial void OnErrorBannerChanged(string value) => OnPropertyChanged(nameof(ErrorBannerVisibility));
 
     partial void OnSelectedIdeaRowChanged(IdeaRowViewModel? value)
     {
         OnPropertyChanged(nameof(DetailPanelVisibility));
+        OnPropertyChanged(nameof(CanConvertToTask));
         _ = LoadDetailAsync();
     }
 
     partial void OnDetailIdeaChanged(Idea? value)
     {
         OnPropertyChanged(nameof(CanEditLinkedProject));
+        OnPropertyChanged(nameof(CanConvertToTask));
         DetailLinkedProjectId = value?.LinkedProjectId;
     }
 
@@ -376,6 +387,131 @@ public partial class IdeaListViewModel(
         }
 
         AddDocumentsUiRequested?.Invoke(this, EventArgs.Empty);
+    }
+
+    [RelayCommand]
+    private void RequestConvertToTaskUi()
+    {
+        if (DetailIdea is null)
+        {
+            return;
+        }
+
+        ConvertToTaskUiRequested?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <summary>供「转化为任务」对话框填充模块下拉框。</summary>
+    public async Task LoadFeatureOptionsForProjectAsync(string projectId, ObservableCollection<FeaturePickerItem> target)
+    {
+        target.Clear();
+        target.Add(new FeaturePickerItem { Id = string.Empty, Name = "无模块（仅项目）" });
+        if (string.IsNullOrEmpty(projectId))
+        {
+            return;
+        }
+
+        var fq = new FeatureListQuery
+        {
+            ProjectId = projectId,
+            SearchText = null,
+            StatusFilter = null,
+            SortField = FeatureSortField.UpdatedAt,
+            SortDescending = true,
+        };
+        var flist = await featureRepository.ListAsync(fq).ConfigureAwait(true);
+        foreach (var f in flist)
+        {
+            target.Add(new FeaturePickerItem { Id = f.Id, Name = f.Name });
+        }
+    }
+
+    public async Task CreateTaskFromSelectedIdeaAsync(
+        string projectId,
+        string? featureIdOrEmpty,
+        string taskType,
+        string? severity,
+        double estimatedHours)
+    {
+        if (string.IsNullOrEmpty(projectId))
+        {
+            throw new InvalidOperationException("请选择项目。");
+        }
+
+        if (DetailIdea is null || SelectedIdeaRow is null)
+        {
+            throw new InvalidOperationException("未选择灵感。");
+        }
+
+        var idea = await ideaRepository.GetByIdAsync(SelectedIdeaRow.Id).ConfigureAwait(true)
+            ?? throw new InvalidOperationException("灵感不存在或已删除。");
+
+        var titleTrim = IdeaFieldValidator.ValidateTitle(idea.Title);
+        if (titleTrim.Length > 100)
+        {
+            titleTrim = titleTrim[..100];
+        }
+
+        var name = TaskFieldValidator.ValidateName(titleTrim);
+        var descBase = IdeaFieldValidator.ValidateDescription(idea.Description);
+        var tech = IdeaFieldValidator.ValidateTechStack(idea.TechStack);
+        var desc = string.IsNullOrWhiteSpace(tech)
+            ? descBase
+            : (string.IsNullOrWhiteSpace(descBase) ? $"技术栈：{tech}" : $"{descBase}\n\n技术栈：{tech}");
+        if (desc.Length > 500)
+        {
+            desc = desc[..499] + "…";
+        }
+
+        desc = TaskFieldValidator.ValidateDescription(desc);
+
+        var eh = TaskFieldValidator.ValidateEstimatedHours(estimatedHours);
+        var sev = TaskSeverityRules.NormalizeForPersistence(taskType, severity);
+
+        var featureId = string.IsNullOrEmpty(featureIdOrEmpty) ? null : featureIdOrEmpty;
+        var now = Now();
+        var taskId = Guid.NewGuid().ToString("D");
+        var task = new PmTask
+        {
+            Id = taskId,
+            ProjectId = projectId,
+            FeatureId = featureId,
+            Name = name,
+            Description = desc,
+            TaskType = taskType,
+            Status = TaskStatuses.NotStarted,
+            Severity = sev,
+            EstimatedHours = eh,
+            ActualHours = 0,
+            CompletedAt = null,
+            SortValue = 0,
+            CreatedAt = now,
+            UpdatedAt = now,
+            IsDeleted = false,
+            RowVersion = 1,
+        };
+
+        await taskRepository.InsertAsync(task).ConfigureAwait(true);
+
+        IdeaFieldValidator.ValidateLinkedProject(IdeaStatuses.Approved, projectId);
+        var linked = IdeaFieldValidator.NormalizeLinkedProjectId(IdeaStatuses.Approved, projectId);
+        var nextIdea = new Idea
+        {
+            Id = idea.Id,
+            Title = idea.Title,
+            Description = idea.Description,
+            TechStack = idea.TechStack,
+            Status = IdeaStatuses.Approved,
+            Priority = idea.Priority,
+            LinkedProjectId = linked,
+            CreatedAt = idea.CreatedAt,
+            UpdatedAt = Now(),
+            IsDeleted = idea.IsDeleted,
+            RowVersion = idea.RowVersion,
+        };
+        await ideaRepository.UpdateAsync(nextIdea).ConfigureAwait(true);
+
+        taskListViewModel.QueueFocusNewTaskAfterRefresh(taskId, projectId, featureId);
+        getShellNavCoordinator().ActivatePrimaryNav("tasks");
     }
 
     [RelayCommand]

@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "e7e4P+JTkNw=",
+  "dgSpecHash": "WxspjMiF09s=",
   "success": true,
-  "projectFilePath": "d:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj",
+  "projectFilePath": "D:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj",
   "expectedPackageFiles": [
-    "d:\\AloneDev\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.0\\microsoft.extensions.dependencyinjection.9.0.0.nupkg.sha512",
-    "d:\\AloneDev\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.0\\microsoft.extensions.dependencyinjection.abstractions.9.0.0.nupkg.sha512"
+    "D:\\AloneDev\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.0\\microsoft.extensions.dependencyinjection.9.0.0.nupkg.sha512",
+    "D:\\AloneDev\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.0\\microsoft.extensions.dependencyinjection.abstractions.9.0.0.nupkg.sha512"
   ],
   "logs": []
 }

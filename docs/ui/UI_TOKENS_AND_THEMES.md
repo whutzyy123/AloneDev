@@ -36,12 +36,12 @@ flowchart TD
 
 | 文件 | 职责 |
 |------|------|
-| `Colors.xaml` | `ThemeDictionaries` **Light** / **Dark**：`Alone*Brush`、`AlonePrimaryGradientBrush`、`SearchRowHighlightBrush`、语义色、禁用文字色 |
-| `Spacing.xaml` | `AloneSpace4`～`24`、兼容 `Spacing4/6/8`、`NavRailWidth`、`OperationBarHeight`、`DetailPanelWidth`、圆角 **Small / Default / Large** |
-| `TypeRamp.xaml` | 字号常量、`TextBlock` **Style**（含标题/副标题/正文/次级正文/标签/caption）；画笔 Setter 均为 **ThemeResource** |
+| `Colors.xaml` | `ThemeDictionaries` **Light** / **Dark**：`Alone*Brush`、`AlonePrimaryGradientBrush`、`SearchRowHighlightBrush`、语义色、禁用文字色；**`AloneCodePreviewHostBrush`**（片段代码预览 WebView 外框）；**`ToggleSwitchFillOn` / `ToggleSwitchStrokeOn` / `ToggleSwitchKnobFillOn*`** 等（应用级覆盖 Fluent Accent，开态统一品牌蓝） |
+| `Spacing.xaml` | `AloneSpace4`～`24`、兼容 `Spacing4/6/8`、`NavRailWidth`、`OperationBarHeight`、`DetailPanelWidth`、圆角 **Small / Default / Large**、**`AloneSearchPillCornerRadius`**（顶栏/操作栏高搜索框） |
+| `TypeRamp.xaml` | 字号常量、`TextBlock` **Style**（含页面主标题 **`AlonePageTitleTextBlockStyle`**、模块元信息 **`AloneModuleMetaTextBlockStyle`**、标题/副标题/正文等）；画笔 Setter 均为 **ThemeResource** |
 | `Controls.xaml` | `Button` 等控件 Style；渐变与表面引用 **ThemeResource** |
 | `Cards.xaml` | 列表卡片间距、标题/元信息/状态 Chip 样式 |
-| `Elevation.xaml` | 扁平策略下的浮层参数（`AloneShadow*` 数值文档化）、`ThemeShadow`、`AloneFloatChromeBorderStyle`（仅浮层根） |
+| `Elevation.xaml` | 浮层参数（`AloneShadow*` 文档化）、`ThemeShadow`；**列表虚拟化卡片仍不加阴影**；**看板拖拽卡片**用 **`AloneKanbanCardBorderStyle`** 加阴影；顶栏/侧栏/主 `Frame` 壳等大块可挂载 `ThemeShadow` 做柔和层级 |
 | `Dialogs.xaml` | `ContentDialog` 圆角与对话框内按钮样式；`AloneDialogDestructivePrimaryButtonStyle`；`AloneFlyoutPresenterStyle`（亚克力 + `DefaultCornerRadius` + `AloneFlyoutPanelPadding`）；`AloneFormTextBoxStyle` / `AloneFormNumberBoxStyle` / `AloneFormToggleSwitchStyle`；`AloneDialogContentPadding` |
 | `FormSections.xaml` | 长表单页区块：`AloneFormSectionCardStyle`（`BorderThickness="0"` + `AloneSurfaceContainerLowBrush` + `AloneFormSectionCardPadding`）；`AloneFormSectionTitleStyle` / `AloneFormSectionDescriptionStyle`；`AloneFormSectionSpacing`（节与节垂直间距）；`AloneFormPageScrollBottomPadding`（滚动内容底部呼吸）；`AloneFormPageStickyFooterStyle` / `AloneFormPageStickyFooterPadding`（可选固定底栏，与 Scroll 内容表面区分层） |
 | `GlobalSearch.xaml` | 全局搜索面板结果行：`AloneGlobalSearchHitRowMinHeight`、`AloneGlobalSearchHitRowPadding`、`AloneGlobalSearchHitButtonStyle`（自定义模板，避免 Fluent `PointerOver` 覆盖 `Background` 绑定）、`AloneGlobalSearchFocusVisualMargin`；高亮色与列表跳转一致，统一使用 [`SearchRowHighlightBrush`](../../src/PMTool.App/Themes/Colors.xaml) + [`SearchRowBackgroundConverter`](../../src/PMTool.App/Converters/SearchRowBackgroundConverter.cs) |
@@ -52,6 +52,10 @@ flowchart TD
 
 **代码侧**： imperative 对话框统一走 [`AloneDialogFactory`](../../src/PMTool.App/UI/AloneDialogFactory.cs)（使用 `WinUiApplication.Current` 取资源，避免与 `PMTool.Application` 程序集名冲突）。
 
+**主壳层级（Light）**：画布 `AloneSurfaceBrush` **#F5F7FA**；侧栏外包 `Border` 使用 **`AloneSurfaceContainerLowestBrush`（白）+ `ThemeShadow`**；主内容区 `Frame` 外包层同为 **白 + `ThemeShadow`**；顶栏/操作栏保持 elevated 白底+阴影。顶栏与模块内 `AutoSuggestBox` 使用 **`AloneSurfaceContainerHighBrush`** 与大白底区分。Dark 主题下同名键为深灰阶，`Lowest` 为最亮卡片面，逻辑一致。
+
+**侧栏导航（[`MainShellPage`](../../src/PMTool.App/Views/Shell/MainShellPage.xaml)）**：主导航项**选中态**为整行 **胶囊形**低饱和叠色（`AloneNavRailActiveOverlayBrush`），**无左侧高对比竖条**。主列表图标框见 `AloneNavIconBox`。底部区块为**纵向**「数据管理 / 系统设置」+ 其下 **工作区切换**按钮（类 IDE 底栏）；侧栏整体外边距见 `AloneNavRailOuterPadding`。
+
 ---
 
 ## 2. 色板速查
@@ -60,17 +64,19 @@ flowchart TD
 
 | 键 | 用途 |
 |----|------|
-| `AloneSurfaceBrush` | 页面根背景 |
-| `AloneSurfaceContainerLowBrush` | 侧栏、大区块 |
-| `AloneSurfaceContainerLowestBrush` | 卡片/高亮台面 |
-| `AloneSurfaceContainerHighBrush` / `AloneSurfaceContainerHighestBrush` | 更高一层容器 |
-| `AlonePrimaryBrush` | 主色 **#0078D4**（两主题一致） |
-| `AlonePrimaryContainerBrush` | 渐变深色端 / 深色主题下略提亮 |
-| `AlonePrimaryGradientBrush` | 主按钮背景 |
+| `AloneSurfaceBrush` | 页面/内容宿主下的画布（Light **#F5F7FA**） |
+| `AloneSurfaceContainerLowBrush` | 中性浅灰填充：列表槽、侧栏底栏 capsule、大区块衬底（非整块侧栏） |
+| `AloneSurfaceContainerLowestBrush` | 白卡 / elevated 顶层（侧栏壳、主 `Frame` 壳、顶栏） |
+| `AloneSurfaceContainerHighBrush` / `AloneSurfaceContainerHighestBrush` | 次级控件面：次要按钮、搜索框槽、强调用的更高一层灰 |
+| `AlonePrimaryBrush` | 主色与纯色强调（Light 偏深 **#006CBE**；Dark 提亮 **`#47A7FF`**） |
+| `AlonePrimaryContainerBrush` | Chip/辅助上的深色字色或深色主题渐变端 |
+| `AlonePrimaryGradientBrush` | **主按钮**与品牌块（多段蓝渐变；Light 深蓝→品牌蓝） |
 | `AloneOnSurfaceBrush` / `AloneOnSurfaceVariantBrush` | 正文 / 辅助文字 |
 | `AloneOnPrimaryBrush` | 主按钮上的文字 |
 | `AloneSecondaryContainerBrush` / `AloneNavHoverBrush` | 次要容器、导航悬停（带透明度） |
 | `AloneOnSurfaceDisabledBrush` | 禁用态文字（约 38% 不透明） |
+| `AloneCodePreviewHostBrush` | 代码片段页预览区：`Border` + WebView 衬底与 **atom-one-dark**（`#282c34`）一致；Dark 主题为略提亮 `#353B45` |
+| `ToggleSwitchFillOn` 等 | 与 `AlonePrimaryBrush` 对齐的 **SolidColorBrush**，覆盖 WinUI 默认 `ToggleSwitch` 开态轨道/描边/旋钮（**全局**生效；`AloneFormToggleSwitchStyle` 仍只做 `MinWidth=0`） |
 
 ### 2.2 语义色
 
@@ -86,28 +92,37 @@ flowchart TD
 | 键 | 用途 |
 |----|------|
 | `SearchRowHighlightBrush` | 全局搜索列表高亮行（随主题变化） |
+| `AloneProjectCoverGradient0` … `AloneProjectCoverGradient7` | 项目卡片顶部封面条 **`LinearGradientBrush`**（Light/Dark 同名键）；下标由 [`ProjectCoverPalette`](../../src/PMTool.Core/Ui/ProjectCoverPalette.cs) 对项目 Id 稳定哈希取模 |
+| `AloneKanbanColumnBackgroundBrush` | 看板列槽统一极浅底（Light **#F9FAFB**）；列状态下标用 **`AloneKanbanColumnAccent0`～`3`** 顶部 **3px** 细条 |
+| `AloneKanbanColumnBrush0`～`3` | 与 `AloneKanbanColumnBackgroundBrush` **同色**（兼容旧键；拖拽恢复仍可按列缓存） |
+| `AloneKanbanDropTargetBrush` | 拖拽悬停列高亮（半透明主色，浅灰列上可辨） |
 
 ---
 
-## 3. 间距与圆角
+## 3. 间距与圆角（8px 栅格）
+
+**原则**：列表/区块级 `Margin`、`Padding`、`Spacing`、`CornerRadius` **优先使用 8 的倍数**（8、16、24、32…），保证版面节奏一致。`AloneSpace4` 仍可作细缝；导航指示条、Flyout 行距等 **4dip** 级微调保留为**局部例外**，不在全页面上堆魔法数。
 
 | 键 | 值 (dip) | 说明 |
 |----|-----------|------|
 | `AloneSpace4` | 4 | 细缝、紧凑内边距 |
 | `AloneSpace8` | 8 | 小间距 |
-| `AloneSpace12` | 12 | 中间距 |
-| `AloneSpace16` | 16 | 与旧 **Spacing4** 相同 |
+| `AloneSpace12` | 12 | **遗留**：中间距；新布局优先 **`AloneSpace16`** |
+| `AloneSpace16` | 16 | 区块竖/横间距与旧 **Spacing4** 对齐 |
 | `AloneSpace24` | 24 | 与旧 **Spacing6** 相同 |
 | `Spacing4` | 16 | **兼容**：等同设计 spacing-4 |
 | `Spacing6` | 24 | **兼容**：等同 design spacing-6 |
 | `Spacing8` | 32 | **兼容**：更大呼吸区 |
-| `CornerRadiusSmall` | 4 | 搜索条等 |
+| `CornerRadiusSmall` | 8 | 小圆角块、侧栏图标底等 |
 | `DefaultCornerRadius` | 8 | 默认（卡片、按钮） |
-| `CornerRadiusLarge` | 12 | 大卡、弹层 |
+| `CornerRadiusLarge` | 16 | 大卡、看板象限外层 |
+| `AloneSearchPillCornerRadius` | 24 | **MinHeight≈40** 的 `AutoSuggestBox`、圆形账号按钮（8 的倍数） |
+| `AloneProjectCardGridItemWidth` | 300 | [`项目列表`](../../src/PMTool.App/Views/Projects/ProjectListPage.xaml) `ItemsWrapGrid.ItemWidth`；卡片右/下 gutter 另计 |
+| `AloneKanbanColumnSpacing` | 8 | [`FeatureListPage`](../../src/PMTool.App/Views/Features/FeatureListPage.xaml) / [`TaskListPage`](../../src/PMTool.App/Views/Tasks/TaskListPage.xaml) 看板四列 `Grid.ColumnSpacing` |
 
 **阶段 2（Shell）补充**：`AloneContentMaxWidth`（主内容最大宽度）、`AloneNavItemHeight` / `AloneNavItemPadding` / `AloneNavIconBox`、`AloneContentHostPadding`（`Frame` 宿主横向留白）、`AloneOperationBarPadding`、`AloneChromeButtonPadding`、`AloneNavRailOuterPadding` / `AloneNavHeaderStackPadding` / `AloneNavFooterSeparatorPadding`、`AloneFlyoutPanelPadding`、`AloneDetailPanelMargin` 等见 [Spacing.xaml](../../src/PMTool.App/Themes/Spacing.xaml)；顶栏筛选排序使用 **`AloneChromeButtonStyle`**（[Controls.xaml](../../src/PMTool.App/Themes/Controls.xaml)）。
 
-新页面优先引用 **`AloneSpace*`**；旧页可逐步从魔法数迁移。
+新页面优先引用 **`AloneSpace8` / `AloneSpace16` / `AloneSpace24`** 与上表圆角键；旧页可继续消化 `AloneSpace12` 与零散像素，逐步迁移。
 
 ---
 
@@ -115,23 +130,26 @@ flowchart TD
 
 | 键 | 语义 |
 |----|------|
-| `AloneTitleTextBlockStyle` | 模块/页主标题（基于 HeadlineSm） |
-| `AloneHeadlineSmTextBlockStyle` | 大标题 |
-| `AloneTitleLgTextBlockStyle` / `AloneTitleSmTextBlockStyle` | 标题层级 |
-| `AloneSubtitleTextBlockStyle` | 副标题（辅色） |
-| `AloneBodyTextBlockStyle` / `AloneBodyMdTextBlockStyle` | 正文 |
-| `AloneBodySecondaryTextBlockStyle` | 正文次级 |
-| `AloneLabelMdTextBlockStyle` | 标签、元数据 |
+| `AlonePageTitleTextBlockStyle` | **模块工具栏主标题**（约 **26sp**、`LineHeight` 32、**Bold**），用于 [`OperationBar`](../../src/PMTool.App/Controls/OperationBar.xaml) 等 |
+| `AloneHeadlineSmTextBlockStyle` | 大标题（24 SemiBold），其它仍依赖 24 档的文案 |
+| `AloneTitleTextBlockStyle` | 与 `AloneHeadlineSmTextBlockStyle` 等价别名 |
+| `AloneTitleLgTextBlockStyle` / `AloneTitleSmTextBlockStyle` | 列表卡片主行等（**Lg=18 SemiBold** 为 [`AloneListCardTitleStyle`](../../src/PMTool.App/Themes/Cards.xaml) 基类） |
+| `AloneModuleMetaTextBlockStyle` | **次要元信息**（**12**、Normal、**`AloneOnSurfaceVariantBrush`**）：顶栏当前模块名、侧栏说明、列表卡片灰字、文档树副行 |
+| `AloneSubtitleTextBlockStyle` | 副标题（辅色，15 Medium） |
+| `AloneBodyTextBlockStyle` / `AloneBodyMdTextBlockStyle` | 正文（14） |
+| `AloneBodySecondaryTextBlockStyle` | 正文次级（14 + Variant） |
+| `AloneLabelMdTextBlockStyle` | 分区标签（12 SemiBold + 小节标题色） |
 | `AloneCaptionTextBlockStyle` | Caption（11px） |
 | `AloneDisplayMdTextBlockStyle` | 空状态大标题 |
 
-**CaptionFontSize** 等资源键在 `TypeRamp.xaml`；`Foreground` 一律 **ThemeResource** 指向 `Alone*` 画笔。
+**字号资源**（如 `AlonePageTitleFontSize`、`LabelMdFontSize`）在 [`TypeRamp.xaml`](../../src/PMTool.App/Themes/TypeRamp.xaml)；`Foreground` 一律 **ThemeResource** 指向 `Alone*` 画笔。
 
 ---
 
 ## 5. Elevation（扁平优先）
 
 - **默认**：列表、壳体主区域**不加** `ThemeShadow`。
+- **例外**：**模块 / 任务看板**内可拖拽卡片使用 [`AloneKanbanCardBorderStyle`](../../src/PMTool.App/Themes/Elevation.xaml)（`BasedOn` `AloneElevatedCardBorderStyle` + `AloneFloatThemeShadow`），与长列表虚拟化行区分。
 - **仅浮层**（全局搜索外壳、Flyout、菜单根）：可使用 `AloneFloatChromeBorderStyle` 或自行对根 `Border` 设置 `Shadow="{StaticResource AloneFloatThemeShadow}"`。
 - **文档化参数**：`AloneShadowBlurFloat`（32）、`AloneShadowOffsetYFloat`（8）、`AloneShadowOpacityFloat`（0.06）— WinUI `ThemeShadow` 由系统渲染，数值供设计与后续模板对齐参考。
 

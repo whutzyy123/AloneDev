@@ -10,7 +10,7 @@ public sealed class Release
 
     public string Description { get; init; } = string.Empty;
 
-    /// <summary>开始时间文本（与项目/特性日期策略一致）。</summary>
+    /// <summary>开始时间文本（与项目/模块日期策略一致）。</summary>
     public required string StartAt { get; init; }
 
     public required string EndAt { get; init; }

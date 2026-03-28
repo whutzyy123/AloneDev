@@ -1,6 +1,6 @@
 namespace PMTool.Core;
 
-/// <summary>特性状态转移规则：仅允许相邻前进；已完成/已上线可退回进行中。</summary>
+/// <summary>模块状态转移规则：仅允许相邻前进；已完成/已上线可退回进行中。</summary>
 public static class FeatureStatusTransitions
 {
     public static bool TryValidate(string? fromStatus, string toStatus, out string? errorMessage)

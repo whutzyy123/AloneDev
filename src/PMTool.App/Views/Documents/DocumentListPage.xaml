@@ -13,7 +13,7 @@
     mc:Ignorable="d">
     <Grid Padding="0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="280" />
+            <ColumnDefinition Width="316" />
             <ColumnDefinition Width="16" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -44,25 +44,33 @@
                     SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="vm:DocumentListRowViewModel">
-                            <StackPanel Padding="8,4" Spacing="2">
+                            <StackPanel Padding="12,8" Spacing="4">
                                 <TextBlock
                                     FontSize="{x:Bind TitleFontSize, Mode=OneWay}"
                                     FontWeight="SemiBold"
                                     Style="{StaticResource AloneBodyMdTextBlockStyle}"
                                     Text="{x:Bind PrimaryText, Mode=OneWay}"
+                                    TextTrimming="CharacterEllipsis"
                                     Visibility="{x:Bind SectionHeaderVisibility, Mode=OneWay}" />
                                 <Border
-                                    Padding="4"
+                                    Padding="6,6"
                                     Background="{x:Bind IsSearchHighlight, Converter={StaticResource SearchRowBackgroundConverter}, Mode=OneWay}"
                                     CornerRadius="{StaticResource DefaultCornerRadius}"
                                     Visibility="{x:Bind DocumentRowVisibility, Mode=OneWay}">
-                                    <StackPanel Spacing="2">
-                                        <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="{x:Bind PrimaryText, Mode=OneWay}" />
+                                    <StackPanel Spacing="4">
                                         <TextBlock
-                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                            FontSize="{StaticResource LabelMdFontSize}"
+                                            MaxLines="2"
                                             Style="{StaticResource AloneBodyMdTextBlockStyle}"
-                                            Text="{x:Bind Subtitle, Mode=OneWay}" />
+                                            Text="{x:Bind PrimaryText, Mode=OneWay}"
+                                            TextTrimming="CharacterEllipsis"
+                                            TextWrapping="WrapWholeWords" />
+                                        <TextBlock
+                                            MaxLines="2"
+                                            Style="{StaticResource AloneModuleMetaTextBlockStyle}"
+                                            Text="{x:Bind Subtitle, Mode=OneWay}"
+                                            TextTrimming="CharacterEllipsis"
+                                            TextWrapping="WrapWholeWords"
+                                            Visibility="{x:Bind SubtitleVisibility, Mode=OneWay}" />
                                     </StackPanel>
                                 </Border>
                             </StackPanel>
@@ -84,7 +92,7 @@
             <Border
                 Grid.Row="0"
                 Margin="0,0,0,12"
-                Padding="12"
+                Padding="{StaticResource AloneModuleChromePadding}"
                 Background="{ThemeResource AloneSurfaceContainerLowBrush}"
                 CornerRadius="{StaticResource DefaultCornerRadius}"
                 Visibility="{x:Bind ViewModel.ErrorBannerVisibility, Mode=OneWay}">
@@ -94,69 +102,101 @@
                     TextWrapping="WrapWholeWords" />
             </Border>
 
-            <Grid
+            <Border
                 Grid.Row="1"
                 Margin="0,0,0,12"
-                Padding="12"
+                Padding="{StaticResource AloneModuleChromePadding}"
                 Background="{ThemeResource AloneSurfaceContainerLowestBrush}"
                 CornerRadius="{StaticResource DefaultCornerRadius}"
                 Visibility="{x:Bind ViewModel.EditorPanelVisibility, Mode=OneWay}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <TextBox
-                    Grid.Row="0"
-                    Margin="0,0,0,8"
-                    Background="{ThemeResource AloneSurfaceContainerHighestBrush}"
-                    BorderThickness="0"
-                    CornerRadius="{StaticResource DefaultCornerRadius}"
-                    Header="标题"
-                    PlaceholderText="文档名称"
-                    Style="{StaticResource AloneFormTextBoxStyle}"
-                    Text="{x:Bind ViewModel.EditorName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <StackPanel
-                    Grid.Row="1"
-                    Margin="0,0,0,8"
-                    Orientation="Horizontal"
-                    Spacing="16">
-                    <ToggleSwitch
-                        Header="代码片段"
-                        IsOn="{x:Bind ViewModel.IsCodeSnippetEditor, Mode=TwoWay}"
-                        Style="{StaticResource AloneFormToggleSwitchStyle}" />
-                    <Button
-                        VerticalAlignment="Bottom"
-                        Command="{x:Bind ViewModel.SaveCurrentCommand, Mode=OneWay}"
-                        Content="保存"
-                        Style="{StaticResource AlonePrimaryButtonStyle}" />
-                    <Button
-                        VerticalAlignment="Bottom"
-                        Command="{x:Bind ViewModel.RequestExportHtmlUiCommand, Mode=OneWay}"
-                        Content="导出 HTML"
-                        Style="{StaticResource AloneSecondaryButtonStyle}" />
-                    <Button
-                        VerticalAlignment="Bottom"
-                        Click="RenameDocument_Click"
-                        Content="重命名"
-                        Style="{StaticResource AloneSecondaryButtonStyle}" />
-                    <Button
-                        VerticalAlignment="Bottom"
-                        Click="DeleteDocument_Click"
-                        Content="删除"
-                        Style="{StaticResource AloneSecondaryButtonStyle}" />
-                </StackPanel>
-                <TextBlock
-                    Grid.Row="2"
-                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                    FontSize="{StaticResource LabelMdFontSize}"
-                    Style="{StaticResource AloneBodyMdTextBlockStyle}"
-                    Text="Markdown 正文；可粘贴图片（≤50MB），失败时见顶部提示。" />
-            </Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBox
+                        Grid.Row="0"
+                        Margin="0,0,0,8"
+                        Background="{ThemeResource AloneSurfaceContainerHighestBrush}"
+                        BorderThickness="0"
+                        CornerRadius="{StaticResource DefaultCornerRadius}"
+                        Header="标题"
+                        PlaceholderText="文档名称"
+                        Style="{StaticResource AloneFormTextBoxStyle}"
+                        Text="{x:Bind ViewModel.EditorName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <StackPanel
+                        Grid.Row="1"
+                        Margin="0,0,0,12"
+                        Spacing="6">
+                        <ToggleSwitch
+                            Header="在「代码片段」中显示"
+                            IsOn="{x:Bind ViewModel.IsCodeSnippetEditor, Mode=TwoWay}"
+                            Style="{StaticResource AloneFormToggleSwitchStyle}" />
+                        <TextBlock
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            FontSize="{StaticResource LabelMdFontSize}"
+                            Style="{StaticResource AloneBodyMdTextBlockStyle}"
+                            Text="开启后该文档会出现在侧栏「代码片段」列表，用于归类备忘；正文仍为 Markdown，显示方式不变。若需指定语法高亮语言，请在该页编辑对应片段。"
+                            TextWrapping="WrapWholeWords" />
+                    </StackPanel>
+                    <Grid Grid.Row="2" Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Spacing="12"
+                            VerticalAlignment="Center">
+                            <Button
+                                VerticalAlignment="Center"
+                                Command="{x:Bind ViewModel.RequestExportHtmlUiCommand, Mode=OneWay}"
+                                Content="导出 HTML"
+                                Style="{StaticResource AlonePrimaryButtonStyle}" />
+                            <Button
+                                VerticalAlignment="Center"
+                                Click="RenameDocument_Click"
+                                Content="重命名"
+                                Style="{StaticResource AloneSecondaryButtonStyle}" />
+                            <Button
+                                VerticalAlignment="Center"
+                                Click="DeleteDocument_Click"
+                                Content="删除"
+                                Style="{StaticResource AloneSecondaryButtonStyle}" />
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal"
+                            Spacing="12"
+                            VerticalAlignment="Center">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                FontSize="{StaticResource LabelMdFontSize}"
+                                Style="{StaticResource AloneBodyMdTextBlockStyle}"
+                                Text="{x:Bind ViewModel.DocumentSaveStatusText, Mode=OneWay}" />
+                            <HyperlinkButton
+                                VerticalAlignment="Center"
+                                Command="{x:Bind ViewModel.SaveCurrentCommand, Mode=OneWay}"
+                                Content="立即保存"
+                                ToolTipService.ToolTip="立即保存到本地（默认快捷键 Ctrl+S，可在设置中修改）" />
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock
+                        Grid.Row="3"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        FontSize="{StaticResource LabelMdFontSize}"
+                        Style="{StaticResource AloneBodyMdTextBlockStyle}"
+                        Text="支持 Markdown 语法。支持拖拽/粘贴图片（最大 50MB）。" />
+                </Grid>
+            </Border>
 
             <Border
                 Grid.Row="2"
-                Padding="12"
+                Padding="{StaticResource AloneModuleChromePadding}"
                 Background="{ThemeResource AloneSurfaceContainerLowBrush}"
                 CornerRadius="{StaticResource DefaultCornerRadius}"
                 Visibility="{x:Bind ViewModel.EditorPanelVisibility, Mode=OneWay}">

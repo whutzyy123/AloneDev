@@ -6,7 +6,7 @@ namespace PMTool.Infrastructure.Data;
 /// <summary>SQLite schema upgrades keyed by <c>PRAGMA user_version</c>.</summary>
 internal static class SchemaMigration
 {
-    private const int TargetUserVersion = 7;
+    private const int TargetUserVersion = 11;
 
     internal static async Task ApplyAsync(DbConnection connection, CancellationToken cancellationToken)
     {
@@ -39,6 +39,26 @@ internal static class SchemaMigration
         if (current < 7)
         {
             await MigrateToV7Async(connection, cancellationToken).ConfigureAwait(false);
+        }
+
+        if (current < 8)
+        {
+            await MigrateToV8Async(connection, cancellationToken).ConfigureAwait(false);
+        }
+
+        if (current < 9)
+        {
+            await MigrateToV9Async(connection, cancellationToken).ConfigureAwait(false);
+        }
+
+        if (current < 10)
+        {
+            await MigrateToV10Async(connection, cancellationToken).ConfigureAwait(false);
+        }
+
+        if (current < 11)
+        {
+            await MigrateToV11Async(connection, cancellationToken).ConfigureAwait(false);
         }
 
         await SetUserVersionAsync(connection, TargetUserVersion, cancellationToken).ConfigureAwait(false);
@@ -106,6 +126,52 @@ internal static class SchemaMigration
             await ExecAsync(connection, cancellationToken, "ROLLBACK;").ConfigureAwait(false);
             throw;
         }
+    }
+
+    /// <summary>文档关联类型文案：历史库为「特性」，与应用常量「模块」对齐。</summary>
+    private static async Task MigrateToV8Async(DbConnection connection, CancellationToken cancellationToken)
+    {
+        var docCols = await GetColumnNamesAsync(connection, "documents", cancellationToken).ConfigureAwait(false);
+        if (!docCols.Contains("relate_type"))
+        {
+            return;
+        }
+
+        await ExecAsync(connection, cancellationToken,
+            "UPDATE documents SET relate_type = '模块' WHERE relate_type = '特性';").ConfigureAwait(false);
+    }
+
+    private static async Task MigrateToV9Async(DbConnection connection, CancellationToken cancellationToken)
+    {
+        var cols = await GetColumnNamesAsync(connection, "projects", cancellationToken).ConfigureAwait(false);
+        await AddColumnIfMissingAsync(
+            connection,
+            cancellationToken,
+            cols,
+            "local_git_root",
+            "ALTER TABLE projects ADD COLUMN local_git_root TEXT NULL;").ConfigureAwait(false);
+    }
+
+    private static async Task MigrateToV10Async(DbConnection connection, CancellationToken cancellationToken)
+    {
+        var docCols = await GetColumnNamesAsync(connection, "documents", cancellationToken).ConfigureAwait(false);
+        await AddColumnIfMissingAsync(
+            connection,
+            cancellationToken,
+            docCols,
+            "snippet_language",
+            "ALTER TABLE documents ADD COLUMN snippet_language TEXT NULL;").ConfigureAwait(false);
+    }
+
+    private static async Task MigrateToV11Async(DbConnection connection, CancellationToken cancellationToken)
+    {
+        var projCols = await GetColumnNamesAsync(connection, "projects", cancellationToken).ConfigureAwait(false);
+        await AddColumnIfMissingAsync(
+            connection,
+            cancellationToken,
+            projCols,
+            "tech_stack",
+            "ALTER TABLE projects ADD COLUMN tech_stack TEXT NOT NULL DEFAULT '';").ConfigureAwait(false);
     }
 
     private static async Task EnsureIdeaDocumentsTableAsync(DbConnection connection, CancellationToken cancellationToken)

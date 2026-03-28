@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "D:\\AloneDev\\.nuget\\packages": {}
+    "d:\\AloneDev\\.nuget\\packages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
+      "projectUniqueName": "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
       "projectName": "PMTool.Core",
-      "projectPath": "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
-      "packagesPath": "D:\\AloneDev\\.nuget\\packages",
-      "outputPath": "D:\\AloneDev\\src\\PMTool.Core\\obj\\",
+      "projectPath": "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
+      "packagesPath": "d:\\AloneDev\\.nuget\\packages",
+      "outputPath": "d:\\AloneDev\\src\\PMTool.Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "D:\\AloneDev\\NuGet.Config",
+        "d:\\AloneDev\\NuGet.Config",
         "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [

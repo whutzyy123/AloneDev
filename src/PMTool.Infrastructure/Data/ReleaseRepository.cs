@@ -348,10 +348,10 @@ public sealed class ReleaseRepository(
         if (targetType == ReleaseRelationTarget.Feature)
         {
             var f = await featureRepository.GetByIdAsync(targetId, cancellationToken).ConfigureAwait(false)
-                ?? throw new InvalidOperationException("特性不存在。");
+                ?? throw new InvalidOperationException("模块不存在。");
             if (f.ProjectId != rel.ProjectId)
             {
-                throw new InvalidOperationException("仅可关联同一项目下的特性。");
+                throw new InvalidOperationException("仅可关联同一项目下的模块。");
             }
         }
         else if (targetType == ReleaseRelationTarget.Task)

@@ -6,6 +6,10 @@ public interface IDocumentRepository
 {
     Task<IReadOnlyList<PmDocument>> ListActiveAsync(CancellationToken cancellationToken = default);
 
+    Task<IReadOnlyList<PmDocument>> ListCodeSnippetsAsync(
+        CodeSnippetListQuery query,
+        CancellationToken cancellationToken = default);
+
     Task<PmDocument?> GetByIdAsync(string id, CancellationToken cancellationToken = default);
 
     Task InsertAsync(PmDocument document, CancellationToken cancellationToken = default);
@@ -32,6 +36,7 @@ public interface IDocumentRepository
         string content,
         string contentFormat,
         long expectedRowVersion,
+        string? snippetLanguage,
         CancellationToken cancellationToken = default);
 
     Task SoftDeleteAsync(string id, long expectedRowVersion, CancellationToken cancellationToken = default);

@@ -26,22 +26,8 @@
         <TextBlock x:ConnectionId='2'
             Grid.Column="0"
             VerticalAlignment="Center"
-            Style="{StaticResource AloneHeadlineSmTextBlockStyle}"
+            Style="{StaticResource AlonePageTitleTextBlockStyle}"
                                                />
-        <AutoSuggestBox x:ConnectionId='3'
-            x:Name="ModuleSearchBox"
-            Grid.Column="1"
-            MinWidth="240"
-            MinHeight="40"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Center"
-            Background="{ThemeResource AloneSurfaceContainerLowBrush}"
-            BorderThickness="0"
-            CornerRadius="20"
-            IsEnabled="{Binding IsOperationBarInteractive, Mode=OneWay}"
-            PlaceholderText="{Binding SearchPlaceholderText, Mode=OneWay}"
-            Text="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            Visibility="{Binding ShowModuleSearch, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
         <StackPanel
             Grid.Column="2"
             VerticalAlignment="Center"
@@ -58,7 +44,7 @@
                             <ItemsControl IsTabStop="False" ItemsSource="{Binding FilterMenuItems, Mode=OneWay}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate                                         >
-                                        <HyperlinkButton x:ConnectionId='7'
+                                        <HyperlinkButton x:ConnectionId='6'
                                             Margin="{StaticResource AloneHyperlinkFlyoutItemMargin}"
                                                                       
                                                                     />
@@ -87,7 +73,7 @@
                             <ItemsControl IsTabStop="False" ItemsSource="{Binding SortMenuItems, Mode=OneWay}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate                                         >
-                                        <HyperlinkButton x:ConnectionId='5'
+                                        <HyperlinkButton x:ConnectionId='4'
                                             Margin="{StaticResource AloneHyperlinkFlyoutItemMargin}"
                                                                       
                                                                     />

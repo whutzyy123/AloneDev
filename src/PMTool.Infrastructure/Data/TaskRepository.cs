@@ -39,7 +39,21 @@ public sealed class TaskRepository(ISqliteConnectionHolder holder) : ITaskReposi
     {
         return holder.UseConnectionAsync(async (db, ct) =>
         {
-            var where = "t.feature_id = $fid AND t.is_deleted = 0";
+            string where;
+            var scopeIsFeature = !string.IsNullOrEmpty(query.FeatureId);
+            if (scopeIsFeature)
+            {
+                where = "t.feature_id = $fid AND t.is_deleted = 0";
+            }
+            else if (!string.IsNullOrEmpty(query.ProjectId))
+            {
+                where = "t.project_id = $pid AND t.is_deleted = 0";
+            }
+            else
+            {
+                throw new ArgumentException("TaskListQuery 需要 ProjectId 或 FeatureId。", nameof(query));
+            }
+
             if (!string.IsNullOrWhiteSpace(query.SearchText))
             {
                 where += " AND (LOWER(t.name) LIKE LOWER($like) OR LOWER(t.description) LIKE LOWER($like))";
@@ -50,12 +64,29 @@ public sealed class TaskRepository(ISqliteConnectionHolder holder) : ITaskReposi
                 where += " AND t.status = $st";
             }
 
-            var (orderExpr, orderDir) = query.SortMode switch
+            string orderExpr;
+            string orderDir;
+            if (query.SortMode == TaskSortMode.Name)
             {
-                TaskSortMode.Name => ("t.name COLLATE NOCASE", query.SortDescending ? "DESC" : "ASC"),
-                TaskSortMode.UpdatedAt => ("t.updated_at", query.SortDescending ? "DESC" : "ASC"),
-                _ => ("t.sort_value", "ASC"),
-            };
+                orderExpr = "t.name COLLATE NOCASE";
+                orderDir = query.SortDescending ? "DESC" : "ASC";
+            }
+            else if (query.SortMode == TaskSortMode.UpdatedAt)
+            {
+                orderExpr = "t.updated_at";
+                orderDir = query.SortDescending ? "DESC" : "ASC";
+            }
+            else if (scopeIsFeature)
+            {
+                orderExpr = "t.sort_value";
+                orderDir = "ASC";
+            }
+            else
+            {
+                // 项目内混合多模块与无模块任务时，手动顺序无统一语义，退化为按更新时间。
+                orderExpr = "t.updated_at";
+                orderDir = "DESC";
+            }
 
             await using var cmd = db.CreateCommand();
             cmd.CommandText =
@@ -68,7 +99,15 @@ public sealed class TaskRepository(ISqliteConnectionHolder holder) : ITaskReposi
                  WHERE {where}
                  ORDER BY {orderExpr} {orderDir}, t.id;
                  """;
-            AddParam(cmd, "$fid", query.FeatureId);
+            if (scopeIsFeature)
+            {
+                AddParam(cmd, "$fid", query.FeatureId!);
+            }
+            else
+            {
+                AddParam(cmd, "$pid", query.ProjectId!);
+            }
+
             if (query.StatusFilter is { Length: > 0 } st)
             {
                 AddParam(cmd, "$st", st);
@@ -147,10 +186,29 @@ public sealed class TaskRepository(ISqliteConnectionHolder holder) : ITaskReposi
     {
         return holder.UseConnectionAsync(async (db, ct) =>
         {
-            var projectId = await ResolveProjectIdAsync(db, task.FeatureId, ct).ConfigureAwait(false)
-                ?? throw new InvalidOperationException("特性不存在或已删除。");
+            string projectId;
+            int nextSort;
+            if (string.IsNullOrEmpty(task.FeatureId))
+            {
+                projectId = task.ProjectId;
+                if (string.IsNullOrEmpty(projectId))
+                {
+                    throw new InvalidOperationException("未指定项目。");
+                }
 
-            var nextSort = await GetNextSortValueAsync(db, task.FeatureId, ct).ConfigureAwait(false);
+                if (!await ProjectExistsAsync(db, projectId, ct).ConfigureAwait(false))
+                {
+                    throw new InvalidOperationException("项目不存在或已删除。");
+                }
+
+                nextSort = await GetNextSortValueForProjectLevelAsync(db, projectId, ct).ConfigureAwait(false);
+            }
+            else
+            {
+                projectId = await ResolveProjectIdFromFeatureAsync(db, task.FeatureId, ct).ConfigureAwait(false)
+                    ?? throw new InvalidOperationException("模块不存在或已删除。");
+                nextSort = await GetNextSortValueAsync(db, task.FeatureId!, ct).ConfigureAwait(false);
+            }
             var toInsert = new PmTask
             {
                 Id = task.Id,
@@ -217,8 +275,25 @@ public sealed class TaskRepository(ISqliteConnectionHolder holder) : ITaskReposi
             }
 
             var severity = TaskSeverityRules.NormalizeForPersistence(task.TaskType, task.Severity);
-            var projectId = await ResolveProjectIdAsync(db, task.FeatureId, ct).ConfigureAwait(false)
-                ?? throw new InvalidOperationException("特性不存在或已删除。");
+            string projectId;
+            if (string.IsNullOrEmpty(task.FeatureId))
+            {
+                projectId = task.ProjectId;
+                if (string.IsNullOrEmpty(projectId))
+                {
+                    throw new InvalidOperationException("未指定项目。");
+                }
+
+                if (!await ProjectExistsAsync(db, projectId, ct).ConfigureAwait(false))
+                {
+                    throw new InvalidOperationException("项目不存在或已删除。");
+                }
+            }
+            else
+            {
+                projectId = await ResolveProjectIdFromFeatureAsync(db, task.FeatureId, ct).ConfigureAwait(false)
+                    ?? throw new InvalidOperationException("模块不存在或已删除。");
+            }
 
             string? completedAt;
             if (task.Status == TaskStatuses.Done)
@@ -256,7 +331,7 @@ public sealed class TaskRepository(ISqliteConnectionHolder holder) : ITaskReposi
                 """;
             AddParam(cmd, "$id", task.Id);
             AddParam(cmd, "$pid", projectId);
-            AddParam(cmd, "$fid", task.FeatureId);
+            AddParam(cmd, "$fid", task.FeatureId ?? (object)DBNull.Value);
             AddParam(cmd, "$name", task.Name);
             AddParam(cmd, "$desc", task.Description);
             AddParam(cmd, "$tt", task.TaskType);
@@ -309,27 +384,45 @@ public sealed class TaskRepository(ISqliteConnectionHolder holder) : ITaskReposi
             await using var tx = await db.BeginTransactionAsync(ct).ConfigureAwait(false);
             try
             {
-                string? featureId = null;
+                string projectId;
+                string? featureId;
                 await using (var sel = db.CreateCommand())
                 {
                     sel.Transaction = tx;
-                    sel.CommandText = "SELECT feature_id FROM tasks WHERE id = $id AND is_deleted = 0;";
+                    sel.CommandText =
+                        "SELECT project_id, feature_id FROM tasks WHERE id = $id AND is_deleted = 0;";
                     AddParam(sel, "$id", taskId);
-                    var o = await sel.ExecuteScalarAsync(ct).ConfigureAwait(false);
-                    featureId = o as string;
-                    if (string.IsNullOrEmpty(featureId))
+                    await using var r = await sel.ExecuteReaderAsync(ct).ConfigureAwait(false);
+                    if (!await r.ReadAsync(ct).ConfigureAwait(false))
                     {
                         throw new InvalidOperationException("任务不存在。");
                     }
+
+                    projectId = r.GetString(0);
+                    featureId = r.IsDBNull(1) ? null : r.GetString(1);
                 }
 
                 var ids = new List<string>();
                 await using (var ord = db.CreateCommand())
                 {
                     ord.Transaction = tx;
-                    ord.CommandText =
-                        "SELECT id FROM tasks WHERE feature_id = $fid AND is_deleted = 0 ORDER BY sort_value ASC, id;";
-                    AddParam(ord, "$fid", featureId);
+                    if (string.IsNullOrEmpty(featureId))
+                    {
+                        ord.CommandText =
+                            """
+                            SELECT id FROM tasks
+                            WHERE project_id = $pid AND feature_id IS NULL AND is_deleted = 0
+                            ORDER BY sort_value ASC, id;
+                            """;
+                        AddParam(ord, "$pid", projectId);
+                    }
+                    else
+                    {
+                        ord.CommandText =
+                            "SELECT id FROM tasks WHERE feature_id = $fid AND is_deleted = 0 ORDER BY sort_value ASC, id;";
+                        AddParam(ord, "$fid", featureId);
+                    }
+
                     await using var r = await ord.ExecuteReaderAsync(ct).ConfigureAwait(false);
                     while (await r.ReadAsync(ct).ConfigureAwait(false))
                     {
@@ -405,13 +498,22 @@ public sealed class TaskRepository(ISqliteConnectionHolder holder) : ITaskReposi
         }, cancellationToken);
     }
 
-    private static async Task<string?> ResolveProjectIdAsync(DbConnection db, string featureId, CancellationToken ct)
+    private static async Task<string?> ResolveProjectIdFromFeatureAsync(DbConnection db, string featureId, CancellationToken ct)
     {
         await using var cmd = db.CreateCommand();
         cmd.CommandText = "SELECT project_id FROM features WHERE id = $id AND is_deleted = 0;";
         AddParam(cmd, "$id", featureId);
         var o = await cmd.ExecuteScalarAsync(ct).ConfigureAwait(false);
         return o as string;
+    }
+
+    private static async Task<bool> ProjectExistsAsync(DbConnection db, string projectId, CancellationToken ct)
+    {
+        await using var cmd = db.CreateCommand();
+        cmd.CommandText = "SELECT 1 FROM projects WHERE id = $id AND is_deleted = 0 LIMIT 1;";
+        AddParam(cmd, "$id", projectId);
+        var o = await cmd.ExecuteScalarAsync(ct).ConfigureAwait(false);
+        return o is not null and not DBNull;
     }
 
     private static async Task<int> GetNextSortValueAsync(DbConnection db, string featureId, CancellationToken ct)
@@ -425,12 +527,26 @@ public sealed class TaskRepository(ISqliteConnectionHolder holder) : ITaskReposi
         return max + 1;
     }
 
+    private static async Task<int> GetNextSortValueForProjectLevelAsync(DbConnection db, string projectId, CancellationToken ct)
+    {
+        await using var cmd = db.CreateCommand();
+        cmd.CommandText =
+            """
+            SELECT COALESCE(MAX(sort_value), -1) FROM tasks
+            WHERE project_id = $pid AND feature_id IS NULL AND is_deleted = 0;
+            """;
+        AddParam(cmd, "$pid", projectId);
+        var o = await cmd.ExecuteScalarAsync(ct).ConfigureAwait(false);
+        var max = o is DBNull or null ? -1 : Convert.ToInt32(o);
+        return max + 1;
+    }
+
     private static PmTask ReadTask(DbDataReader reader) =>
         new()
         {
             Id = reader.GetString(0),
             ProjectId = reader.GetString(1),
-            FeatureId = reader.IsDBNull(2) ? string.Empty : reader.GetString(2),
+            FeatureId = reader.IsDBNull(2) ? null : reader.GetString(2),
             Name = reader.GetString(3),
             Description = reader.IsDBNull(4) ? string.Empty : reader.GetString(4),
             TaskType = reader.GetString(5),
@@ -451,7 +567,7 @@ public sealed class TaskRepository(ISqliteConnectionHolder holder) : ITaskReposi
         var severity = TaskSeverityRules.NormalizeForPersistence(task.TaskType, task.Severity);
         AddParam(cmd, "$id", task.Id);
         AddParam(cmd, "$pid", task.ProjectId);
-        AddParam(cmd, "$fid", task.FeatureId);
+        AddParam(cmd, "$fid", task.FeatureId ?? (object)DBNull.Value);
         AddParam(cmd, "$name", task.Name);
         AddParam(cmd, "$desc", task.Description);
         AddParam(cmd, "$tt", task.TaskType);

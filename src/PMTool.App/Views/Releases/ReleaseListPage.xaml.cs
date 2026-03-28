@@ -136,7 +136,7 @@ public sealed partial class ReleaseListPage : Page
 
         var featList = new ListView
         {
-            Header = "特性（多选）",
+            Header = "模块（多选）",
             SelectionMode = ListViewSelectionMode.Multiple,
             MaxHeight = 200,
         };
@@ -211,7 +211,7 @@ public sealed partial class ReleaseListPage : Page
         var confirm = AloneDialogFactory.CreateDestructiveConfirm(
             XamlRoot,
             "删除版本",
-            "删除后不可恢复，关联记录将清除，特性与任务不受影响。确定删除？",
+            "删除后不可恢复，关联记录将清除，模块与任务不受影响。确定删除？",
             "删除");
 
         if (await confirm.ShowAsync() != ContentDialogResult.Primary)
@@ -227,6 +227,55 @@ public sealed partial class ReleaseListPage : Page
         else
         {
             ViewModel.DeleteSelectedCommand.Execute(null);
+        }
+    }
+
+    private async void GenerateGitChangelog_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        if (XamlRoot is null)
+        {
+            return;
+        }
+
+        try
+        {
+            ViewModel.ErrorBanner = "";
+            var md = await ViewModel.GenerateGitChangelogMarkdownAsync().ConfigureAwait(true);
+            var preview = new TextBox
+            {
+                AcceptsReturn = true,
+                Text = md,
+                IsReadOnly = true,
+                MinHeight = 220,
+                TextWrapping = Microsoft.UI.Xaml.TextWrapping.Wrap,
+            };
+            AloneDialogFactory.ApplyFormTextBoxStyle(preview);
+            ScrollViewer.SetVerticalScrollBarVisibility(preview, ScrollBarVisibility.Auto);
+            var panel = new StackPanel { Spacing = AloneDialogFactory.DialogFormSpacing, Children = { preview } };
+            var dialog = new ContentDialog
+            {
+                Title = "从 Git 生成的变更说明",
+                Content = panel,
+                PrimaryButtonText = "追加到版本描述",
+                SecondaryButtonText = "替换版本描述",
+                CloseButtonText = "取消",
+                DefaultButton = ContentDialogButton.Primary,
+                XamlRoot = XamlRoot,
+            };
+            AloneDialogFactory.ApplyChrome(dialog);
+            var r = await dialog.ShowAsync();
+            if (r == ContentDialogResult.Primary)
+            {
+                await ViewModel.ApplyGitChangelogToSelectedReleaseAsync(md, append: true).ConfigureAwait(true);
+            }
+            else if (r == ContentDialogResult.Secondary)
+            {
+                await ViewModel.ApplyGitChangelogToSelectedReleaseAsync(md, append: false).ConfigureAwait(true);
+            }
+        }
+        catch (Exception ex)
+        {
+            ViewModel.ErrorBanner = ex.Message;
         }
     }
 }

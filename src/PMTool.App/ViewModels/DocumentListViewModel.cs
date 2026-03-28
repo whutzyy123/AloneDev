@@ -37,6 +37,10 @@ public partial class DocumentListViewModel(
     private DispatcherQueueTimer? _searchHighlightClearTimer;
     private DispatcherQueueTimer? _searchDebounceTimer;
     private DispatcherQueueTimer? _autosaveTimer;
+    private DispatcherQueueTimer? _debouncedAutosaveTimer;
+
+    /// <summary>在从数据库回填编辑器时抑制防抖保存调度。</summary>
+    private bool _suppressDebouncedAutosave;
 
     private string? _loadedDocId;
     private long _loadedRowVersion;
@@ -107,12 +111,19 @@ public partial class DocumentListViewModel(
             || EditorName != _persistedName
             || IsCodeSnippetEditor != _persistedSnippet);
 
+    public string DocumentSaveStatusText =>
+        _loadedDocId is not { Length: > 0 }
+            ? string.Empty
+            : HasUnsavedChanges
+                ? "将自动保存"
+                : "已保存";
+
     public string FilterButtonText => RelateTypeFilter switch
     {
         null => "筛选：全部",
         DocumentRelateTypes.Global => "筛选：全局文档",
         DocumentRelateTypes.Project => "筛选：项目",
-        DocumentRelateTypes.Feature => "筛选：特性",
+        DocumentRelateTypes.Feature => "筛选：模块",
         _ => "筛选",
     };
 
@@ -137,11 +148,23 @@ public partial class DocumentListViewModel(
         _ = OnSelectedListRowChangedAsync(value);
     }
 
-    partial void OnMarkdownBodyChanged(string value) => OnPropertyChanged(nameof(HasUnsavedChanges));
+    partial void OnMarkdownBodyChanged(string value)
+    {
+        NotifyEditorDirtyStateChanged();
+        ScheduleDebouncedAutosave();
+    }
 
-    partial void OnEditorNameChanged(string value) => OnPropertyChanged(nameof(HasUnsavedChanges));
+    partial void OnEditorNameChanged(string value)
+    {
+        NotifyEditorDirtyStateChanged();
+        ScheduleDebouncedAutosave();
+    }
 
-    partial void OnIsCodeSnippetEditorChanged(bool value) => OnPropertyChanged(nameof(HasUnsavedChanges));
+    partial void OnIsCodeSnippetEditorChanged(bool value)
+    {
+        NotifyEditorDirtyStateChanged();
+        ScheduleDebouncedAutosave();
+    }
 
     partial void OnRelateTypeFilterChanged(string? value)
     {
@@ -240,7 +263,8 @@ public partial class DocumentListViewModel(
         var i = Math.Clamp(startIndex, 0, text.Length);
         MarkdownBody = text.Insert(i, fragment);
         CaretMoveRequested?.Invoke(this, i + fragment.Length);
-        OnPropertyChanged(nameof(HasUnsavedChanges));
+        NotifyEditorDirtyStateChanged();
+        ScheduleDebouncedAutosave();
     }
 
     public async Task HandlePasteImageAsync(int selectionStart, CancellationToken cancellationToken = default)
@@ -385,10 +409,10 @@ public partial class DocumentListViewModel(
         var feats = Order(Filtered(_documents.Where(d => d.RelateType == DocumentRelateTypes.Feature))).ToList();
         if (feats.Count > 0)
         {
-            ListRows.Add(new DocumentListRowViewModel { IsSectionHeader = true, SectionTitle = "特性文档" });
+            ListRows.Add(new DocumentListRowViewModel { IsSectionHeader = true, SectionTitle = "模块文档" });
             foreach (var d in feats)
             {
-                var fn = d.FeatureId is { Length: > 0 } x && _featureNames.TryGetValue(x, out var v) ? v : "特性";
+                var fn = d.FeatureId is { Length: > 0 } x && _featureNames.TryGetValue(x, out var v) ? v : "模块";
                 var pn = d.ProjectId is { Length: > 0 } p && _projectNames.TryGetValue(p, out var pv) ? pv : "项目";
                 ListRows.Add(new DocumentListRowViewModel { Document = d, Subtitle = $"{pn} · {fn}" });
             }
@@ -426,29 +450,47 @@ public partial class DocumentListViewModel(
             return;
         }
 
-        _loadedDocId = fresh.Id;
-        _loadedRowVersion = fresh.RowVersion;
-        MarkdownBody = fresh.Content;
-        EditorName = fresh.Name;
-        IsCodeSnippetEditor = fresh.IsCodeSnippet;
-        _persistedContent = fresh.Content;
-        _persistedName = fresh.Name;
-        _persistedSnippet = fresh.IsCodeSnippet;
-        OnPropertyChanged(nameof(HasUnsavedChanges));
+        _suppressDebouncedAutosave = true;
+        try
+        {
+            _loadedDocId = fresh.Id;
+            _loadedRowVersion = fresh.RowVersion;
+            MarkdownBody = fresh.Content;
+            EditorName = fresh.Name;
+            IsCodeSnippetEditor = fresh.IsCodeSnippet;
+            _persistedContent = fresh.Content;
+            _persistedName = fresh.Name;
+            _persistedSnippet = fresh.IsCodeSnippet;
+        }
+        finally
+        {
+            _suppressDebouncedAutosave = false;
+        }
+
+        NotifyEditorDirtyStateChanged();
         OnPropertyChanged(nameof(EditorPanelVisibility));
     }
 
     private void ClearEditor()
     {
-        _loadedDocId = null;
-        _loadedRowVersion = 0;
-        MarkdownBody = string.Empty;
-        EditorName = string.Empty;
-        IsCodeSnippetEditor = false;
-        _persistedContent = string.Empty;
-        _persistedName = string.Empty;
-        _persistedSnippet = false;
-        OnPropertyChanged(nameof(HasUnsavedChanges));
+        _suppressDebouncedAutosave = true;
+        try
+        {
+            _loadedDocId = null;
+            _loadedRowVersion = 0;
+            MarkdownBody = string.Empty;
+            EditorName = string.Empty;
+            IsCodeSnippetEditor = false;
+            _persistedContent = string.Empty;
+            _persistedName = string.Empty;
+            _persistedSnippet = false;
+        }
+        finally
+        {
+            _suppressDebouncedAutosave = false;
+        }
+
+        NotifyEditorDirtyStateChanged();
         OnPropertyChanged(nameof(EditorPanelVisibility));
     }
 
@@ -504,33 +546,42 @@ public partial class DocumentListViewModel(
             return;
         }
 
-        var name = DocumentFieldValidator.ValidateName(EditorName);
-        var content = DocumentFieldValidator.ValidateContent(MarkdownBody);
-        var fmt = DocumentFieldValidator.ValidateContentFormat(DocumentContentFormats.Markdown);
-        await documentRepository
-            .UpdateFullAsync(_loadedDocId, name, IsCodeSnippetEditor, content, fmt, _loadedRowVersion, cancellationToken)
-            .ConfigureAwait(true);
-        var updated = await documentRepository.GetByIdAsync(_loadedDocId, cancellationToken).ConfigureAwait(true);
-        if (updated is null)
+        _suppressDebouncedAutosave = true;
+        try
         {
-            throw new InvalidOperationException("保存后无法重新加载文档。");
+            var name = DocumentFieldValidator.ValidateName(EditorName);
+            var content = DocumentFieldValidator.ValidateContent(MarkdownBody);
+            var fmt = DocumentFieldValidator.ValidateContentFormat(DocumentContentFormats.Markdown);
+            await documentRepository
+                .UpdateFullAsync(_loadedDocId, name, IsCodeSnippetEditor, content, fmt, _loadedRowVersion, snippetLanguage: null, cancellationToken)
+                .ConfigureAwait(true);
+            var updated = await documentRepository.GetByIdAsync(_loadedDocId, cancellationToken).ConfigureAwait(true);
+            if (updated is null)
+            {
+                throw new InvalidOperationException("保存后无法重新加载文档。");
+            }
+
+            _loadedRowVersion = updated.RowVersion;
+            _persistedContent = updated.Content;
+            _persistedName = updated.Name;
+            _persistedSnippet = updated.IsCodeSnippet;
+            MarkdownBody = updated.Content;
+            EditorName = updated.Name;
+            IsCodeSnippetEditor = updated.IsCodeSnippet;
+            var idx = _documents.FindIndex(d => d.Id == updated.Id);
+            if (idx >= 0)
+            {
+                _documents[idx] = updated;
+            }
+
+            RebuildListRows(selectDocumentId: updated.Id);
+        }
+        finally
+        {
+            _suppressDebouncedAutosave = false;
         }
 
-        _loadedRowVersion = updated.RowVersion;
-        _persistedContent = updated.Content;
-        _persistedName = updated.Name;
-        _persistedSnippet = updated.IsCodeSnippet;
-        MarkdownBody = updated.Content;
-        EditorName = updated.Name;
-        IsCodeSnippetEditor = updated.IsCodeSnippet;
-        var idx = _documents.FindIndex(d => d.Id == updated.Id);
-        if (idx >= 0)
-        {
-            _documents[idx] = updated;
-        }
-
-        RebuildListRows(selectDocumentId: updated.Id);
-        OnPropertyChanged(nameof(HasUnsavedChanges));
+        NotifyEditorDirtyStateChanged();
     }
 
     [RelayCommand]
@@ -659,6 +710,91 @@ public partial class DocumentListViewModel(
         _autosaveTimer.Start();
     }
 
+    private void NotifyEditorDirtyStateChanged()
+    {
+        OnPropertyChanged(nameof(HasUnsavedChanges));
+        OnPropertyChanged(nameof(DocumentSaveStatusText));
+    }
+
+    private void ScheduleDebouncedAutosave()
+    {
+        if (_suppressDebouncedAutosave)
+        {
+            return;
+        }
+
+        if (_loadedDocId is null || !HasUnsavedChanges)
+        {
+            return;
+        }
+
+        var dq = DispatcherQueue.GetForCurrentThread();
+        if (dq is null)
+        {
+            return;
+        }
+
+        _debouncedAutosaveTimer ??= dq.CreateTimer();
+        _debouncedAutosaveTimer.Interval = TimeSpan.FromSeconds(2);
+        _debouncedAutosaveTimer.IsRepeating = false;
+        _debouncedAutosaveTimer.Tick -= OnDebouncedAutosaveTick;
+        _debouncedAutosaveTimer.Tick += OnDebouncedAutosaveTick;
+        _debouncedAutosaveTimer.Stop();
+        _debouncedAutosaveTimer.Start();
+    }
+
+    private async void OnDebouncedAutosaveTick(DispatcherQueueTimer sender, object args)
+    {
+        sender.Tick -= OnDebouncedAutosaveTick;
+        try
+        {
+            if (_loadedDocId is not null && HasUnsavedChanges && !_suppressDebouncedAutosave)
+            {
+                ErrorBanner = "";
+                await PersistCurrentInternalAsync().ConfigureAwait(true);
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorBanner = $"自动保存失败：{ex.Message}";
+        }
+    }
+
+    public async Task FlushPendingDebouncedAutosaveAsync()
+    {
+        if (_debouncedAutosaveTimer is not null)
+        {
+            _debouncedAutosaveTimer.Tick -= OnDebouncedAutosaveTick;
+            _debouncedAutosaveTimer.Stop();
+        }
+
+        if (_loadedDocId is null || !HasUnsavedChanges)
+        {
+            return;
+        }
+
+        try
+        {
+            ErrorBanner = "";
+            await PersistCurrentInternalAsync().ConfigureAwait(true);
+        }
+        catch (Exception ex)
+        {
+            ErrorBanner = ex.Message;
+        }
+    }
+
+    public void ReleaseDebouncedAutosaveTimer()
+    {
+        if (_debouncedAutosaveTimer is null)
+        {
+            return;
+        }
+
+        _debouncedAutosaveTimer.Tick -= OnDebouncedAutosaveTick;
+        _debouncedAutosaveTimer.Stop();
+    }
+
     private ReadOnlyObservableCollection<OperationBarMenuItem> BuildFilterMenuItems()
     {
         var items = new ObservableCollection<OperationBarMenuItem>
@@ -666,7 +802,7 @@ public partial class DocumentListViewModel(
             new() { Text = "全部", Command = SetFilterAllCommand },
             new() { Text = "全局文档", Command = SetFilterGlobalCommand },
             new() { Text = "项目", Command = SetFilterProjectCommand },
-            new() { Text = "特性", Command = SetFilterFeatureCommand },
+            new() { Text = "模块", Command = SetFilterFeatureCommand },
         };
         return new ReadOnlyObservableCollection<OperationBarMenuItem>(items);
     }

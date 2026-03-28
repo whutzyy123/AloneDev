@@ -14,15 +14,16 @@
         HorizontalAlignment="Center"
         Spacing="{StaticResource AloneSpace16}">
         <Border
-            Padding="22"
+            Padding="{x:Bind IconBadgePadding, Mode=OneWay}"
             HorizontalAlignment="Center"
             Background="{ThemeResource AloneSurfaceContainerHighBrush}"
             CornerRadius="24">
             <FontIcon
                 HorizontalAlignment="Center"
                 FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                FontSize="44"
+                FontSize="{x:Bind IconFontSize, Mode=OneWay}"
                 Foreground="{ThemeResource AlonePrimaryBrush}"
+                Opacity="{x:Bind IconOpacity, Mode=OneWay}"
                 Glyph="{x:Bind Glyph, Mode=OneWay}" />
         </Border>
         <TextBlock
@@ -44,5 +45,14 @@
             Content="{x:Bind PrimaryLabel, Mode=OneWay}"
             Style="{StaticResource AlonePrimaryButtonStyle}"
             Visibility="{x:Bind IsPrimaryVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+        <TextBlock
+            HorizontalAlignment="Center"
+            MaxWidth="360"
+            Opacity="0.88"
+            Style="{StaticResource AloneCaptionTextBlockStyle}"
+            Text="{x:Bind Footnote, Mode=OneWay}"
+            TextAlignment="Center"
+            TextWrapping="WrapWholeWords"
+            Visibility="{x:Bind Footnote, Mode=OneWay, Converter={StaticResource StringNotEmptyToVisibilityConverter}}" />
     </StackPanel>
 </UserControl>

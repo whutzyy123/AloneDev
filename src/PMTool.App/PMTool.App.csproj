@@ -33,6 +33,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Content Include="Assets\CodeHighlight\**\*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
         <Content Include="Assets\SplashScreen.scale-200.png" />
         <Content Include="Assets\LockScreenLogo.scale-200.png" />
         <Content Include="Assets\Square150x150Logo.scale-200.png" />

@@ -5,7 +5,7 @@ namespace PMTool.Infrastructure.Storage;
 
 public sealed class CurrentAccountContext(IDataRootProvider dataRootProvider) : ICurrentAccountContext
 {
-    private string _accountName = "默认账号";
+    private string _accountName = "个人项目";
 
     public string CurrentAccountName => _accountName;
 

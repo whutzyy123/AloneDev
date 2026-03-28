@@ -44,10 +44,10 @@
                         <TextBlock
                             MaxLines="2"
                             Style="{StaticResource AloneListCardTitleStyle}"
-                            Text="{x:Bind FileName, Mode=OneWay}"
+                            Text="{x:Bind FileName, Mode=OneTime}"
                             TextWrapping="Wrap" />
-                        <TextBlock Style="{StaticResource AloneListCardMetaStyle}" Text="{x:Bind SizeDisplay, Mode=OneWay}" />
-                        <TextBlock Style="{StaticResource AloneListCardMetaStyle}" Text="{x:Bind TimeDisplay, Mode=OneWay}" />
+                        <TextBlock Style="{StaticResource AloneListCardMetaStyle}" Text="{x:Bind SizeDisplay, Mode=OneTime}" />
+                        <TextBlock Style="{StaticResource AloneListCardMetaStyle}" Text="{x:Bind TimeDisplay, Mode=OneTime}" />
                     </StackPanel>
                     <StackPanel
                         Grid.Column="2"
@@ -57,7 +57,7 @@
                             Click="OpenBackupFolder_Click"
                             Content="打开目录"
                             Style="{StaticResource AloneSecondaryButtonStyle}"
-                            Tag="{x:Bind AbsolutePath, Mode=OneWay}" />
+                            Tag="{x:Bind AbsolutePath, Mode=OneTime}" />
                         <Button
                             Click="DeleteBackupRow_Click"
                             Content="删除"
@@ -101,7 +101,7 @@
                 <Border
                     Background="{ThemeResource AloneSurfaceContainerLowestBrush}"
                     Style="{StaticResource AloneElevatedCardBorderStyle}">
-                    <StackPanel Padding="{StaticResource AlonePadding16}" Spacing="{StaticResource AloneSpace12}">
+                    <StackPanel Padding="{StaticResource AlonePadding16}" Spacing="{StaticResource AloneSpace16}">
                         <TextBlock Style="{StaticResource AloneFormSectionTitleStyle}" Text="当前数据库" />
                         <TextBlock
                             Style="{StaticResource AloneFormSectionDescriptionStyle}"
@@ -121,12 +121,12 @@
                 <Border
                     Background="{ThemeResource AloneSurfaceContainerLowestBrush}"
                     Style="{StaticResource AloneElevatedCardBorderStyle}">
-                    <StackPanel Padding="{StaticResource AlonePadding16}" Spacing="{StaticResource AloneSpace12}">
+                    <StackPanel Padding="{StaticResource AlonePadding16}" Spacing="{StaticResource AloneSpace16}">
                         <TextBlock Style="{StaticResource AloneFormSectionTitleStyle}" Text="备份" />
                         <TextBlock
                             Style="{StaticResource AloneFormSectionDescriptionStyle}"
                             Text="手动或按策略将数据库复制到本地备份目录；删除备份不可恢复。" />
-                        <StackPanel Orientation="Horizontal" Spacing="{StaticResource AloneSpace12}">
+                        <StackPanel Orientation="Horizontal" Spacing="{StaticResource AloneSpace16}">
                             <Button
                                 Click="ManualBackup_Click"
                                 Content="手动备份…"
@@ -193,7 +193,7 @@
                 <Border
                     Background="{ThemeResource AloneSurfaceContainerLowestBrush}"
                     Style="{StaticResource AloneElevatedCardBorderStyle}">
-                    <StackPanel Padding="{StaticResource AlonePadding16}" Spacing="{StaticResource AloneSpace12}">
+                    <StackPanel Padding="{StaticResource AlonePadding16}" Spacing="{StaticResource AloneSpace16}">
                         <TextBlock Style="{StaticResource AloneFormSectionTitleStyle}" Text="恢复" />
                         <TextBlock
                             Style="{StaticResource AloneFormSectionDescriptionStyle}"
@@ -206,7 +206,7 @@
                 <Border
                     Background="{ThemeResource AloneSurfaceContainerLowestBrush}"
                     Style="{StaticResource AloneElevatedCardBorderStyle}">
-                    <StackPanel Padding="{StaticResource AlonePadding16}" Spacing="{StaticResource AloneSpace12}">
+                    <StackPanel Padding="{StaticResource AlonePadding16}" Spacing="{StaticResource AloneSpace16}">
                         <TextBlock Style="{StaticResource AloneFormSectionTitleStyle}" Text="导出" />
                         <TextBlock
                             Style="{StaticResource AloneFormSectionDescriptionStyle}"
@@ -214,7 +214,7 @@
                         <TextBlock Style="{StaticResource AloneLabelMdTextBlockStyle}" Text="模块（多选）" />
                         <StackPanel Spacing="{StaticResource AloneSpace8}">
                             <CheckBox Content="项目" IsChecked="{x:Bind ViewModel.ExportProjects, Mode=TwoWay}" />
-                            <CheckBox Content="特性" IsChecked="{x:Bind ViewModel.ExportFeatures, Mode=TwoWay}" />
+                            <CheckBox Content="模块" IsChecked="{x:Bind ViewModel.ExportFeatures, Mode=TwoWay}" />
                             <CheckBox Content="任务" IsChecked="{x:Bind ViewModel.ExportTasks, Mode=TwoWay}" />
                             <CheckBox Content="版本" IsChecked="{x:Bind ViewModel.ExportReleases, Mode=TwoWay}" />
                             <CheckBox Content="文档" IsChecked="{x:Bind ViewModel.ExportDocuments, Mode=TwoWay}" />

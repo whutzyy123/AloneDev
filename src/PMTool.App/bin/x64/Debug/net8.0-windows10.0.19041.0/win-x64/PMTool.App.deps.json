@@ -767,6 +767,24 @@
           }
         }
       },
+      "LibGit2Sharp/0.30.0": {
+        "dependencies": {
+          "LibGit2Sharp.NativeBinaries": "2.0.322"
+        },
+        "runtime": {
+          "lib/net6.0/LibGit2Sharp.dll": {
+            "assemblyVersion": "0.30.0.0",
+            "fileVersion": "0.30.0.0"
+          }
+        }
+      },
+      "LibGit2Sharp.NativeBinaries/2.0.322": {
+        "native": {
+          "runtimes/win-x64/native/git2-a418d9d.dll": {
+            "fileVersion": "1.7.2.0"
+          }
+        }
+      },
       "Markdig/0.37.0": {
         "runtime": {
           "lib/net8.0/Markdig.dll": {
@@ -1106,6 +1124,7 @@
       },
       "PMTool.Infrastructure/1.0.0": {
         "dependencies": {
+          "LibGit2Sharp": "0.30.0",
           "Microsoft.Data.Sqlite": "8.0.8",
           "Microsoft.Extensions.DependencyInjection": "9.0.0",
           "MiniExcel": "1.41.4",
@@ -1150,6 +1169,20 @@
       "sha512": "sha512-WadCzGEc2U+3e20avRLng4qNtt4zoOGWrdUISqJWrHe3/FSnrYjuM5Sb4yQb09LhkBXrrI4Zt3dLKgRMbItsrg==",
       "path": "communitytoolkit.mvvm/8.4.2",
       "hashPath": "communitytoolkit.mvvm.8.4.2.nupkg.sha512"
+    },
+    "LibGit2Sharp/0.30.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1cBg/7nz6q+yzvComhqQaTS4nbXloLp/x29ZgY/Rr82ohpkuaWT8ZYzsPLFvs1zmCh/4xQbVt5sQxazGblgRig==",
+      "path": "libgit2sharp/0.30.0",
+      "hashPath": "libgit2sharp.0.30.0.nupkg.sha512"
+    },
+    "LibGit2Sharp.NativeBinaries/2.0.322": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EWQaEevzc8uS1ZGS6T83jqUPBY//2WUSCHwbZHBoHOjlfSehqr30nm/VAhJPzjam/69sv7nlLKVcho9t2XuR/Q==",
+      "path": "libgit2sharp.nativebinaries/2.0.322",
+      "hashPath": "libgit2sharp.nativebinaries.2.0.322.nupkg.sha512"
     },
     "Markdig/0.37.0": {
       "type": "package",

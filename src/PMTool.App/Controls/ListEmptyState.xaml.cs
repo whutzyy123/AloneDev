@@ -11,6 +11,54 @@ public sealed partial class ListEmptyState : UserControl
         InitializeComponent();
     }
 
+    public string Footnote
+    {
+        get => (string)GetValue(FootnoteProperty);
+        set => SetValue(FootnoteProperty, value);
+    }
+
+    public static readonly DependencyProperty FootnoteProperty = DependencyProperty.Register(
+        nameof(Footnote),
+        typeof(string),
+        typeof(ListEmptyState),
+        new PropertyMetadata(string.Empty));
+
+    public double IconFontSize
+    {
+        get => (double)GetValue(IconFontSizeProperty);
+        set => SetValue(IconFontSizeProperty, value);
+    }
+
+    public static readonly DependencyProperty IconFontSizeProperty = DependencyProperty.Register(
+        nameof(IconFontSize),
+        typeof(double),
+        typeof(ListEmptyState),
+        new PropertyMetadata(44d));
+
+    public Thickness IconBadgePadding
+    {
+        get => (Thickness)GetValue(IconBadgePaddingProperty);
+        set => SetValue(IconBadgePaddingProperty, value);
+    }
+
+    public static readonly DependencyProperty IconBadgePaddingProperty = DependencyProperty.Register(
+        nameof(IconBadgePadding),
+        typeof(Thickness),
+        typeof(ListEmptyState),
+        new PropertyMetadata(new Thickness(22)));
+
+    public double IconOpacity
+    {
+        get => (double)GetValue(IconOpacityProperty);
+        set => SetValue(IconOpacityProperty, value);
+    }
+
+    public static readonly DependencyProperty IconOpacityProperty = DependencyProperty.Register(
+        nameof(IconOpacity),
+        typeof(double),
+        typeof(ListEmptyState),
+        new PropertyMetadata(1d));
+
     public string Title
     {
         get => (string)GetValue(TitleProperty);

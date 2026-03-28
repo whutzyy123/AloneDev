@@ -24,11 +24,11 @@ public partial class FeatureListViewModel(
     private ReadOnlyObservableCollection<OperationBarMenuItem>? _filterMenuItems;
     private ReadOnlyObservableCollection<OperationBarMenuItem>? _sortMenuItems;
 
-    public string SearchPlaceholderText => "搜索特性名称或描述…";
+    public string SearchPlaceholderText => "搜索模块名称或描述…";
 
     public bool IsOperationBarInteractive => SelectedProjectId is { Length: > 0 };
 
-    public string PrimaryActionLabel => "新建特性";
+    public string PrimaryActionLabel => "新建模块";
 
     public IRelayCommand? PrimaryActionCommand => RequestNewFeatureUiCommand;
 
@@ -74,7 +74,7 @@ public partial class FeatureListViewModel(
     private string _errorBanner = "";
 
     [ObservableProperty]
-    private bool _isKanbanView;
+    private bool _isKanbanView = true;
 
     [ObservableProperty]
     private string _detailStatusDraft = FeatureStatuses.ToPlan;
@@ -415,7 +415,7 @@ public partial class FeatureListViewModel(
             }
 
             var existing = await featureRepository.GetByIdAsync(featureId).ConfigureAwait(true)
-                ?? throw new InvalidOperationException("特性不存在。");
+                ?? throw new InvalidOperationException("模块不存在。");
             if (existing.Status == targetStatus)
             {
                 return null;
@@ -556,7 +556,7 @@ public partial class FeatureListViewModel(
         {
             ErrorBanner = "";
             var existing = await featureRepository.GetByIdAsync(SelectedFeature.Id).ConfigureAwait(true)
-                ?? throw new InvalidOperationException("特性不存在。");
+                ?? throw new InvalidOperationException("模块不存在。");
             if (existing.Status == DetailStatusDraft)
             {
                 return;
@@ -604,7 +604,7 @@ public partial class FeatureListViewModel(
             ErrorBanner = "";
             if (await featureDeletionGuard.HasBlockingTasksAsync(SelectedFeature.Id).ConfigureAwait(true))
             {
-                ErrorBanner = "该特性有关联任务，无法删除。";
+                ErrorBanner = "该模块有关联任务，无法删除。";
                 return;
             }
 
@@ -665,7 +665,7 @@ public partial class FeatureListViewModel(
         string? dueDate)
     {
         var existing = await featureRepository.GetByIdAsync(id).ConfigureAwait(true)
-            ?? throw new InvalidOperationException("特性不存在。");
+            ?? throw new InvalidOperationException("模块不存在。");
         var n = FeatureFieldValidator.ValidateName(name);
         var d = FeatureFieldValidator.ValidateDescription(description);
         var ac = FeatureFieldValidator.ValidateLongText(acceptanceCriteria, "验收标准");

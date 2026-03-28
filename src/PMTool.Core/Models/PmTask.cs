@@ -4,7 +4,8 @@ public sealed class PmTask
 {
     public required string Id { get; init; }
     public required string ProjectId { get; init; }
-    public required string FeatureId { get; init; }
+    /// <summary>为 null 表示任务直接隶属项目，不挂在某一模块下。</summary>
+    public string? FeatureId { get; init; }
     public required string Name { get; init; }
     public string Description { get; init; } = string.Empty;
     public required string TaskType { get; init; }

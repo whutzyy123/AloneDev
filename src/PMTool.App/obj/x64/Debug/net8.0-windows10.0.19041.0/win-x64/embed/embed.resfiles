@@ -1,10 +1,12 @@
 App.xbf
 Controls\GlobalSearchPanel.xbf
+Controls\HighlightedSnippetBlock.xbf
 Controls\ListEmptyState.xbf
 Controls\OperationBar.xbf
 Themes\Cards.xbf
 Themes\Colors.xbf
 Themes\Controls.xbf
+Themes\DialogFormFieldResources.xbf
 Themes\Dialogs.xbf
 Themes\Elevation.xbf
 Themes\FormSections.xbf
@@ -20,4 +22,5 @@ Views\Projects\ProjectListPage.xbf
 Views\Releases\ReleaseListPage.xbf
 Views\Settings\SettingsPage.xbf
 Views\Shell\MainShellPage.xbf
+Views\Snippets\SnippetListPage.xbf
 Views\Tasks\TaskListPage.xbf

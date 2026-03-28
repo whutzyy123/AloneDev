@@ -3,6 +3,7 @@ using PMTool.Core.Abstractions;
 using PMTool.Infrastructure.Data;
 using PMTool.Infrastructure.Diagnostics;
 using PMTool.Infrastructure.Export;
+using PMTool.Infrastructure.Git;
 using PMTool.Infrastructure.Storage;
 
 namespace PMTool.Infrastructure.DependencyInjection;
@@ -37,6 +38,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDataRootMigrationService, DataRootMigrationService>();
         services.AddSingleton<IAccountBackupService, AccountBackupService>();
         services.AddSingleton<IDataExportService, DataExportService>();
+        services.AddSingleton<IGitChangelogService, GitChangelogService>();
         return services;
     }
 }

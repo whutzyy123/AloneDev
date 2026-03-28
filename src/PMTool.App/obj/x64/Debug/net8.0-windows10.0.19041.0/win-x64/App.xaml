@@ -16,6 +16,7 @@
             <conv:InverseBoolConverter x:Key="InverseBoolConverter" />
             <conv:StringNotEmptyToBoolConverter x:Key="StringNotEmptyToBoolConverter" />
             <conv:ProjectStatusChipBrushConverter x:Key="ProjectStatusChipBrushConverter" />
+            <conv:ProjectIdAccentGradientBrushConverter x:Key="ProjectIdAccentGradientBrushConverter" />
             <conv:TaskTypeAccentBrushConverter x:Key="TaskTypeAccentBrushConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />

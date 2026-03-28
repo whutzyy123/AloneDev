@@ -20,7 +20,7 @@ public sealed class ReleaseRelationItemViewModel
             RelationId = row.RelationId,
             TargetType = row.TargetType,
             TargetId = row.TargetId,
-            TypeLabel = row.TargetType == Core.ReleaseRelationTarget.Feature ? "特性" : "任务",
+            TypeLabel = row.TargetType == Core.ReleaseRelationTarget.Feature ? "模块" : "任务",
             DisplayName = row.DisplayName,
         };
 }

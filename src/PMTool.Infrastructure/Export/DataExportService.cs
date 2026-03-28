@@ -105,7 +105,7 @@ public sealed class DataExportService(
     private static string ModuleLabel(DataExportModule m) => m switch
     {
         DataExportModule.Projects => "项目",
-        DataExportModule.Features => "特性",
+        DataExportModule.Features => "模块",
         DataExportModule.Tasks => "任务",
         DataExportModule.Releases => "版本",
         DataExportModule.Documents => "文档",
@@ -116,7 +116,7 @@ public sealed class DataExportService(
     private static string ModuleFilePrefix(DataExportModule m) => m switch
     {
         DataExportModule.Projects => "项目",
-        DataExportModule.Features => "特性",
+        DataExportModule.Features => "模块",
         DataExportModule.Tasks => "任务",
         DataExportModule.Releases => "版本",
         DataExportModule.Documents => "文档",
@@ -136,9 +136,11 @@ public sealed class DataExportService(
             ["描述"] = p.Project.Description,
             ["状态"] = p.Project.Status,
             ["分类"] = p.Project.Category,
+            ["技术栈"] = p.Project.TechStack,
+            ["本地Git根路径"] = p.Project.LocalGitRoot,
             ["创建时间"] = p.Project.CreatedAt,
             ["更新时间"] = p.Project.UpdatedAt,
-            ["特性数"] = p.FeatureCount,
+            ["模块数"] = p.FeatureCount,
             ["任务数"] = p.TaskCount,
             ["版本数"] = p.ReleaseCount,
             ["文档数"] = p.DocumentCount,
@@ -176,7 +178,7 @@ public sealed class DataExportService(
         {
             ["Id"] = t.Id,
             ["项目Id"] = t.ProjectId,
-            ["特性Id"] = t.FeatureId,
+            ["模块Id"] = t.FeatureId,
             ["名称"] = t.Name,
             ["描述"] = t.Description,
             ["类型"] = t.TaskType,
@@ -217,12 +219,13 @@ public sealed class DataExportService(
         {
             ["Id"] = d.Id,
             ["项目Id"] = d.ProjectId,
-            ["特性Id"] = d.FeatureId,
+            ["模块Id"] = d.FeatureId,
             ["名称"] = d.Name,
             ["关联类型"] = d.RelateType,
             ["正文"] = d.Content,
             ["格式"] = d.ContentFormat,
             ["代码片段"] = d.IsCodeSnippet,
+            ["片段语言"] = d.SnippetLanguage,
             ["创建时间"] = d.CreatedAt,
             ["更新时间"] = d.UpdatedAt,
             ["行版本"] = d.RowVersion,

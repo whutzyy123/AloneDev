@@ -18,6 +18,7 @@ public partial class TaskListViewModel(
     IProjectRepository projectRepository) : ObservableObject, IOperationBarViewModel
 {
     private bool _suppressTaskProjectCascadeForSearchJump;
+    private (string TaskId, string ProjectId, string? FeatureId)? _pendingFocusAfterRefresh;
     private DispatcherQueueTimer? _searchHighlightClearTimer;
     private DispatcherQueueTimer? _searchDebounceTimer;
     private ReadOnlyObservableCollection<OperationBarMenuItem>? _filterMenuItems;
@@ -78,7 +79,7 @@ public partial class TaskListViewModel(
     private string _errorBanner = "";
 
     [ObservableProperty]
-    private bool _isKanbanView;
+    private bool _isKanbanView = true;
 
     [ObservableProperty]
     private string _detailStatusDraft = TaskStatuses.NotStarted;
@@ -121,6 +122,9 @@ public partial class TaskListViewModel(
         !string.IsNullOrEmpty(SelectedFeatureId) && Tasks.Count == 0
         && (!string.IsNullOrWhiteSpace(SearchQuery) || StatusFilter is not null);
 
+    public string TaskEmptyStateTitle =>
+        string.IsNullOrEmpty(SelectedFeatureId) ? "当前项目暂无任务" : "当前模块暂无任务";
+
     public Visibility ListVisibility => Tasks.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
 
     public Visibility TableHeaderVisibility => IsKanbanView ? Visibility.Collapsed : Visibility.Visible;
@@ -153,6 +157,10 @@ public partial class TaskListViewModel(
     public event EventHandler? EditTaskUiRequested;
 
     public Task<PmTask?> GetTaskEntityAsync(string id) => taskRepository.GetByIdAsync(id);
+
+    /// <summary>在下次 <see cref="RefreshAsync"/> 完成后聚焦并高亮指定任务（供跨页导航回填）。</summary>
+    public void QueueFocusNewTaskAfterRefresh(string taskId, string projectId, string? featureId) =>
+        _pendingFocusAfterRefresh = (taskId, projectId, featureId);
 
     partial void OnSelectedProjectIdChanged(string? value)
     {
@@ -341,11 +349,23 @@ public partial class TaskListViewModel(
             OnPropertyChanged(nameof(EmptyProjectsVisibility));
             OnPropertyChanged(nameof(SelectProjectVisibility));
             OnPropertyChanged(nameof(SelectFeatureVisibility));
+            await ConsumePendingTaskFocusAsync().ConfigureAwait(true);
         }
         catch (Exception ex)
         {
             ErrorBanner = ex.Message;
         }
+    }
+
+    private async Task ConsumePendingTaskFocusAsync()
+    {
+        if (_pendingFocusAfterRefresh is not { } p)
+        {
+            return;
+        }
+
+        _pendingFocusAfterRefresh = null;
+        await JumpToEntityFromSearchAsync(p.TaskId, p.ProjectId, p.FeatureId).ConfigureAwait(true);
     }
 
     private async Task LoadFeaturesForProjectAsync()
@@ -479,7 +499,7 @@ public partial class TaskListViewModel(
         }
     }
 
-    /// <summary>看板落列：仅改状态，不改 sort_value；成功返回 null。</summary>
+    /// <summary>看板落列：仅变更任务状态，不改 sort_value；feature_id 允许为空。</summary>
     public async Task<string?> MoveTaskToColumnAsync(string taskId, string targetStatus)
     {
         try
@@ -487,7 +507,7 @@ public partial class TaskListViewModel(
             ErrorBanner = "";
             if (string.IsNullOrEmpty(SelectedFeatureId))
             {
-                return "请先选择特性。";
+                return "目标状态不能为空。";
             }
 
             var existing = await taskRepository.GetByIdAsync(taskId).ConfigureAwait(true)
@@ -607,7 +627,7 @@ public partial class TaskListViewModel(
     {
         if (string.IsNullOrEmpty(SelectedFeatureId))
         {
-            ErrorBanner = "请先选择所属特性。";
+            ErrorBanner = "请先选择所属模块。";
             return;
         }
 
@@ -749,7 +769,7 @@ public partial class TaskListViewModel(
     {
         if (string.IsNullOrEmpty(SelectedFeatureId))
         {
-            throw new InvalidOperationException("未选择特性。");
+            throw new InvalidOperationException("未选择模块。");
         }
 
         var n = TaskFieldValidator.ValidateName(name);

@@ -4,14 +4,14 @@ public static class FeatureFieldValidator
 {
     private const int LongTextMax = 2000;
 
-    public static string ValidateName(string name) => SharedEntityNameRules.Validate(name, "特性");
+    public static string ValidateName(string name) => SharedEntityNameRules.Validate(name, "模块");
 
     public static string ValidateDescription(string? description)
     {
         var s = description ?? string.Empty;
         if (s.Length > LongTextMax)
         {
-            throw new ArgumentException($"特性描述不可超过 {LongTextMax} 个字符。", nameof(description));
+            throw new ArgumentException($"模块描述不可超过 {LongTextMax} 个字符。", nameof(description));
         }
 
         return s;

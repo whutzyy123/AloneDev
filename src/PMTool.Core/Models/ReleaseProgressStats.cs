@@ -1,6 +1,6 @@
 namespace PMTool.Core.Models;
 
-/// <summary>PRD 6.5.2：F/f 为关联特性总数与「已完成|已上线」数；T/t 为关联任务总数与已完成数。</summary>
+/// <summary>PRD 6.5.2：F/f 为关联模块总数与「已完成|已上线」数；T/t 为关联任务总数与已完成数。</summary>
 public readonly record struct ReleaseProgressStats(
     int TotalFeatures,
     int CompletedFeatures,

@@ -4,17 +4,17 @@
     "d:\\AloneDev\\src\\PMTool.Infrastructure\\PMTool.Infrastructure.csproj": {}
   },
   "projects": {
-    "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {
+    "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
+        "projectUniqueName": "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
         "projectName": "PMTool.Core",
-        "projectPath": "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
-        "packagesPath": "d:\\AloneDev\\.nuget\\packages",
-        "outputPath": "d:\\AloneDev\\src\\PMTool.Core\\obj\\",
+        "projectPath": "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
+        "packagesPath": "D:\\AloneDev\\.nuget\\packages",
+        "outputPath": "D:\\AloneDev\\src\\PMTool.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "d:\\AloneDev\\NuGet.Config",
+          "D:\\AloneDev\\NuGet.Config",
           "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
@@ -87,8 +87,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {
-                "projectPath": "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj"
+              "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {
+                "projectPath": "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj"
               }
             }
           }
@@ -109,6 +109,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "LibGit2Sharp": {
+              "target": "Package",
+              "version": "[0.30.0, )"
+            },
             "Microsoft.Data.Sqlite": {
               "target": "Package",
               "version": "[8.0.8, )"

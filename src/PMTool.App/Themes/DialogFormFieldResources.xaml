@@ -1,0 +1,27 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--
+        仅合并到对话框内容根，覆盖 TextBox / NumberBox 内层模板使用的主题键（见 WinUI DefaultTextBoxStyle）。
+    -->
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush x:Key="TextControlBackground" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="TextControlBorderBrush" Color="#CED4DC" />
+            <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="#B8BFC8" />
+            <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#006CBE" />
+            <SolidColorBrush x:Key="TextControlBorderBrushDisabled" Color="#E8EBF1" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush x:Key="TextControlBackground" Color="#1A1D28" />
+            <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#1F2230" />
+            <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#1F2230" />
+            <SolidColorBrush x:Key="TextControlBorderBrush" Color="#40475A" />
+            <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="#535A6E" />
+            <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#47A7FF" />
+            <SolidColorBrush x:Key="TextControlBorderBrushDisabled" Color="#2A2C3C" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>

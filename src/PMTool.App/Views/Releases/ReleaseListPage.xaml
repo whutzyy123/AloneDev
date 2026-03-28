@@ -28,16 +28,23 @@
             <ComboBox
                 MinWidth="280"
                 HorizontalAlignment="Left"
+                Style="{StaticResource AloneComboBoxStyle}"
                 DisplayMemberPath="Name"
                 ItemsSource="{x:Bind ViewModel.ProjectOptions, Mode=OneWay}"
                 SelectedValue="{x:Bind ViewModel.SelectedProjectId, Mode=TwoWay}"
                 SelectedValuePath="Id" />
+            <InfoBar
+                IsClosable="False"
+                IsOpen="True"
+                Message="当前项目尚未关联本地 Git 仓库。可在「项目」中编辑项目并设置路径后，从提交记录生成变更说明。"
+                Severity="Informational"
+                Visibility="{x:Bind ViewModel.GitMissingHintVisibility, Mode=OneWay}" />
         </StackPanel>
 
         <Border
             Grid.Row="1"
             Margin="0,12,0,12"
-            Padding="12"
+            Padding="{StaticResource AloneModuleChromePadding}"
             Background="{ThemeResource AloneSurfaceContainerLowBrush}"
             CornerRadius="{StaticResource DefaultCornerRadius}"
             Visibility="{x:Bind ViewModel.ErrorBannerVisibility, Mode=OneWay}">
@@ -107,7 +114,10 @@
                     Margin="{StaticResource AloneMarginTop24}"
                     Title="当前项目暂无版本计划"
                     Description="点击下方按钮创建版本，规划发布节奏与关联项。"
+                    Footnote="从创建一个里程碑开始，掌控开发节奏。"
                     Glyph="&#xE8F1;"
+                    IconFontSize="32"
+                    IconBadgePadding="14,14,14,14"
                     PrimaryCommand="{x:Bind ViewModel.RequestNewReleaseUiCommand, Mode=OneWay}"
                     PrimaryLabel="新建版本"
                     Visibility="{x:Bind ViewModel.GlobalEmptyVisibility, Mode=OneWay}" />
@@ -135,7 +145,7 @@
                                     Background="Transparent"
                                     BorderThickness="0"
                                     Command="{Binding ElementName=ReleasePageRoot, Path=ViewModel.SelectReleaseRowCommand}"
-                                    CommandParameter="{x:Bind}"
+                                    CommandParameter="{x:Bind Mode=OneTime}"
                                     CornerRadius="{StaticResource DefaultCornerRadius}">
                                     <Border
                                         Padding="8"
@@ -153,31 +163,31 @@
                                                 Grid.Column="0"
                                                 VerticalAlignment="Center"
                                                 Style="{StaticResource AloneTitleSmTextBlockStyle}"
-                                                Text="{x:Bind Name, Mode=OneWay}" />
+                                                Text="{x:Bind Name, Mode=OneTime}" />
                                             <TextBlock
                                                 Grid.Column="1"
                                                 VerticalAlignment="Center"
                                                 Style="{StaticResource AloneBodyMdTextBlockStyle}"
-                                                Text="{x:Bind StartAt, Mode=OneWay}" />
+                                                Text="{x:Bind StartAt, Mode=OneTime}" />
                                             <TextBlock
                                                 Grid.Column="1"
                                                 Margin="0,16,0,0"
                                                 VerticalAlignment="Center"
                                                 Opacity="0.85"
                                                 Style="{StaticResource AloneBodyMdTextBlockStyle}"
-                                                Text="{x:Bind EndAt, Mode=OneWay}" />
+                                                Text="{x:Bind EndAt, Mode=OneTime}" />
                                             <TextBlock
                                                 Grid.Column="2"
                                                 HorizontalAlignment="Right"
                                                 VerticalAlignment="Center"
                                                 Style="{StaticResource AloneBodyMdTextBlockStyle}"
-                                                Text="{x:Bind Status, Mode=OneWay}" />
+                                                Text="{x:Bind Status, Mode=OneTime}" />
                                             <TextBlock
                                                 Grid.Column="3"
                                                 HorizontalAlignment="Right"
                                                 VerticalAlignment="Center"
                                                 Style="{StaticResource AloneBodyMdTextBlockStyle}"
-                                                Text="{x:Bind ProgressLabel, Mode=OneWay}" />
+                                                Text="{x:Bind ProgressLabel, Mode=OneTime}" />
                                         </Grid>
                                     </Border>
                                 </Button>
@@ -243,6 +253,11 @@
                             Style="{StaticResource AloneSecondaryButtonStyle}" />
                     </StackPanel>
                     <Button
+                        Click="GenerateGitChangelog_Click"
+                        Content="从 Git 生成变更说明"
+                        IsEnabled="{x:Bind ViewModel.CanShowGitChangelogButton, Mode=OneWay}"
+                        Style="{StaticResource AloneSecondaryButtonStyle}" />
+                    <Button
                         Click="DeleteRelease_Click"
                         Content="删除版本"
                         IsEnabled="{x:Bind ViewModel.CanDeleteSelected, Mode=OneWay}"
@@ -257,17 +272,17 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Spacing="2">
-                                        <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="{x:Bind TypeLabel, Mode=OneWay}" />
+                                        <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="{x:Bind TypeLabel, Mode=OneTime}" />
                                         <TextBlock
                                             Opacity="0.9"
                                             Style="{StaticResource AloneTitleSmTextBlockStyle}"
-                                            Text="{x:Bind DisplayName, Mode=OneWay}" />
+                                            Text="{x:Bind DisplayName, Mode=OneTime}" />
                                     </StackPanel>
                                     <Button
                                         Grid.Column="1"
                                         VerticalAlignment="Center"
                                         Command="{Binding ElementName=ReleasePageRoot, Path=ViewModel.RemoveRelationCommand}"
-                                        CommandParameter="{x:Bind}"
+                                        CommandParameter="{x:Bind Mode=OneTime}"
                                         Content="移除"
                                         Style="{StaticResource AloneSecondaryButtonStyle}" />
                                 </Grid>

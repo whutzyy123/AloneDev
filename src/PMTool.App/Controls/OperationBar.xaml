@@ -26,22 +26,8 @@
         <TextBlock
             Grid.Column="0"
             VerticalAlignment="Center"
-            Style="{StaticResource AloneHeadlineSmTextBlockStyle}"
+            Style="{StaticResource AlonePageTitleTextBlockStyle}"
             Text="{x:Bind Title, Mode=OneWay}" />
-        <AutoSuggestBox
-            x:Name="ModuleSearchBox"
-            Grid.Column="1"
-            MinWidth="240"
-            MinHeight="40"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Center"
-            Background="{ThemeResource AloneSurfaceContainerLowBrush}"
-            BorderThickness="0"
-            CornerRadius="20"
-            IsEnabled="{Binding IsOperationBarInteractive, Mode=OneWay}"
-            PlaceholderText="{Binding SearchPlaceholderText, Mode=OneWay}"
-            Text="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            Visibility="{Binding ShowModuleSearch, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
         <StackPanel
             Grid.Column="2"
             VerticalAlignment="Center"

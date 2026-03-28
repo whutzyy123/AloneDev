@@ -98,7 +98,7 @@ public partial class AccountManagementViewModel(
             StatusMessage = "";
             var payload = $"{accountManagement.CurrentAccountName} @ {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}Z";
             await probeRepository.InsertMarkerAsync(payload).ConfigureAwait(true);
-            StatusMessage = "已在当前库写入 iteration1_account_probe 一行。";
+            StatusMessage = "已写入环境校验数据。";
         }
         catch (Exception ex)
         {

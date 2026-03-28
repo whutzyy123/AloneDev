@@ -44,45 +44,28 @@
                             Opacity="0.92"
                             Symbol="{x:Bind Glyph, Mode=OneWay}" />
                     </Viewbox>
-                    <Grid
-                        ColumnSpacing="{StaticResource AloneSpace12}"
+                    <StackPanel
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="{StaticResource AloneSpace16}"
                         Visibility="{x:Bind ShowExpandedNav, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Rectangle
-                            Width="4"
-                            Margin="-10,0,0,0"
+                        <Viewbox
+                            Width="{StaticResource AloneNavIconBox}"
+                            Height="{StaticResource AloneNavIconBox}"
                             HorizontalAlignment="Left"
-                            VerticalAlignment="Stretch"
-                            Fill="{ThemeResource AlonePrimaryBrush}"
-                            RadiusX="2"
-                            RadiusY="2"
-                            Opacity="{x:Bind AccentOpacity, Mode=OneWay}" />
-                        <StackPanel
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal"
-                            Spacing="{StaticResource AloneSpace12}">
-                            <Viewbox
-                                Width="{StaticResource AloneNavIconBox}"
-                                Height="{StaticResource AloneNavIconBox}"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center">
-                                <SymbolIcon
-                                    VerticalAlignment="Center"
-                                    Foreground="{ThemeResource AloneOnSurfaceBrush}"
-                                    Opacity="0.92"
-                                    Symbol="{x:Bind Glyph, Mode=OneWay}" />
-                            </Viewbox>
-                            <TextBlock
+                            VerticalAlignment="Center">
+                            <SymbolIcon
                                 VerticalAlignment="Center"
-                                FontWeight="{x:Bind NavLabelFontWeight, Mode=OneWay}"
-                                Style="{StaticResource AloneBodyMdTextBlockStyle}"
-                                Text="{x:Bind Label, Mode=OneWay}" />
-                        </StackPanel>
-                    </Grid>
+                                Foreground="{ThemeResource AloneOnSurfaceBrush}"
+                                Opacity="0.92"
+                                Symbol="{x:Bind Glyph, Mode=OneWay}" />
+                        </Viewbox>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontWeight="{x:Bind NavLabelFontWeight, Mode=OneWay}"
+                            Style="{StaticResource AloneBodyMdTextBlockStyle}"
+                            Text="{x:Bind Label, Mode=OneWay}" />
+                    </StackPanel>
                 </Grid>
             </Button>
         </DataTemplate>
@@ -93,7 +76,9 @@
             Invoked="GlobalSearchAccelerator_Invoked"
             Modifiers="Control" />
     </Page.KeyboardAccelerators>
-    <Grid>
+    <Grid
+        x:Name="RootLayout"
+        PointerPressed="RootLayout_PointerPressed">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -105,7 +90,7 @@
             Grid.Row="0"
             MinHeight="{StaticResource ShellChromeBarHeight}">
             <Border Background="{ThemeResource AloneChromeElevatedBrush}" Shadow="{StaticResource AloneFloatThemeShadow}">
-                <Grid Padding="{StaticResource AloneShellChromePadding}" ColumnSpacing="{StaticResource AloneSpace12}">
+                <Grid Padding="{StaticResource AloneShellChromePadding}" ColumnSpacing="{StaticResource AloneSpace16}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
@@ -118,24 +103,55 @@
                         Spacing="2">
                         <TextBlock Style="{StaticResource AloneTitleSmTextBlockStyle}" Text="AloneDev" />
                         <TextBlock
-                            Style="{StaticResource AloneCaptionTextBlockStyle}"
+                            Style="{StaticResource AloneModuleMetaTextBlockStyle}"
                             Text="{x:Bind ViewModel.ModuleTitle, Mode=OneWay}" />
                     </StackPanel>
-                    <AutoSuggestBox
-                        x:Name="ShellGlobalSearchBox"
+                    <Grid
                         Grid.Column="1"
-                        MinWidth="260"
-                        MinHeight="40"
-                        MaxWidth="560"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        Background="{ThemeResource AloneSurfaceContainerLowBrush}"
-                        BorderThickness="0"
-                        CornerRadius="20"
-                        GotFocus="ShellGlobalSearchBox_GotFocus"
-                        PlaceholderText="全局搜索并跳转…（Ctrl+K）"
-                        QueryIcon="Find"
-                        Text="{x:Bind GlobalSearchVm.Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        ColumnSpacing="{StaticResource AloneSpace8}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            x:Name="SearchExpandButton"
+                            Grid.Column="0"
+                            Width="36"
+                            Height="36"
+                            Padding="0"
+                            Background="{ThemeResource AloneSearchChromeBrush}"
+                            BorderThickness="0"
+                            Click="SearchExpandButton_Click"
+                            CornerRadius="{StaticResource AloneSearchPillCornerRadius}"
+                            ToolTipService.ToolTip="搜索（Ctrl+K）">
+                            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE721;" />
+                        </Button>
+                        <AutoSuggestBox
+                            x:Name="ShellGlobalSearchBox"
+                            Grid.Column="1"
+                            MinWidth="340"
+                            MinHeight="36"
+                            MaxWidth="760"
+                            Width="680"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Opacity="0"
+                            Background="{ThemeResource AloneSearchChromeBrush}"
+                            BorderThickness="0"
+                            CornerRadius="{StaticResource AloneSearchPillCornerRadius}"
+                            GotFocus="ShellGlobalSearchBox_GotFocus"
+                            PlaceholderText="搜索并跳转…（Ctrl+K）"
+                            QueryIcon="Find"
+                            RenderTransformOrigin="0.5,0.5"
+                            Visibility="Collapsed"
+                            Text="{x:Bind GlobalSearchVm.Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <AutoSuggestBox.RenderTransform>
+                                <ScaleTransform ScaleX="0.92" ScaleY="1" />
+                            </AutoSuggestBox.RenderTransform>
+                        </AutoSuggestBox>
+                    </Grid>
                 </Grid>
             </Border>
         </Grid>
@@ -146,11 +162,12 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!-- Left rail -->
-            <Grid
+            <!-- Left rail：白底 + ThemeShadow，与画布分层 -->
+            <Border
                 Grid.Column="0"
-                Padding="{StaticResource AloneNavRailOuterPadding}"
-                Background="{ThemeResource AloneSurfaceContainerLowBrush}">
+                Background="{ThemeResource AloneSurfaceContainerLowestBrush}"
+                Shadow="{StaticResource AloneFloatThemeShadow}">
+                <Grid Padding="{StaticResource AloneNavRailOuterPadding}" Background="Transparent">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -162,18 +179,13 @@
                 Padding="{StaticResource AloneNavHeaderStackPadding}"
                 Spacing="{StaticResource AloneSpace16}">
                 <StackPanel Spacing="{StaticResource AloneSpace8}">
-                    <StackPanel Orientation="Horizontal" Spacing="{StaticResource AloneSpace12}">
+                    <StackPanel Orientation="Horizontal" Spacing="{StaticResource AloneSpace16}">
                         <Border
                             Width="40"
                             Height="40"
                             VerticalAlignment="Center"
-                            CornerRadius="{StaticResource CornerRadiusSmall}">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Offset="0" Color="#0067C0" />
-                                    <GradientStop Offset="1" Color="#0078D4" />
-                                </LinearGradientBrush>
-                            </Border.Background>
+                            CornerRadius="{StaticResource CornerRadiusSmall}"
+                            Background="{ThemeResource AlonePrimaryGradientBrush}">
                             <FontIcon
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
@@ -188,72 +200,11 @@
                                 Text="AloneDev" />
                             <TextBlock
                                 CharacterSpacing="80"
-                                Style="{StaticResource AloneCaptionTextBlockStyle}"
+                                Style="{StaticResource AloneModuleMetaTextBlockStyle}"
                                 Text="本地工作区 · 离线" />
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
-                <Button
-                    x:Name="AccountMenuButton"
-                    Width="40"
-                    Height="40"
-                    HorizontalAlignment="Left"
-                    Padding="0"
-                    Background="{ThemeResource AloneSurfaceContainerHighestBrush}"
-                    BorderThickness="0"
-                    CornerRadius="20"
-                    ToolTipService.ToolTip="本地账号">
-                    <Button.Flyout>
-                        <Flyout FlyoutPresenterStyle="{StaticResource AloneFlyoutPresenterStyle}" Opening="AccountFlyout_Opening">
-                            <StackPanel MinWidth="280" Spacing="{StaticResource AloneSpace12}">
-                                <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="当前账号" />
-                                <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="{x:Bind AccountVm.CurrentAccountDisplay, Mode=OneWay}" />
-                                <TextBlock
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    Style="{StaticResource AloneBodyMdTextBlockStyle}"
-                                    Text="账号列表" />
-                                <ListView
-                                    MaxHeight="200"
-                                    Padding="{StaticResource AloneListViewInlayPadding}"
-                                    Background="{ThemeResource AloneSurfaceContainerHighestBrush}"
-                                    CornerRadius="{StaticResource DefaultCornerRadius}"
-                                    ItemsSource="{x:Bind AccountVm.Accounts, Mode=OneWay}"
-                                    SelectedItem="{x:Bind AccountVm.SelectedAccountName, Mode=TwoWay}"
-                                    SelectionMode="Single" />
-                                <TextBox
-                                    Header="新账号名称"
-                                    PlaceholderText="例如：个人 / 工作"
-                                    Style="{StaticResource AloneFormTextBoxStyle}"
-                                    Text="{x:Bind AccountVm.NewAccountName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Button
-                                    HorizontalAlignment="Stretch"
-                                    Command="{x:Bind AccountVm.AddAccountCommand}"
-                                    Content="创建账号"
-                                    Style="{StaticResource AloneSecondaryButtonStyle}" />
-                                <Button
-                                    HorizontalAlignment="Stretch"
-                                    Command="{x:Bind AccountVm.SwitchAccountCommand}"
-                                    Content="切换到选中账号"
-                                    Style="{StaticResource AloneSecondaryButtonStyle}" />
-                                <Button
-                                    HorizontalAlignment="Stretch"
-                                    Click="DeleteAccountButton_Click"
-                                    Content="删除选中账号…"
-                                    Style="{StaticResource AloneSecondaryButtonStyle}" />
-                                <Button
-                                    HorizontalAlignment="Stretch"
-                                    Command="{x:Bind AccountVm.InsertProbeCommand}"
-                                    Content="写入验收探针（iteration1）"
-                                    Style="{StaticResource AloneSecondaryButtonStyle}" />
-                                <TextBlock
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    Text="{x:Bind AccountVm.StatusMessage, Mode=OneWay}"
-                                    TextWrapping="WrapWholeWords" />
-                            </StackPanel>
-                        </Flyout>
-                    </Button.Flyout>
-                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE77B;" />
-                </Button>
             </StackPanel>
 
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
@@ -262,19 +213,96 @@
 
                 <Border
                     Grid.Row="2"
-                    Margin="12,4,12,0"
-                    Padding="12,8,12,8"
-                    Background="{ThemeResource AloneSurfaceBrush}"
+                    Margin="12,8,12,8"
+                    Padding="{StaticResource AlonePadding8}"
+                    Background="{ThemeResource AloneSurfaceContainerLowBrush}"
                     CornerRadius="{StaticResource DefaultCornerRadius}">
-                    <ItemsControl ItemTemplate="{StaticResource NavRailItemTemplate}" ItemsSource="{x:Bind ViewModel.FooterNavEntries, Mode=OneWay}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="{StaticResource AloneSpace8}" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <ItemsControl
+                            Grid.Row="0"
+                            HorizontalAlignment="Stretch"
+                            ItemTemplate="{StaticResource NavRailItemTemplate}"
+                            ItemsSource="{x:Bind ViewModel.FooterNavEntries, Mode=OneWay}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel
+                                        HorizontalAlignment="Stretch"
+                                        Orientation="Vertical"
+                                        Spacing="{StaticResource AloneSpace16}" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                        <Button
+                            x:Name="AccountMenuButton"
+                            Grid.Row="1"
+                            Width="40"
+                            Height="40"
+                            Margin="0,16,0,0"
+                            HorizontalAlignment="Left"
+                            Padding="0"
+                            Background="{ThemeResource AloneSurfaceContainerHighestBrush}"
+                            BorderThickness="0"
+                            CornerRadius="{StaticResource AloneSearchPillCornerRadius}"
+                            ToolTipService.ToolTip="切换工作空间（本地数据隔离）">
+                            <Button.Flyout>
+                                <Flyout FlyoutPresenterStyle="{StaticResource AloneFlyoutPresenterStyle}" Opening="AccountFlyout_Opening">
+                                    <StackPanel MinWidth="280" Spacing="{StaticResource AloneSpace16}">
+                                        <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="当前工作空间" />
+                                        <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="{x:Bind AccountVm.CurrentAccountDisplay, Mode=OneWay}" />
+                                        <TextBlock
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                            Style="{StaticResource AloneBodyMdTextBlockStyle}"
+                                            Text="工作空间列表" />
+                                        <ListView
+                                            MaxHeight="200"
+                                            Padding="{StaticResource AloneListViewInlayPadding}"
+                                            Background="{ThemeResource AloneSurfaceContainerHighestBrush}"
+                                            CornerRadius="{StaticResource DefaultCornerRadius}"
+                                            ItemsSource="{x:Bind AccountVm.Accounts, Mode=OneWay}"
+                                            SelectedItem="{x:Bind AccountVm.SelectedAccountName, Mode=TwoWay}"
+                                            SelectionMode="Single" />
+                                        <TextBox
+                                            Header="新建工作空间名称"
+                                            PlaceholderText="例如：个人项目、公司私活、学习练习"
+                                            Style="{StaticResource AloneFormTextBoxStyle}"
+                                            Text="{x:Bind AccountVm.NewAccountName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <Button
+                                            HorizontalAlignment="Stretch"
+                                            Command="{x:Bind AccountVm.AddAccountCommand}"
+                                            Content="创建工作空间"
+                                            Style="{StaticResource AloneSecondaryButtonStyle}" />
+                                        <Button
+                                            HorizontalAlignment="Stretch"
+                                            Command="{x:Bind AccountVm.SwitchAccountCommand}"
+                                            Content="切换到此工作空间"
+                                            Style="{StaticResource AloneSecondaryButtonStyle}" />
+                                        <Button
+                                            HorizontalAlignment="Stretch"
+                                            Click="DeleteAccountButton_Click"
+                                            Content="删除此工作空间…"
+                                            Style="{StaticResource AloneSecondaryButtonStyle}" />
+                                        <Button
+                                            HorizontalAlignment="Stretch"
+                                            Command="{x:Bind AccountVm.InsertProbeCommand}"
+                                            Content="初始化环境"
+                                            Style="{StaticResource AloneSecondaryButtonStyle}" />
+                                        <TextBlock
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                            Text="{x:Bind AccountVm.StatusMessage, Mode=OneWay}"
+                                            TextWrapping="WrapWholeWords" />
+                                    </StackPanel>
+                                </Flyout>
+                            </Button.Flyout>
+                            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE77B;" />
+                        </Button>
+                    </Grid>
                 </Border>
-            </Grid>
+                </Grid>
+            </Border>
 
             <!-- Main column -->
             <Grid Grid.Column="1">
@@ -297,8 +325,9 @@
                 <Border
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Background="{ThemeResource AloneSurfaceContainerLowBrush}"
-                    CornerRadius="{StaticResource DefaultCornerRadius}">
+                    Background="{ThemeResource AloneSurfaceContainerLowestBrush}"
+                    CornerRadius="{StaticResource DefaultCornerRadius}"
+                    Shadow="{StaticResource AloneFloatThemeShadow}">
                     <Frame
                         x:Name="ContentFrame"
                         HorizontalAlignment="Stretch"
@@ -312,7 +341,7 @@
             x:Name="GlobalSearchShortcutTip"
             Grid.RowSpan="2"
             Title="全局搜索"
-            Subtitle="使用顶栏搜索框或 Ctrl+K，在项目、特性、任务等内容间快速跳转。"
+            Subtitle="使用顶栏搜索框或 Ctrl+K，在项目、模块、任务等内容间快速跳转。"
             PreferredPlacement="Right"
             IsLightDismissEnabled="True"
             ActionButtonContent="知道了"

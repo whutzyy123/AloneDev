@@ -26,8 +26,8 @@ public sealed class AccountManagementService(
         var catalog = await LoadAndSanitizeCatalogAsync(cancellationToken).ConfigureAwait(false);
         if (catalog.Accounts.Count == 0)
         {
-            catalog.Accounts.Add("默认账号");
-            catalog.LastSelectedAccount = "默认账号";
+            catalog.Accounts.Add("个人项目");
+            catalog.LastSelectedAccount = "个人项目";
             await catalogRepository.SaveAsync(catalog, cancellationToken).ConfigureAwait(false);
         }
 
@@ -49,7 +49,7 @@ public sealed class AccountManagementService(
         var catalog = await LoadAndSanitizeCatalogAsync(cancellationToken).ConfigureAwait(false);
         if (catalog.Accounts.Contains(normalized, StringComparer.Ordinal))
         {
-            throw new InvalidOperationException($"账号 “{normalized}” 已存在。");
+            throw new InvalidOperationException($"工作空间 “{normalized}” 已存在。");
         }
 
         catalog.Accounts.Add(normalized);
@@ -62,7 +62,7 @@ public sealed class AccountManagementService(
         var catalog = await LoadAndSanitizeCatalogAsync(cancellationToken).ConfigureAwait(false);
         if (!catalog.Accounts.Contains(normalized, StringComparer.Ordinal))
         {
-            throw new InvalidOperationException($"账号 “{normalized}” 不在目录中。");
+            throw new InvalidOperationException($"工作空间 “{normalized}” 不在目录中。");
         }
 
         accountContext.SetCurrentAccount(normalized);
@@ -78,12 +78,12 @@ public sealed class AccountManagementService(
         var catalog = await LoadAndSanitizeCatalogAsync(cancellationToken).ConfigureAwait(false);
         if (catalog.Accounts.Count <= 1)
         {
-            throw new InvalidOperationException("至少保留一个本地账号。");
+            throw new InvalidOperationException("至少保留一个本地工作空间。");
         }
 
         if (!catalog.Accounts.Remove(normalized))
         {
-            throw new InvalidOperationException($"账号 “{normalized}” 不在目录中。");
+            throw new InvalidOperationException($"工作空间 “{normalized}” 不在目录中。");
         }
 
         if (string.Equals(catalog.LastSelectedAccount, normalized, StringComparison.Ordinal))

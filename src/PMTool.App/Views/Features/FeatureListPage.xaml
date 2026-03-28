@@ -21,9 +21,9 @@
                 Background="{ThemeResource AloneSurfaceContainerLowestBrush}"
                 CanDrag="True"
                 DragStarting="FeatureKanbanCard_DragStarting"
-                Style="{StaticResource AloneElevatedCardBorderStyle}">
+                Style="{StaticResource AloneKanbanCardBorderStyle}">
                 <StackPanel Spacing="{StaticResource AloneSpace8}" Tapped="FeatureKanbanCard_Tapped">
-                    <Grid ColumnSpacing="{StaticResource AloneSpace12}">
+                    <Grid ColumnSpacing="{StaticResource AloneSpace16}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
@@ -39,7 +39,7 @@
                             Padding="6,2,6,2"
                             VerticalAlignment="Center"
                             Background="{ThemeResource AloneChipPriorityP0BackgroundBrush}"
-                            CornerRadius="4"
+                            CornerRadius="{StaticResource CornerRadiusSmall}"
                             Visibility="{x:Bind IsPriorityP0, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                             <TextBlock
                                 Foreground="{ThemeResource AloneChipPriorityP0ForegroundBrush}"
@@ -66,6 +66,14 @@
                             Text="·" />
                         <TextBlock Style="{StaticResource AloneListCardMetaStyle}" Text="{x:Bind UpdatedAt, Mode=OneWay}" />
                     </StackPanel>
+                    <TextBlock
+                        MaxLines="3"
+                        Opacity="0.85"
+                        Style="{StaticResource AloneListCardMetaStyle}"
+                        Text="{x:Bind DescriptionPreview, Mode=OneWay}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="WrapWholeWords"
+                        Visibility="{x:Bind DescriptionPreview, Mode=OneWay, Converter={StaticResource StringNotEmptyToVisibilityConverter}}" />
                 </StackPanel>
             </Border>
         </DataTemplate>
@@ -81,11 +89,17 @@
         <StackPanel
             Grid.Row="0"
             Margin="{StaticResource AloneMarginBottom16}"
-            Spacing="{StaticResource AloneSpace8}">
+            Spacing="{StaticResource AloneSpace16}">
+            <TextBlock
+                MaxWidth="560"
+                Style="{StaticResource AloneBodyMdTextBlockStyle}"
+                Text="模块用来按功能域拆分工作，适合个人项目里的「登录」「设置页」等粒度。碎片任务也可以不建模块，直接在「任务」里挂到项目下。"
+                TextWrapping="WrapWholeWords" />
             <TextBlock Style="{StaticResource AloneLabelMdTextBlockStyle}" Text="所属项目" />
             <ComboBox
                 MinWidth="280"
                 HorizontalAlignment="Left"
+                Style="{StaticResource AloneComboBoxStyle}"
                 DisplayMemberPath="Name"
                 ItemsSource="{x:Bind ViewModel.ProjectOptions, Mode=OneWay}"
                 SelectedValue="{x:Bind ViewModel.SelectedProjectId, Mode=TwoWay}"
@@ -110,14 +124,14 @@
                 Grid.Row="0"
                 VerticalAlignment="Center"
                 Orientation="Horizontal"
-                Spacing="{StaticResource AloneSpace12}">
+                Spacing="{StaticResource AloneSpace16}">
                 <TextBlock
                     VerticalAlignment="Center"
                     Style="{StaticResource AloneLabelMdTextBlockStyle}"
                     Text="视图" />
                 <ToggleButton
                     VerticalAlignment="Center"
-                    Content="看板视图"
+                    Content="看板"
                     IsChecked="{x:Bind ViewModel.IsKanbanView, Mode=TwoWay}"
                     Style="{StaticResource AloneSecondaryToggleButtonStyle}" />
             </StackPanel>
@@ -186,16 +200,16 @@
                     <TextBlock
                         HorizontalAlignment="Center"
                         Style="{StaticResource AloneListCardMetaStyle}"
-                        Text="请选择一个项目以查看特性" />
+                        Text="请选择一个项目以查看模块" />
                 </StackPanel>
 
                 <controls:ListEmptyState
                     Margin="{StaticResource AloneMarginTop24}"
-                    Title="当前项目暂无特性"
-                    Description="创建特性以规划版本范围与任务拆解。"
+                    Title="当前项目暂无模块"
+                    Description="新建模块以划分功能域；小任务也可只在「任务」页挂到项目上，不必先建模块。"
                     Glyph="&#xE8FD;"
                     PrimaryCommand="{x:Bind ViewModel.RequestNewFeatureUiCommand, Mode=OneWay}"
-                    PrimaryLabel="新建特性"
+                    PrimaryLabel="新建模块"
                     Visibility="{x:Bind ViewModel.GlobalEmptyVisibility, Mode=OneWay}" />
 
                 <StackPanel
@@ -206,7 +220,7 @@
                     <TextBlock
                         HorizontalAlignment="Center"
                         Style="{StaticResource AloneListCardMetaStyle}"
-                        Text="无匹配特性，请调整筛选或搜索关键词。" />
+                        Text="无匹配模块，请调整筛选或搜索关键词。" />
                 </StackPanel>
 
                 <ScrollViewer
@@ -224,7 +238,7 @@
                                     Background="Transparent"
                                     BorderThickness="0"
                                     Command="{Binding ElementName=FeaturePageRoot, Path=ViewModel.SelectFeatureCommand}"
-                                    CommandParameter="{x:Bind}"
+                                    CommandParameter="{x:Bind Mode=OneTime}"
                                     CornerRadius="{StaticResource CornerRadiusLarge}">
                                     <Border
                                         Padding="{StaticResource AloneListCardPadding}"
@@ -232,18 +246,27 @@
                                         Background="{x:Bind IsSearchHighlight, Converter={StaticResource SearchRowBackgroundConverter}, Mode=OneWay}"
                                         CornerRadius="{StaticResource CornerRadiusLarge}"
                                         Style="{StaticResource AloneElevatedCardBorderStyle}">
-                                        <Grid ColumnSpacing="{StaticResource AloneSpace12}">
+                                        <Grid ColumnSpacing="{StaticResource AloneSpace16}">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="2*" />
                                                 <ColumnDefinition Width="72" />
                                                 <ColumnDefinition Width="88" />
                                                 <ColumnDefinition Width="140" />
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock
+                                            <StackPanel
                                                 Grid.Column="0"
                                                 VerticalAlignment="Center"
-                                                Style="{StaticResource AloneListCardTitleStyle}"
-                                                Text="{x:Bind Name, Mode=OneWay}" />
+                                                Spacing="{StaticResource AloneSpace4}">
+                                                <TextBlock Style="{StaticResource AloneListCardTitleStyle}" Text="{x:Bind Name, Mode=OneWay}" />
+                                                <TextBlock
+                                                    MaxLines="2"
+                                                    Opacity="0.82"
+                                                    Style="{StaticResource AloneListCardMetaStyle}"
+                                                    Text="{x:Bind DescriptionPreview, Mode=OneWay}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    TextWrapping="WrapWholeWords"
+                                                    Visibility="{x:Bind DescriptionPreview, Mode=OneWay, Converter={StaticResource StringNotEmptyToVisibilityConverter}}" />
+                                            </StackPanel>
                                             <TextBlock
                                                 Grid.Column="1"
                                                 HorizontalAlignment="Right"
@@ -271,7 +294,9 @@
                     </ItemsControl>
                 </ScrollViewer>
 
-                <Grid Visibility="{x:Bind ViewModel.KanbanMainVisibility, Mode=OneWay}">
+                <Grid
+                    ColumnSpacing="{StaticResource AloneKanbanColumnSpacing}"
+                    Visibility="{x:Bind ViewModel.KanbanMainVisibility, Mode=OneWay}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
@@ -282,11 +307,11 @@
                     <Border
                         x:Name="KanbanFeatureCol0"
                         Grid.Column="0"
-                        Margin="0,0,6,0"
+                        Margin="0"
                         Padding="{StaticResource AlonePadding8}"
                         VerticalAlignment="Stretch"
                         AllowDrop="True"
-                        Background="{ThemeResource AloneKanbanColumnBrush0}"
+                        Background="{ThemeResource AloneKanbanColumnBackgroundBrush}"
                         CornerRadius="{StaticResource CornerRadiusLarge}"
                         DragOver="FeatureKanbanColumn_DragOver"
                         Drop="FeatureKanbanColumn_Drop"
@@ -294,11 +319,20 @@
                         <Grid RowSpacing="{StaticResource AloneSpace8}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <TextBlock Style="{StaticResource AloneLabelMdTextBlockStyle}" Text="待规划" />
-                            <ScrollViewer
+                            <Border
+                                Height="3"
+                                HorizontalAlignment="Stretch"
+                                Background="{ThemeResource AloneKanbanColumnAccent0}"
+                                CornerRadius="2,2,0,0" />
+                            <TextBlock
                                 Grid.Row="1"
+                                Style="{StaticResource AloneLabelMdTextBlockStyle}"
+                                Text="待规划" />
+                            <ScrollViewer
+                                Grid.Row="2"
                                 HorizontalScrollBarVisibility="Disabled"
                                 VerticalScrollBarVisibility="Auto">
                                 <ItemsControl
@@ -311,11 +345,11 @@
                     <Border
                         x:Name="KanbanFeatureCol1"
                         Grid.Column="1"
-                        Margin="6,0,6,0"
+                        Margin="0"
                         Padding="{StaticResource AlonePadding8}"
                         VerticalAlignment="Stretch"
                         AllowDrop="True"
-                        Background="{ThemeResource AloneKanbanColumnBrush1}"
+                        Background="{ThemeResource AloneKanbanColumnBackgroundBrush}"
                         CornerRadius="{StaticResource CornerRadiusLarge}"
                         DragOver="FeatureKanbanColumn_DragOver"
                         Drop="FeatureKanbanColumn_Drop"
@@ -323,11 +357,20 @@
                         <Grid RowSpacing="{StaticResource AloneSpace8}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <TextBlock Style="{StaticResource AloneLabelMdTextBlockStyle}" Text="进行中" />
-                            <ScrollViewer
+                            <Border
+                                Height="3"
+                                HorizontalAlignment="Stretch"
+                                Background="{ThemeResource AloneKanbanColumnAccent1}"
+                                CornerRadius="2,2,0,0" />
+                            <TextBlock
                                 Grid.Row="1"
+                                Style="{StaticResource AloneLabelMdTextBlockStyle}"
+                                Text="进行中" />
+                            <ScrollViewer
+                                Grid.Row="2"
                                 HorizontalScrollBarVisibility="Disabled"
                                 VerticalScrollBarVisibility="Auto">
                                 <ItemsControl
@@ -340,11 +383,11 @@
                     <Border
                         x:Name="KanbanFeatureCol2"
                         Grid.Column="2"
-                        Margin="6,0,6,0"
+                        Margin="0"
                         Padding="{StaticResource AlonePadding8}"
                         VerticalAlignment="Stretch"
                         AllowDrop="True"
-                        Background="{ThemeResource AloneKanbanColumnBrush2}"
+                        Background="{ThemeResource AloneKanbanColumnBackgroundBrush}"
                         CornerRadius="{StaticResource CornerRadiusLarge}"
                         DragOver="FeatureKanbanColumn_DragOver"
                         Drop="FeatureKanbanColumn_Drop"
@@ -352,11 +395,20 @@
                         <Grid RowSpacing="{StaticResource AloneSpace8}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <TextBlock Style="{StaticResource AloneLabelMdTextBlockStyle}" Text="已完成" />
-                            <ScrollViewer
+                            <Border
+                                Height="3"
+                                HorizontalAlignment="Stretch"
+                                Background="{ThemeResource AloneKanbanColumnAccent2}"
+                                CornerRadius="2,2,0,0" />
+                            <TextBlock
                                 Grid.Row="1"
+                                Style="{StaticResource AloneLabelMdTextBlockStyle}"
+                                Text="已完成" />
+                            <ScrollViewer
+                                Grid.Row="2"
                                 HorizontalScrollBarVisibility="Disabled"
                                 VerticalScrollBarVisibility="Auto">
                                 <ItemsControl
@@ -369,11 +421,11 @@
                     <Border
                         x:Name="KanbanFeatureCol3"
                         Grid.Column="3"
-                        Margin="6,0,0,0"
+                        Margin="0"
                         Padding="{StaticResource AlonePadding8}"
                         VerticalAlignment="Stretch"
                         AllowDrop="True"
-                        Background="{ThemeResource AloneKanbanColumnBrush3}"
+                        Background="{ThemeResource AloneKanbanColumnBackgroundBrush}"
                         CornerRadius="{StaticResource CornerRadiusLarge}"
                         DragOver="FeatureKanbanColumn_DragOver"
                         Drop="FeatureKanbanColumn_Drop"
@@ -381,11 +433,20 @@
                         <Grid RowSpacing="{StaticResource AloneSpace8}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <TextBlock Style="{StaticResource AloneLabelMdTextBlockStyle}" Text="已上线" />
-                            <ScrollViewer
+                            <Border
+                                Height="3"
+                                HorizontalAlignment="Stretch"
+                                Background="{ThemeResource AloneKanbanColumnAccent3}"
+                                CornerRadius="2,2,0,0" />
+                            <TextBlock
                                 Grid.Row="1"
+                                Style="{StaticResource AloneLabelMdTextBlockStyle}"
+                                Text="已上线" />
+                            <ScrollViewer
+                                Grid.Row="2"
                                 HorizontalScrollBarVisibility="Disabled"
                                 VerticalScrollBarVisibility="Auto">
                                 <ItemsControl
@@ -406,7 +467,7 @@
                 Background="{ThemeResource AloneSurfaceContainerLowestBrush}"
                 CornerRadius="{StaticResource DefaultCornerRadius}"
                 Visibility="{x:Bind ViewModel.DetailPanelVisibility, Mode=OneWay}">
-                <StackPanel Spacing="{StaticResource AloneSpace12}">
+                <StackPanel Spacing="{StaticResource AloneSpace16}">
                     <TextBlock Style="{StaticResource AloneTitleLgTextBlockStyle}" Text="{x:Bind ViewModel.DetailTitle, Mode=OneWay}" />
                     <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="{x:Bind ViewModel.DetailMeta, Mode=OneWay}" />
                     <TextBlock Style="{StaticResource AloneLabelMdTextBlockStyle}" Text="任务完成进度" />
@@ -418,6 +479,7 @@
                     <TextBlock Style="{StaticResource AloneLabelMdTextBlockStyle}" Text="可流转状态（禁止跨级前进）" />
                     <ComboBox
                         HorizontalAlignment="Stretch"
+                        Style="{StaticResource AloneComboBoxStyle}"
                         ItemsSource="{x:Bind ViewModel.DetailAllowedStatuses, Mode=OneWay}"
                         SelectedItem="{x:Bind ViewModel.DetailStatusDraft, Mode=TwoWay}" />
                     <Button

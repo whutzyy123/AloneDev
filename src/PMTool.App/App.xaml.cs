@@ -287,6 +287,7 @@ public partial class App : Microsoft.UI.Xaml.Application
         services.AddSingleton<TaskListViewModel>();
         services.AddSingleton<ReleaseListViewModel>();
         services.AddSingleton<DocumentListViewModel>();
+        services.AddSingleton<SnippetListViewModel>();
         services.AddSingleton<IdeaListViewModel>();
         services.AddSingleton<GlobalSearchViewModel>();
         services.AddSingleton<GlobalSearchUiCoordinator>();
@@ -298,11 +299,13 @@ public partial class App : Microsoft.UI.Xaml.Application
             sp.GetRequiredService<TaskListViewModel>(),
             sp.GetRequiredService<ReleaseListViewModel>(),
             sp.GetRequiredService<DocumentListViewModel>(),
+            sp.GetRequiredService<SnippetListViewModel>(),
             sp.GetRequiredService<IdeaListViewModel>(),
             sp.GetRequiredService<DataManagementViewModel>(),
             sp.GetRequiredService<DisabledOperationBarViewModel>(),
             () => sp.GetRequiredService<SettingsViewModel>()));
         services.AddSingleton<IShellNavCoordinator>(sp => new ShellNavCoordinator(sp.GetRequiredService<ShellViewModel>()));
+        services.AddSingleton<Func<IShellNavCoordinator>>(sp => () => sp.GetRequiredService<IShellNavCoordinator>());
         services.AddSingleton<SettingsViewModel>();
         services.AddSingleton<MainShellShortcutController>();
         services.AddSingleton<IGlobalSearchNavigationService, GlobalSearchNavigator>();

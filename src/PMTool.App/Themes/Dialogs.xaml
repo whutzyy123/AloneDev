@@ -1,6 +1,8 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- ContentDialog smoke 画刷定义在 Themes/Colors.xaml 的 Light/Dark 字典中 -->
+
     <Thickness x:Key="AloneDialogContentPadding">24,20,24,16</Thickness>
 
     <Style x:Key="AloneContentDialogStyle" TargetType="ContentDialog">
@@ -9,24 +11,51 @@
 
     <Style
         x:Key="AloneDialogPrimaryButtonStyle"
-        BasedOn="{StaticResource AlonePrimaryButtonStyle}"
-        TargetType="Button" />
+        BasedOn="{StaticResource AccentButtonStyle}"
+        TargetType="Button">
+        <Setter Property="Background" Value="{ThemeResource AlonePrimaryBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource AloneOnPrimaryBrush}" />
+        <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusSmall}" />
+        <Setter Property="Padding" Value="18,11" />
+        <Setter Property="FontFamily" Value="Segoe UI Variable" />
+        <Setter Property="FontSize" Value="{StaticResource BodyMdFontSize}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
 
     <Style
         x:Key="AloneDialogCloseButtonStyle"
-        BasedOn="{StaticResource AloneSecondaryButtonStyle}"
-        TargetType="Button" />
+        BasedOn="{StaticResource DefaultButtonStyle}"
+        TargetType="Button">
+        <Setter Property="Background" Value="{ThemeResource AloneDialogSecondaryFillBrush}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource AloneCardOutlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="{ThemeResource AloneOnSurfaceBrush}" />
+        <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusSmall}" />
+        <Setter Property="Padding" Value="16,10" />
+        <Setter Property="FontFamily" Value="Segoe UI Variable" />
+        <Setter Property="FontSize" Value="{StaticResource BodyMdFontSize}" />
+    </Style>
 
     <Style
         x:Key="AloneDialogSecondaryButtonStyle"
-        BasedOn="{StaticResource AloneSecondaryButtonStyle}"
-        TargetType="Button" />
+        BasedOn="{StaticResource DefaultButtonStyle}"
+        TargetType="Button">
+        <Setter Property="Background" Value="{ThemeResource AloneDialogSecondaryFillBrush}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource AloneCardOutlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="{ThemeResource AloneOnSurfaceBrush}" />
+        <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusSmall}" />
+        <Setter Property="Padding" Value="16,10" />
+        <Setter Property="FontFamily" Value="Segoe UI Variable" />
+        <Setter Property="FontSize" Value="{StaticResource BodyMdFontSize}" />
+    </Style>
 
     <Style
         x:Key="AloneDialogDestructivePrimaryButtonStyle"
-        BasedOn="{StaticResource AloneSecondaryButtonStyle}"
+        BasedOn="{StaticResource AloneDialogPrimaryButtonStyle}"
         TargetType="Button">
-        <Setter Property="Foreground" Value="{ThemeResource AloneErrorBrush}" />
+        <Setter Property="Background" Value="{ThemeResource AloneErrorBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource AloneOnPrimaryBrush}" />
     </Style>
 
     <Style x:Key="AloneFlyoutPresenterStyle" TargetType="FlyoutPresenter">
@@ -48,6 +77,9 @@
         BasedOn="{StaticResource DefaultTextBoxStyle}"
         TargetType="TextBox">
         <Setter Property="PlaceholderForeground" Value="{ThemeResource AloneOnSurfaceVariantBrush}" />
+        <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusSmall}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="MinHeight" Value="36" />
     </Style>
 
     <Style
@@ -55,6 +87,7 @@
         BasedOn="{StaticResource DefaultNumberBoxStyle}"
         TargetType="NumberBox" />
 
+    <!-- On 态轨道/描边/旋钮：见 Themes/Colors.xaml 中 ToggleSwitch* 键（应用级覆盖 Fluent Accent） -->
     <Style
         x:Key="AloneFormToggleSwitchStyle"
         BasedOn="{StaticResource DefaultToggleSwitchStyle}"

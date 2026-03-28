@@ -13,7 +13,7 @@
     mc:Ignorable="d">
     <Border x:ConnectionId='2'
         x:Name="FlyoutRootBorder"
-        MaxHeight="320"
+        MaxHeight="520"
         Padding="8"
         HorizontalAlignment="Stretch"
         Background="Transparent"
@@ -25,15 +25,31 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <!-- 单列范围；由顶栏搜索框输入关键词，此处不再重复搜索框 -->
             <StackPanel Grid.Row="0" Spacing="{StaticResource AloneSpace8}">
-                <TextBlock Style="{StaticResource AloneCaptionTextBlockStyle}" Text="搜索范围（默认全选）" />
+                <Border x:ConnectionId='16'
+                    Padding="10,6,10,6"
+                    Background="{ThemeResource AloneSurfaceContainerHighBrush}"
+                    CornerRadius="{StaticResource DefaultCornerRadius}"
+                                                                                                                                  >
+                    <StackPanel Orientation="Horizontal" Spacing="{StaticResource AloneSpace8}">
+                        <TextBlock x:ConnectionId='22'
+                            VerticalAlignment="Center"
+                            Style="{StaticResource AloneBodyMdTextBlockStyle}"
+                                                                                />
+                        <Button x:ConnectionId='23'
+                            Padding="6,2,6,2"
+                                                                                          
+                            Content="全库"
+                            Style="{StaticResource AloneSecondaryButtonStyle}" />
+                    </StackPanel>
+                </Border>
+                <TextBlock Style="{StaticResource AloneCaptionTextBlockStyle}" Text="搜索范围（默认当前模块，可切换）" />
                 <StackPanel Spacing="4">
-                    <CheckBox x:ConnectionId='16' Content="项目"                                                           />
-                    <CheckBox x:ConnectionId='17' Content="特性"                                                           />
-                    <CheckBox x:ConnectionId='18' Content="任务"                                                        />
-                    <CheckBox x:ConnectionId='19' Content="文档"                                                            />
-                    <CheckBox x:ConnectionId='20' Content="灵感"                                                        />
+                    <CheckBox x:ConnectionId='17' Content="项目"                                                           />
+                    <CheckBox x:ConnectionId='18' Content="模块"                                                           />
+                    <CheckBox x:ConnectionId='19' Content="任务"                                                        />
+                    <CheckBox x:ConnectionId='20' Content="文档"                                                            />
+                    <CheckBox x:ConnectionId='21' Content="灵感"                                                        />
                 </StackPanel>
             </StackPanel>
             <TextBlock x:ConnectionId='3'
@@ -43,14 +59,13 @@
                                                                  
                 TextWrapping="WrapWholeWords"
                                                                                                                                         />
-            <!-- 固定高度、禁用滚动；超出部分不展示（结果数量由 VM 上限控制） -->
             <ScrollViewer
                 Grid.Row="2"
-                MaxHeight="168"
+                MaxHeight="280"
                 HorizontalScrollBarVisibility="Disabled"
                 HorizontalScrollMode="Disabled"
-                VerticalScrollBarVisibility="Disabled"
-                VerticalScrollMode="Disabled">
+                VerticalScrollBarVisibility="Auto"
+                VerticalScrollMode="Enabled">
                 <ItemsControl x:ConnectionId='6'                                                     >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate                                           >
@@ -80,16 +95,13 @@
                                                 Style="{StaticResource AloneGlobalSearchHitButtonStyle}">
                                                 <StackPanel Spacing="2">
                                                     <TextBlock x:ConnectionId='14'
+                                                        MaxLines="1"
                                                         Style="{StaticResource AloneTitleSmTextBlockStyle}"
                                                                                           
-                                                        MaxLines="1"
                                                         TextTrimming="CharacterEllipsis" />
-                                                    <TextBlock x:ConnectionId='15'
-                                                        Opacity="0.85"
-                                                        Style="{StaticResource AloneCaptionTextBlockStyle}"
-                                                                                            
-                                                        MaxLines="1"
-                                                        TextTrimming="CharacterEllipsis" />
+                                                    <local:HighlightedSnippetBlock x:ConnectionId='15'
+                                                                                                         
+                                                                                             />
                                                 </StackPanel>
                                             </Button>
                                         </DataTemplate>

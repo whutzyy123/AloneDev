@@ -101,7 +101,7 @@ public static class ShortcutRecordDialog
 
         var panel = new StackPanel
         {
-            Spacing = 12,
+            Spacing = AloneDialogFactory.DialogFormSpacing,
             Padding = AloneDialogFactory.DialogContentPadding,
         };
         panel.Children.Add(new TextBlock

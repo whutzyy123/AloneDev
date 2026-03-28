@@ -183,6 +183,7 @@ internal static class ProjectsSchema
                 content TEXT NOT NULL DEFAULT '',
                 content_format TEXT NOT NULL DEFAULT 'Markdown',
                 is_code_snippet INTEGER NOT NULL DEFAULT 0,
+                snippet_language TEXT NULL,
                 is_deleted INTEGER NOT NULL DEFAULT 0,
                 created_at TEXT NOT NULL,
                 updated_at TEXT NOT NULL,

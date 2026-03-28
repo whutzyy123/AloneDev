@@ -1,4 +1,6 @@
 using PMTool.Core.Models;
+using PMTool.Core.Ui;
+using PMTool.Core.Validation;
 
 namespace PMTool.App.ViewModels;
 
@@ -25,8 +27,17 @@ public sealed partial class ProjectRowViewModel : ObservableObject
 
     public string Description { get; init; } = string.Empty;
 
+    public string TechStack { get; init; } = string.Empty;
+
+    public IReadOnlyList<string> TechStackTags { get; init; } = Array.Empty<string>();
+
+    public bool HasTechStackTags => TechStackTags.Count > 0;
+
+    /// <summary>封面渐变调色板下标，与 <see cref="ProjectCoverPalette"/> 一致。</summary>
+    public int CoverAccentIndex => ProjectCoverPalette.GetStableIndex(Id);
+
     public string SummaryLine =>
-        $"{FeatureCount} 特性 · {TaskCount} 任务 · {ReleaseCount} 版本 · {DocumentCount} 文档 · {LinkedIdeaCount} 灵感";
+        $"{FeatureCount} 模块 · {TaskCount} 任务 · {ReleaseCount} 版本 · {DocumentCount} 文档 · {LinkedIdeaCount} 灵感";
 
     /// <summary>简易「生命体征」进度 0..1，供进度条展示信息密度。</summary>
     public double VitalityRatio
@@ -54,5 +65,7 @@ public sealed partial class ProjectRowViewModel : ObservableObject
         DocumentCount = item.DocumentCount,
         LinkedIdeaCount = item.LinkedIdeaCount,
         Description = item.Project.Description,
+        TechStack = item.Project.TechStack ?? string.Empty,
+        TechStackTags = ProjectFieldValidator.ParseTechStackTags(item.Project.TechStack),
     };
 }

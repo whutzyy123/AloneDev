@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:PMTool.App.Views.Projects"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="using:System"
     xmlns:vm="using:PMTool.App.ViewModels"
     x:Name="ProjectPageRoot"
     x:DataType="local:ProjectListPage"
@@ -15,73 +16,94 @@
     <Page.Resources>
         <DataTemplate x:Key="ProjectRowCardTemplate" x:DataType="vm:ProjectRowViewModel">
             <Button
+                Margin="0,0,16,16"
                 Padding="0"
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
                 Background="Transparent"
                 BorderThickness="0"
                 Command="{Binding ElementName=ProjectPageRoot, Path=ViewModel.SelectProjectCommand}"
-                CommandParameter="{x:Bind}"
+                CommandParameter="{x:Bind Mode=OneTime}"
                 CornerRadius="{StaticResource CornerRadiusLarge}">
                 <Border
                     HorizontalAlignment="Stretch"
                     Background="{x:Bind IsSearchHighlight, Converter={StaticResource SearchRowBackgroundConverter}, Mode=OneWay}"
                     CornerRadius="{StaticResource CornerRadiusLarge}"
                     Style="{StaticResource AloneElevatedCardBorderStyle}">
-                    <Grid Padding="{StaticResource AloneListCardPadding}" ColumnSpacing="{StaticResource AloneSpace16}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
                         <Border
-                            Grid.Column="0"
-                            Width="52"
-                            Height="52"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Background="{ThemeResource AloneSurfaceContainerHighBrush}"
-                            CornerRadius="{StaticResource CornerRadiusSmall}">
+                            Grid.Row="0"
+                            Height="56"
+                            Background="{x:Bind Id, Mode=OneWay, Converter={StaticResource ProjectIdAccentGradientBrushConverter}}"
+                            CornerRadius="16,16,0,0">
                             <Viewbox
-                                Width="26"
-                                Height="26"
+                                Width="28"
+                                Height="28"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
-                                <SymbolIcon Foreground="{ThemeResource AlonePrimaryBrush}" Symbol="Library" />
+                                <SymbolIcon Foreground="{ThemeResource AloneOnPrimaryBrush}" Symbol="Library" />
                             </Viewbox>
                         </Border>
-                        <StackPanel Grid.Column="1" Spacing="{StaticResource AloneSpace8}">
-                            <Grid ColumnSpacing="{StaticResource AloneSpace12}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                        <StackPanel
+                            Grid.Row="1"
+                            Padding="{StaticResource AloneListCardPadding}"
+                            Spacing="{StaticResource AloneSpace8}">
+                            <StackPanel Orientation="Horizontal" Spacing="{StaticResource AloneSpace8}">
                                 <TextBlock
-                                    Grid.Column="0"
+                                    MaxWidth="188"
                                     VerticalAlignment="Center"
+                                    MaxLines="1"
                                     Style="{StaticResource AloneListCardTitleStyle}"
-                                    Text="{x:Bind Name, Mode=OneWay}" />
+                                    Text="{x:Bind Name, Mode=OneWay}"
+                                    TextTrimming="CharacterEllipsis" />
                                 <Border
-                                    Grid.Column="1"
                                     VerticalAlignment="Center"
                                     Background="{x:Bind Status, Converter={StaticResource ProjectStatusChipBrushConverter}, Mode=OneWay}"
                                     Style="{StaticResource AloneStatusChipBorderStyle}">
                                     <TextBlock
                                         MaxWidth="120"
-                                        Foreground="{ThemeResource AloneOnSurfaceVariantBrush}"
+                                        Foreground="{x:Bind Status, Converter={StaticResource ProjectStatusChipBrushConverter}, ConverterParameter=Foreground, Mode=OneWay}"
                                         Style="{StaticResource AloneStatusChipTextStyle}"
                                         Text="{x:Bind Status, Mode=OneWay}"
                                         TextTrimming="CharacterEllipsis" />
                                 </Border>
-                            </Grid>
+                            </StackPanel>
                             <TextBlock
                                 Style="{StaticResource AloneListCardMetaStyle}"
                                 Text="{x:Bind SummaryLine, Mode=OneWay}" />
+                            <ItemsControl
+                                ItemsSource="{x:Bind TechStackTags, Mode=OneWay}"
+                                Visibility="{x:Bind HasTechStackTags, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <ItemsWrapGrid Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="sys:String">
+                                        <Border
+                                            Margin="0,0,8,8"
+                                            Padding="8,4"
+                                            Background="{ThemeResource AloneSurfaceContainerHighBrush}"
+                                            CornerRadius="{StaticResource DefaultCornerRadius}">
+                                            <TextBlock
+                                                FontSize="12"
+                                                Text="{x:Bind}"
+                                                TextTrimming="CharacterEllipsis" />
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                             <ProgressBar
                                 Height="4"
                                 Maximum="1"
-                                Value="{x:Bind VitalityRatio, Mode=OneWay}"
+                                Background="{ThemeResource AloneSurfaceContainerHighBrush}"
                                 Foreground="{ThemeResource AloneSecondaryContainerBrush}"
-                                Background="{ThemeResource AloneSurfaceContainerHighBrush}" />
+                                Value="{x:Bind VitalityRatio, Mode=OneWay}" />
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -134,11 +156,16 @@
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto"
                     Visibility="{x:Bind ViewModel.ListVisibility, Mode=OneWay}">
-                    <StackPanel Spacing="{StaticResource AloneListCardSpacing}">
-                        <ItemsControl
-                            ItemTemplate="{StaticResource ProjectRowCardTemplate}"
-                            ItemsSource="{x:Bind ViewModel.Projects, Mode=OneWay}" />
-                    </StackPanel>
+                    <ItemsControl ItemTemplate="{StaticResource ProjectRowCardTemplate}" ItemsSource="{x:Bind ViewModel.Projects, Mode=OneWay}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsWrapGrid
+                                    HorizontalAlignment="Stretch"
+                                    ItemWidth="{StaticResource AloneProjectCardGridItemWidth}"
+                                    Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
                 </ScrollViewer>
             </Grid>
 
@@ -150,7 +177,7 @@
                 HorizontalAlignment="Stretch"
                 Style="{StaticResource AloneDetailPanelBorderStyle}"
                 Visibility="{x:Bind ViewModel.DetailPanelVisibility, Mode=OneWay}">
-                <StackPanel Spacing="{StaticResource AloneSpace12}">
+                <StackPanel Spacing="{StaticResource AloneSpace16}">
                     <TextBlock Style="{StaticResource AloneTitleLgTextBlockStyle}" Text="{x:Bind ViewModel.DetailTitle, Mode=OneWay}" />
                     <TextBlock Style="{StaticResource AloneLabelMdTextBlockStyle}" Text="{x:Bind ViewModel.DetailStatus, Mode=OneWay}" />
                     <TextBlock

@@ -13,10 +13,11 @@ public partial class GlobalSearchViewModel(
     IGlobalSearchRepository repository,
     IGlobalSearchNavigationService navigation) : ObservableObject
 {
-    /// <summary>全局搜索浮层为固定高度无滚动，单模块条数宜少，避免截断大量无效结果。</summary>
-    private const int PerModuleCap = 6;
+    /// <summary>全局搜索单模块请求上限（与浮层说明、分组「查看更多」一致）。</summary>
+    public const int PerModuleCap = 6;
     private DispatcherQueueTimer? _debounceTimer;
     private CancellationTokenSource? _searchCts;
+    private bool _suppressScopeChanged;
 
     [ObservableProperty]
     private string _query = "";
@@ -35,6 +36,11 @@ public partial class GlobalSearchViewModel(
 
     [ObservableProperty]
     private bool _scopeIdeas = true;
+
+    [ObservableProperty]
+    private string _scopeTagText = "";
+
+    public bool HasScopeTag => !string.IsNullOrWhiteSpace(ScopeTagText);
 
     /// <summary>有效关键词（过滤特殊字符后），用于摘要高亮。</summary>
     [ObservableProperty]
@@ -61,19 +67,110 @@ public partial class GlobalSearchViewModel(
 
     public ObservableCollection<GlobalSearchGroupViewModel> Groups { get; } = [];
 
+    /// <summary>供搜索说明折叠区展示，与 <see cref="PerModuleCap"/> 同步。</summary>
+    public string MaxHitsPerCategoryHint => $"每个分组最多展示 {PerModuleCap} 条命中；若较多，可展开「查看更多」。";
+
     partial void OnFocusedHitFlatIndexChanged(int value) => ApplyHitRowHighlights();
 
     partial void OnQueryChanged(string value) => ScheduleSearch();
 
-    partial void OnScopeProjectsChanged(bool value) => ScheduleSearchImmediate();
+    partial void OnScopeTagTextChanged(string value) => OnPropertyChanged(nameof(HasScopeTag));
 
-    partial void OnScopeFeaturesChanged(bool value) => ScheduleSearchImmediate();
+    partial void OnScopeProjectsChanged(bool value) => HandleScopeChanged();
 
-    partial void OnScopeTasksChanged(bool value) => ScheduleSearchImmediate();
+    partial void OnScopeFeaturesChanged(bool value) => HandleScopeChanged();
 
-    partial void OnScopeDocumentsChanged(bool value) => ScheduleSearchImmediate();
+    partial void OnScopeTasksChanged(bool value) => HandleScopeChanged();
 
-    partial void OnScopeIdeasChanged(bool value) => ScheduleSearchImmediate();
+    partial void OnScopeDocumentsChanged(bool value) => HandleScopeChanged();
+
+    partial void OnScopeIdeasChanged(bool value) => HandleScopeChanged();
+
+    private void HandleScopeChanged()
+    {
+        if (_suppressScopeChanged)
+        {
+            return;
+        }
+
+        ScopeTagText = "";
+        ScheduleSearchImmediate();
+    }
+
+    public void ApplyCurrentModuleScope(string navKey, string moduleTitle)
+    {
+        var key = (navKey ?? string.Empty).Trim().ToLowerInvariant();
+        switch (key)
+        {
+            case "projects":
+                SetScopeWithTag(moduleTitle, projects: true, features: false, tasks: false, documents: false, ideas: false);
+                break;
+            case "features":
+                SetScopeWithTag(moduleTitle, projects: false, features: true, tasks: false, documents: false, ideas: false);
+                break;
+            case "tasks":
+                SetScopeWithTag(moduleTitle, projects: false, features: false, tasks: true, documents: false, ideas: false);
+                break;
+            case "documents":
+            case "snippets":
+                SetScopeWithTag(moduleTitle, projects: false, features: false, tasks: false, documents: true, ideas: false);
+                break;
+            case "ideas":
+                SetScopeWithTag(moduleTitle, projects: false, features: false, tasks: false, documents: false, ideas: true);
+                break;
+            case "releases":
+                SetScopeWithTag(moduleTitle, projects: true, features: true, tasks: true, documents: false, ideas: false);
+                break;
+            default:
+                // data/settings 等非列表模块：恢复全库范围，不展示当前模块标签
+                ClearScopeTag();
+                break;
+        }
+    }
+
+    [RelayCommand]
+    private void ClearScopeTag()
+    {
+        SetScopeInternal("", projects: true, features: true, tasks: true, documents: true, ideas: true);
+    }
+
+    private void SetScopeWithTag(
+        string moduleTitle,
+        bool projects,
+        bool features,
+        bool tasks,
+        bool documents,
+        bool ideas)
+    {
+        var label = string.IsNullOrWhiteSpace(moduleTitle) ? "" : $"当前：{moduleTitle}";
+        SetScopeInternal(label, projects, features, tasks, documents, ideas);
+    }
+
+    private void SetScopeInternal(
+        string scopeTag,
+        bool projects,
+        bool features,
+        bool tasks,
+        bool documents,
+        bool ideas)
+    {
+        _suppressScopeChanged = true;
+        try
+        {
+            ScopeProjects = projects;
+            ScopeFeatures = features;
+            ScopeTasks = tasks;
+            ScopeDocuments = documents;
+            ScopeIdeas = ideas;
+            ScopeTagText = scopeTag;
+        }
+        finally
+        {
+            _suppressScopeChanged = false;
+        }
+
+        ScheduleSearchImmediate();
+    }
 
     public void OnFlyoutClosed()
     {
@@ -209,7 +306,7 @@ public partial class GlobalSearchViewModel(
                 }
 
                 total += sorted.Count;
-                var gvm = new GlobalSearchGroupViewModel(g.Key, sorted);
+                var gvm = new GlobalSearchGroupViewModel(g.Key, sorted, KeywordForHighlight);
                 gvm.DisplayedHitsRebuilt += OnGroupDisplayedHitsRebuilt;
                 Groups.Add(gvm);
             }

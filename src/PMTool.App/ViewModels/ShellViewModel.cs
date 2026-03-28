@@ -10,6 +10,7 @@ using PMTool.App.Views.Ideas;
 using PMTool.App.Views.Settings;
 using PMTool.App.Views.Projects;
 using PMTool.App.Views.Releases;
+using PMTool.App.Views.Snippets;
 using PMTool.App.Views.Tasks;
 
 namespace PMTool.App.ViewModels;
@@ -21,6 +22,7 @@ public partial class ShellViewModel(
     TaskListViewModel taskListViewModel,
     ReleaseListViewModel releaseListViewModel,
     DocumentListViewModel documentListViewModel,
+    SnippetListViewModel snippetListViewModel,
     IdeaListViewModel ideaListViewModel,
     DataManagementViewModel dataManagementViewModel,
     DisabledOperationBarViewModel disabledOperationBarViewModel,
@@ -35,6 +37,8 @@ public partial class ShellViewModel(
     public ReleaseListViewModel ReleaseList => releaseListViewModel;
 
     public DocumentListViewModel DocumentList => documentListViewModel;
+
+    public SnippetListViewModel SnippetList => snippetListViewModel;
 
     public IdeaListViewModel IdeaList => ideaListViewModel;
 
@@ -52,10 +56,11 @@ public partial class ShellViewModel(
     public ObservableCollection<NavEntryViewModel> PrimaryNavEntries { get; } =
     [
         new() { Key = "projects", Label = "项目", Glyph = Symbol.Home },
-        new() { Key = "features", Label = "特性", Glyph = Symbol.Library },
+        new() { Key = "features", Label = "模块", Glyph = Symbol.Library },
         new() { Key = "tasks", Label = "任务", Glyph = Symbol.Bullets },
         new() { Key = "releases", Label = "版本", Glyph = Symbol.Sync },
         new() { Key = "documents", Label = "文档", Glyph = Symbol.Page2 },
+        new() { Key = "snippets", Label = "代码片段", Glyph = Symbol.Copy },
         new() { Key = "ideas", Label = "灵感池", Glyph = Symbol.OutlineStar },
     ];
 
@@ -103,6 +108,11 @@ public partial class ShellViewModel(
                 CurrentOperationBar = documentListViewModel;
                 _ = DocumentList.RefreshAsync();
                 navigationService.NavigateTo(typeof(DocumentListPage));
+                break;
+            case "snippets":
+                CurrentOperationBar = snippetListViewModel;
+                _ = SnippetList.RefreshAsync();
+                navigationService.NavigateTo(typeof(SnippetListPage));
                 break;
             case "ideas":
                 CurrentOperationBar = ideaListViewModel;

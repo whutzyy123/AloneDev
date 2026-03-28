@@ -3,28 +3,26 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!-- 舒适档列表卡片；gutter 与 Spacing.xaml 的 16dp 对齐 -->
     <x:Double x:Key="AloneListCardSpacing">16</x:Double>
-    <Thickness x:Key="AloneListCardPadding">16,14,16,14</Thickness>
+    <Thickness x:Key="AloneListCardPadding">16,12,16,16</Thickness>
 
     <Style
         x:Key="AloneListCardTitleStyle"
-        BasedOn="{StaticResource AloneTitleSmTextBlockStyle}"
+        BasedOn="{StaticResource AloneTitleLgTextBlockStyle}"
         TargetType="TextBlock">
-        <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
 
     <Style
         x:Key="AloneListCardMetaStyle"
-        BasedOn="{StaticResource AloneBodySecondaryTextBlockStyle}"
+        BasedOn="{StaticResource AloneModuleMetaTextBlockStyle}"
         TargetType="TextBlock">
-        <Setter Property="Opacity" Value="0.88" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
 
     <Style x:Key="AloneStatusChipBorderStyle" TargetType="Border">
         <Setter Property="Background" Value="{ThemeResource AloneSecondaryContainerBrush}" />
-        <Setter Property="CornerRadius" Value="6" />
-        <Setter Property="Padding" Value="10,5,10,5" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="8,8,8,8" />
         <Setter Property="BorderThickness" Value="0" />
     </Style>
 

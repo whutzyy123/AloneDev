@@ -120,6 +120,7 @@ public sealed partial class TaskListPage : Page
             Header = "类型",
             HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Stretch,
         };
+        AloneThemeChrome.ApplyComboBoxStyle(typeCombo);
         foreach (var t in TaskTypes.All)
         {
             typeCombo.Items.Add(t);
@@ -133,6 +134,7 @@ public sealed partial class TaskListPage : Page
             HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Stretch,
             Visibility = Microsoft.UI.Xaml.Visibility.Collapsed,
         };
+        AloneThemeChrome.ApplyComboBoxStyle(sevCombo);
         foreach (var s in TaskSeverities.All)
         {
             sevCombo.Items.Add(s);
@@ -164,7 +166,7 @@ public sealed partial class TaskListPage : Page
 
         var panel = new StackPanel
         {
-            Spacing = 12,
+            Spacing = AloneDialogFactory.DialogFormSpacing,
             Padding = AloneDialogFactory.DialogContentPadding,
             Children = { nameBox, descBox, typeCombo, sevCombo, hoursBox },
         };
@@ -216,6 +218,7 @@ public sealed partial class TaskListPage : Page
         };
         AloneDialogFactory.ApplyFormTextBoxStyle(descBox);
         var typeCombo = new ComboBox { Header = "类型", HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Stretch };
+        AloneThemeChrome.ApplyComboBoxStyle(typeCombo);
         foreach (var t in TaskTypes.All)
         {
             typeCombo.Items.Add(t);
@@ -228,6 +231,7 @@ public sealed partial class TaskListPage : Page
             Header = "严重程度（仅 Bug）",
             HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Stretch,
         };
+        AloneThemeChrome.ApplyComboBoxStyle(sevCombo);
         foreach (var s in TaskSeverities.All)
         {
             sevCombo.Items.Add(s);
@@ -246,6 +250,7 @@ public sealed partial class TaskListPage : Page
         SyncSeverityVisibility();
 
         var stCombo = new ComboBox { Header = "状态（可选非法以验证仓储拦截）", HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Stretch };
+        AloneThemeChrome.ApplyComboBoxStyle(stCombo);
         foreach (var s in TaskStatuses.All)
         {
             stCombo.Items.Add(s);
@@ -276,7 +281,7 @@ public sealed partial class TaskListPage : Page
 
         var panel = new StackPanel
         {
-            Spacing = 12,
+            Spacing = AloneDialogFactory.DialogFormSpacing,
             Padding = AloneDialogFactory.DialogContentPadding,
             Children = { nameBox, descBox, typeCombo, sevCombo, stCombo, estBox, actBox },
         };

@@ -40,91 +40,55 @@
                     Visibility="{x:Bind ViewModel.ErrorBanner, Mode=OneWay, Converter={StaticResource StringNotEmptyToVisibilityConverter}}" />
 
                 <Border Style="{StaticResource AloneFormSectionCardStyle}">
-                    <StackPanel Spacing="{StaticResource AloneSpace12}">
+                    <StackPanel Spacing="{StaticResource AloneSpace16}">
                         <TextBlock Style="{StaticResource AloneFormSectionTitleStyle}" Text="主题" />
                         <TextBlock
                             Style="{StaticResource AloneFormSectionDescriptionStyle}"
-                            Text="当前选择会立即写入 config 并应用。" />
+                            Text="当前选择会保存并立即应用到界面。" />
                         <StackPanel Orientation="Horizontal" Spacing="{StaticResource AloneSpace8}">
                             <Button
                                 Command="{x:Bind ViewModel.SelectThemeCommand}"
-                                CommandParameter="{x:Bind ThemeLight, Mode=OneWay}"
+                                CommandParameter="{x:Bind ThemeLight, Mode=OneTime}"
                                 Content="浅色"
                                 Style="{StaticResource AloneSecondaryButtonStyle}" />
                             <Button
                                 Command="{x:Bind ViewModel.SelectThemeCommand}"
-                                CommandParameter="{x:Bind ThemeDark, Mode=OneWay}"
+                                CommandParameter="{x:Bind ThemeDark, Mode=OneTime}"
                                 Content="深色"
                                 Style="{StaticResource AloneSecondaryButtonStyle}" />
                             <Button
                                 Command="{x:Bind ViewModel.SelectThemeCommand}"
-                                CommandParameter="{x:Bind ThemeFollowSystem, Mode=OneWay}"
+                                CommandParameter="{x:Bind ThemeFollowSystem, Mode=OneTime}"
                                 Content="跟随系统"
                                 Style="{StaticResource AloneSecondaryButtonStyle}" />
                         </StackPanel>
-                        <Grid
-                            MaxWidth="480"
-                            HorizontalAlignment="Left"
-                            ColumnSpacing="{StaticResource AloneSpace12}"
-                            ColumnDefinitions="*,*">
-                            <Border
-                                Grid.Column="0"
-                                Padding="{StaticResource AlonePadding12}"
-                                Background="{ThemeResource AloneSurfaceContainerHighestBrush}"
-                                CornerRadius="{StaticResource DefaultCornerRadius}">
-                                <StackPanel Spacing="6">
-                                    <TextBlock Style="{StaticResource AloneTitleSmTextBlockStyle}" Text="浅色示意" />
-                                    <Border
-                                        Height="40"
-                                        CornerRadius="4"
-                                        Background="{ThemeResource CardStrokeColorDefaultBrush}"
-                                        Opacity="0.15" />
-                                </StackPanel>
-                            </Border>
-                            <Border
-                                Grid.Column="1"
-                                Padding="{StaticResource AlonePadding12}"
-                                Background="{ThemeResource LayerFillColorDefaultBrush}"
-                                CornerRadius="{StaticResource DefaultCornerRadius}">
-                                <StackPanel Spacing="6">
-                                    <TextBlock
-                                        Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                        Style="{StaticResource AloneTitleSmTextBlockStyle}"
-                                        Text="深色示意" />
-                                    <Border
-                                        Height="40"
-                                        CornerRadius="4"
-                                        Background="{ThemeResource TextFillColorSecondaryBrush}"
-                                        Opacity="0.3" />
-                                </StackPanel>
-                            </Border>
-                        </Grid>
                     </StackPanel>
                 </Border>
 
                 <Border Style="{StaticResource AloneFormSectionCardStyle}">
-                    <StackPanel Spacing="{StaticResource AloneSpace12}">
-                        <TextBlock Style="{StaticResource AloneFormSectionTitleStyle}" Text="数据存储路径" />
+                    <StackPanel Spacing="{StaticResource AloneSpace16}">
+                        <TextBlock Style="{StaticResource AloneFormSectionTitleStyle}" Text="数据位置" />
                         <TextBlock
                             Style="{StaticResource AloneFormSectionDescriptionStyle}"
-                            Text="显示当前生效根目录与 config 中记录的 DataPath；迁移须选择空文件夹，完成后需保持路径与权限可用。" />
-                        <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="当前生效根：" />
+                            Text="下方为当前工作空间数据根目录。若需搬迁数据，请将下方「迁移目标」设为一个空文件夹并完成迁移；完成后请保持路径可用与访问权限。"
+                            TextWrapping="WrapWholeWords" />
+                        <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="数据所在位置" />
                         <TextBlock
                             Style="{StaticResource AloneBodyMdTextBlockStyle}"
                             Text="{x:Bind ViewModel.DataRootPathDisplay, Mode=OneWay}"
                             TextWrapping="WrapWholeWords" />
-                        <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="config.json 中的 DataPath 记录：" />
-                        <TextBlock
-                            Style="{StaticResource AloneBodyMdTextBlockStyle}"
-                            Text="{x:Bind ViewModel.ConfigDataPathNote, Mode=OneWay}"
-                            TextWrapping="WrapWholeWords" />
+                        <Button
+                            HorizontalAlignment="Left"
+                            Command="{x:Bind ViewModel.OpenDataRootInExplorerCommand}"
+                            Content="在资源管理器中打开"
+                            Style="{StaticResource AloneSecondaryButtonStyle}" />
                         <StackPanel Spacing="{StaticResource AloneSpace8}">
                             <TextBox
                                 Header="迁移目标（须为空文件夹）"
                                 PlaceholderText="例如 D:\PMData"
                                 Style="{StaticResource AloneFormTextBoxStyle}"
                                 Text="{x:Bind ViewModel.MigrationTargetPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <StackPanel Orientation="Horizontal" Spacing="{StaticResource AloneSpace12}">
+                            <StackPanel Orientation="Horizontal" Spacing="{StaticResource AloneSpace16}">
                                 <Button Click="PickMigrationFolder_Click" Content="浏览文件夹…" Style="{StaticResource AloneSecondaryButtonStyle}" />
                                 <Button
                                     Command="{x:Bind ViewModel.RunMigrationCommand}"
@@ -143,11 +107,11 @@
                 </Border>
 
                 <Border Style="{StaticResource AloneFormSectionCardStyle}">
-                    <StackPanel Spacing="{StaticResource AloneSpace12}">
-                        <TextBlock Style="{StaticResource AloneFormSectionTitleStyle}" Text="账号" />
+                    <StackPanel Spacing="{StaticResource AloneSpace16}">
+                        <TextBlock Style="{StaticResource AloneFormSectionTitleStyle}" Text="工作空间" />
                         <TextBlock
                             Style="{StaticResource AloneFormSectionDescriptionStyle}"
-                            Text="侧栏顶部可切换或创建账号；本机账户名即隔离键，不包含密码校验。" />
+                            Text="侧栏顶部可切换或创建工作空间；名称仅用于本机数据目录隔离，不包含密码校验。" />
                         <Button
                             HorizontalAlignment="Left"
                             Command="{x:Bind ViewModel.OpenDataManagementCommand}"
@@ -157,7 +121,7 @@
                 </Border>
 
                 <Border Style="{StaticResource AloneFormSectionCardStyle}">
-                    <StackPanel Spacing="{StaticResource AloneSpace12}">
+                    <StackPanel Spacing="{StaticResource AloneSpace16}">
                         <TextBlock Style="{StaticResource AloneFormSectionTitleStyle}" Text="快捷键" />
                         <TextBlock
                             Style="{StaticResource AloneFormSectionDescriptionStyle}"
@@ -167,7 +131,7 @@
                                 <DataTemplate x:DataType="vm:SettingsShortcutRowViewModel">
                                     <Grid
                                         Padding="0,8,0,8"
-                                        ColumnSpacing="{StaticResource AloneSpace12}"
+                                        ColumnSpacing="{StaticResource AloneSpace16}"
                                         ColumnDefinitions="200,*">
                                         <TextBlock
                                             Grid.Column="0"
@@ -201,11 +165,11 @@
                 MaxWidth="920"
                 HorizontalAlignment="Stretch"
                 Orientation="Horizontal"
-                Spacing="{StaticResource AloneSpace12}">
+                Spacing="{StaticResource AloneSpace16}">
                 <Button
                     Command="{x:Bind ViewModel.SaveShortcutsCommand}"
                     Content="保存设置"
-                    Style="{StaticResource AccentButtonStyle}" />
+                    Style="{StaticResource AlonePrimaryButtonStyle}" />
                 <Button Command="{x:Bind ViewModel.ResetShortcutsToDefaultsCommand}" Content="恢复默认快捷键" Style="{StaticResource AloneSecondaryButtonStyle}" />
             </StackPanel>
         </Border>

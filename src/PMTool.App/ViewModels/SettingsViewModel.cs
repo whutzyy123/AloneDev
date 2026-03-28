@@ -1,10 +1,12 @@
 using System.Collections.ObjectModel;
+using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PMTool.Application.Abstractions;
 using PMTool.App.Services;
 using PMTool.Core.Abstractions;
 using PMTool.Core.Models.Settings;
+using Windows.System;
 
 namespace PMTool.App.ViewModels;
 
@@ -31,9 +33,6 @@ public partial class SettingsViewModel(
 
     [ObservableProperty]
     private string _dataRootPathDisplay = "";
-
-    [ObservableProperty]
-    private string _configDataPathNote = "";
 
     [ObservableProperty]
     private string _migrationTargetPath = "";
@@ -68,6 +67,41 @@ public partial class SettingsViewModel(
         _ = PersistThemeAsync(value);
     }
 
+    partial void OnDataRootPathDisplayChanged(string value) => OpenDataRootInExplorerCommand.NotifyCanExecuteChanged();
+
+    private bool CanOpenDataRootInExplorer() =>
+        !string.IsNullOrWhiteSpace(DataRootPathDisplay) && Directory.Exists(DataRootPathDisplay);
+
+    [RelayCommand(CanExecute = nameof(CanOpenDataRootInExplorer))]
+    private async Task OpenDataRootInExplorerAsync()
+    {
+        ErrorBanner = "";
+        if (string.IsNullOrWhiteSpace(DataRootPathDisplay))
+        {
+            ErrorBanner = "暂无数据路径。";
+            return;
+        }
+
+        if (!Directory.Exists(DataRootPathDisplay))
+        {
+            ErrorBanner = "该路径无效或暂不可访问。";
+            return;
+        }
+
+        try
+        {
+            var launched = await Launcher.LaunchFolderPathAsync(DataRootPathDisplay);
+            if (!launched)
+            {
+                ErrorBanner = "无法在资源管理器中打开该文件夹。";
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorBanner = string.IsNullOrWhiteSpace(ex.Message) ? "无法在资源管理器中打开该文件夹。" : ex.Message;
+        }
+    }
+
     public async Task RefreshAsync(CancellationToken cancellationToken = default)
     {
         ErrorBanner = "";
@@ -76,9 +110,6 @@ public partial class SettingsViewModel(
         SelectedTheme = cfg.Theme;
         _suppressThemePersist = false;
         DataRootPathDisplay = dataRootProvider.GetDataRootPath();
-        ConfigDataPathNote = string.IsNullOrWhiteSpace(cfg.DataPath)
-            ? "未单独记录（与当前生效根一致或使用默认）"
-            : cfg.DataPath;
         AppShortcutDefaults.WithDefaultShortcuts(cfg);
         ShortcutRows.Clear();
         foreach (ShortcutActionId id in Enum.GetValues<ShortcutActionId>())
@@ -215,7 +246,7 @@ public partial class SettingsViewModel(
         id switch
         {
             ShortcutActionId.NewProject => "新建项目",
-            ShortcutActionId.NewFeature => "新建特性",
+            ShortcutActionId.NewFeature => "新建模块",
             ShortcutActionId.NewTask => "新建任务",
             ShortcutActionId.NewDocument => "新建文档",
             ShortcutActionId.NewIdea => "新建灵感",

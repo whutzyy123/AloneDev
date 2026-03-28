@@ -151,7 +151,7 @@ public sealed class FeatureRepository(ISqliteConnectionHolder holder) : IFeature
             }
             catch (SqliteException ex) when (ex.SqliteExtendedErrorCode == 2067 || ex.Message.Contains("UNIQUE", StringComparison.OrdinalIgnoreCase))
             {
-                throw new InvalidOperationException("同一项目下已存在同名特性，请修改名称。", ex);
+                throw new InvalidOperationException("同一项目下已存在同名模块，请修改名称。", ex);
             }
 
             return 0;
@@ -170,7 +170,7 @@ public sealed class FeatureRepository(ISqliteConnectionHolder holder) : IFeature
                 var o = await sel.ExecuteScalarAsync(ct).ConfigureAwait(false);
                 if (o is null or DBNull)
                 {
-                    throw new InvalidOperationException("特性不存在或已删除。");
+                    throw new InvalidOperationException("模块不存在或已删除。");
                 }
 
                 oldStatus = o.ToString();
@@ -214,12 +214,12 @@ public sealed class FeatureRepository(ISqliteConnectionHolder holder) : IFeature
                 var n = await cmd.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
                 if (n == 0)
                 {
-                    throw new InvalidOperationException("特性不存在或已删除。");
+                    throw new InvalidOperationException("模块不存在或已删除。");
                 }
             }
             catch (SqliteException ex) when (ex.SqliteExtendedErrorCode == 2067 || ex.Message.Contains("UNIQUE", StringComparison.OrdinalIgnoreCase))
             {
-                throw new InvalidOperationException("同一项目下已存在同名特性，请修改名称。", ex);
+                throw new InvalidOperationException("同一项目下已存在同名模块，请修改名称。", ex);
             }
 
             return 0;

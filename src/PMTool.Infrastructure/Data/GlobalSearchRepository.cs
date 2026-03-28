@@ -5,6 +5,13 @@ using PMTool.Core.Models.Search;
 
 namespace PMTool.Infrastructure.Data;
 
+/// <inheritdoc />
+/// <remarks>
+/// 采用 LIKE 的理由：实现与依赖简单、与既有库兼容、写入路径单一。
+/// FTS5 评估结论（当前不实施）：可用外部内容表（content_rowid 映射业务主键）维护 documents 等全文索引；
+/// 需处理中文分词（默认 tokenizer 偏英文）、迁移顺序、大批量导入重建与 VACUUM；任务/模块等短字段可继续 LIKE 或并入 FTS。
+/// 工作区源码检索需用户显式授权路径并离线索引，与本仓储无关，属独立功能。
+/// </remarks>
 public sealed class GlobalSearchRepository(ISqliteConnectionHolder holder) : IGlobalSearchRepository
 {
     /// <summary>单模块最大行数，控制 LIKЕ 扫描成本。</summary>
@@ -94,12 +101,14 @@ public sealed class GlobalSearchRepository(ISqliteConnectionHolder holder) : IGl
                (
                  (LENGTH(LOWER(name)) - LENGTH(REPLACE(LOWER(name), LOWER($needle), ''))) / MAX(LENGTH($needle), 1)
                  + (LENGTH(LOWER(description)) - LENGTH(REPLACE(LOWER(description), LOWER($needle), ''))) / MAX(LENGTH($needle), 1)
+                 + (LENGTH(LOWER(COALESCE(tech_stack, ''))) - LENGTH(REPLACE(LOWER(COALESCE(tech_stack, '')), LOWER($needle), ''))) / MAX(LENGTH($needle), 1)
                ) AS match_score
              FROM projects
              WHERE is_deleted = 0
                AND (
                  LOWER(name) LIKE LOWER($like) ESCAPE '\'
                  OR LOWER(description) LIKE LOWER($like) ESCAPE '\'
+                 OR LOWER(COALESCE(tech_stack, '')) LIKE LOWER($like) ESCAPE '\'
                )
              ORDER BY match_score DESC, updated_at DESC
              LIMIT {limit};

@@ -104,7 +104,7 @@ public sealed partial class FeatureListPage : Page
 
     private async Task ShowNewFeatureDialogAsync()
     {
-        var nameBox = new TextBox { Header = "特性名称", MaxLength = 100 };
+        var nameBox = new TextBox { Header = "模块名称", MaxLength = 100 };
         AloneDialogFactory.ApplyFormTextBoxStyle(nameBox);
         var descBox = new TextBox
         {
@@ -120,6 +120,7 @@ public sealed partial class FeatureListPage : Page
             Header = "优先级",
             HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Stretch,
         };
+        AloneThemeChrome.ApplyComboBoxStyle(priCombo);
         foreach (var i in new[] { 0, 1, 2, 3 })
         {
             priCombo.Items.Add(new ComboBoxItem { Content = FeaturePriorities.ToLabel(i), Tag = i });
@@ -133,7 +134,7 @@ public sealed partial class FeatureListPage : Page
             Padding = AloneDialogFactory.DialogContentPadding,
             Children = { nameBox, descBox, priCombo },
         };
-        var dialog = AloneDialogFactory.CreateStandard(XamlRoot, "新建特性", panel, "确认");
+        var dialog = AloneDialogFactory.CreateStandard(XamlRoot, "新建模块", panel, "确认");
 
         var result = await dialog.ShowAsync();
         if (result != ContentDialogResult.Primary)
@@ -169,7 +170,7 @@ public sealed partial class FeatureListPage : Page
 
     private async Task ShowEditFeatureDialogAsync(Feature full)
     {
-        var nameBox = new TextBox { Header = "特性名称", Text = full.Name, MaxLength = 100 };
+        var nameBox = new TextBox { Header = "模块名称", Text = full.Name, MaxLength = 100 };
         AloneDialogFactory.ApplyFormTextBoxStyle(nameBox);
         var descBox = new TextBox
         {
@@ -182,6 +183,7 @@ public sealed partial class FeatureListPage : Page
         };
         AloneDialogFactory.ApplyFormTextBoxStyle(descBox);
         var priCombo = new ComboBox { Header = "优先级", HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Stretch };
+        AloneThemeChrome.ApplyComboBoxStyle(priCombo);
         foreach (var i in new[] { 0, 1, 2, 3 })
         {
             priCombo.Items.Add(new ComboBoxItem { Content = FeaturePriorities.ToLabel(i), Tag = i });
@@ -194,6 +196,7 @@ public sealed partial class FeatureListPage : Page
             Header = "状态（可故意选非法以验证拦截）",
             HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Stretch,
         };
+        AloneThemeChrome.ApplyComboBoxStyle(statusCombo);
         foreach (var s in FeatureStatuses.All)
         {
             statusCombo.Items.Add(s);
@@ -239,7 +242,7 @@ public sealed partial class FeatureListPage : Page
         };
         var dialog = AloneDialogFactory.CreateStandard(
             XamlRoot,
-            "编辑特性",
+            "编辑模块",
             new ScrollViewer { Content = panel, MaxHeight = 420 },
             "保存");
 
@@ -296,7 +299,7 @@ public sealed partial class FeatureListPage : Page
 
         var confirm = AloneDialogFactory.CreateDestructiveConfirm(
             XamlRoot,
-            "删除特性",
+            "删除模块",
             "删除后不可恢复。若有关联任务将无法删除。确定删除？",
             "删除");
 

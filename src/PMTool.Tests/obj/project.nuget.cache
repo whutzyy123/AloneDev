@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "FX4FGAe3/MY=",
+  "dgSpecHash": "Vo4Y6f6zd9A=",
   "success": true,
   "projectFilePath": "d:\\AloneDev\\src\\PMTool.Tests\\PMTool.Tests.csproj",
   "expectedPackageFiles": [
+    "d:\\AloneDev\\.nuget\\packages\\libgit2sharp\\0.30.0\\libgit2sharp.0.30.0.nupkg.sha512",
+    "d:\\AloneDev\\.nuget\\packages\\libgit2sharp.nativebinaries\\2.0.322\\libgit2sharp.nativebinaries.2.0.322.nupkg.sha512",
     "d:\\AloneDev\\.nuget\\packages\\microsoft.codecoverage\\17.12.0\\microsoft.codecoverage.17.12.0.nupkg.sha512",
     "d:\\AloneDev\\.nuget\\packages\\microsoft.data.sqlite\\8.0.8\\microsoft.data.sqlite.8.0.8.nupkg.sha512",
     "d:\\AloneDev\\.nuget\\packages\\microsoft.data.sqlite.core\\8.0.8\\microsoft.data.sqlite.core.8.0.8.nupkg.sha512",

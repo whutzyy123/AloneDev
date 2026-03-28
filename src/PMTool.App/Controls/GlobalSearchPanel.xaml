@@ -13,7 +13,7 @@
     mc:Ignorable="d">
     <Border
         x:Name="FlyoutRootBorder"
-        MaxHeight="320"
+        MaxHeight="520"
         Padding="8"
         HorizontalAlignment="Stretch"
         Background="Transparent"
@@ -25,12 +25,28 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <!-- 单列范围；由顶栏搜索框输入关键词，此处不再重复搜索框 -->
             <StackPanel Grid.Row="0" Spacing="{StaticResource AloneSpace8}">
-                <TextBlock Style="{StaticResource AloneCaptionTextBlockStyle}" Text="搜索范围（默认全选）" />
+                <Border
+                    Padding="10,6,10,6"
+                    Background="{ThemeResource AloneSurfaceContainerHighBrush}"
+                    CornerRadius="{StaticResource DefaultCornerRadius}"
+                    Visibility="{x:Bind ViewModel.HasScopeTag, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <StackPanel Orientation="Horizontal" Spacing="{StaticResource AloneSpace8}">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Style="{StaticResource AloneBodyMdTextBlockStyle}"
+                            Text="{x:Bind ViewModel.ScopeTagText, Mode=OneWay}" />
+                        <Button
+                            Padding="6,2,6,2"
+                            Command="{x:Bind ViewModel.ClearScopeTagCommand, Mode=OneWay}"
+                            Content="全库"
+                            Style="{StaticResource AloneSecondaryButtonStyle}" />
+                    </StackPanel>
+                </Border>
+                <TextBlock Style="{StaticResource AloneCaptionTextBlockStyle}" Text="搜索范围（默认当前模块，可切换）" />
                 <StackPanel Spacing="4">
                     <CheckBox Content="项目" IsChecked="{x:Bind ViewModel.ScopeProjects, Mode=TwoWay}" />
-                    <CheckBox Content="特性" IsChecked="{x:Bind ViewModel.ScopeFeatures, Mode=TwoWay}" />
+                    <CheckBox Content="模块" IsChecked="{x:Bind ViewModel.ScopeFeatures, Mode=TwoWay}" />
                     <CheckBox Content="任务" IsChecked="{x:Bind ViewModel.ScopeTasks, Mode=TwoWay}" />
                     <CheckBox Content="文档" IsChecked="{x:Bind ViewModel.ScopeDocuments, Mode=TwoWay}" />
                     <CheckBox Content="灵感" IsChecked="{x:Bind ViewModel.ScopeIdeas, Mode=TwoWay}" />
@@ -43,14 +59,13 @@
                 Text="{x:Bind ViewModel.FilterHint, Mode=OneWay}"
                 TextWrapping="WrapWholeWords"
                 Visibility="{x:Bind ViewModel.FilterHint, Mode=OneWay, Converter={StaticResource StringNotEmptyToVisibilityConverter}}" />
-            <!-- 固定高度、禁用滚动；超出部分不展示（结果数量由 VM 上限控制） -->
             <ScrollViewer
                 Grid.Row="2"
-                MaxHeight="168"
+                MaxHeight="280"
                 HorizontalScrollBarVisibility="Disabled"
                 HorizontalScrollMode="Disabled"
-                VerticalScrollBarVisibility="Disabled"
-                VerticalScrollMode="Disabled">
+                VerticalScrollBarVisibility="Auto"
+                VerticalScrollMode="Enabled">
                 <ItemsControl ItemsSource="{x:Bind ViewModel.Groups, Mode=OneWay}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="vm:GlobalSearchGroupViewModel">
@@ -80,16 +95,13 @@
                                                 Style="{StaticResource AloneGlobalSearchHitButtonStyle}">
                                                 <StackPanel Spacing="2">
                                                     <TextBlock
+                                                        MaxLines="1"
                                                         Style="{StaticResource AloneTitleSmTextBlockStyle}"
                                                         Text="{x:Bind Title, Mode=OneWay}"
-                                                        MaxLines="1"
                                                         TextTrimming="CharacterEllipsis" />
-                                                    <TextBlock
-                                                        Opacity="0.85"
-                                                        Style="{StaticResource AloneCaptionTextBlockStyle}"
-                                                        Text="{x:Bind Snippet, Mode=OneWay}"
-                                                        MaxLines="1"
-                                                        TextTrimming="CharacterEllipsis" />
+                                                    <local:HighlightedSnippetBlock
+                                                        Highlight="{x:Bind HighlightNeedle, Mode=OneWay}"
+                                                        Text="{x:Bind Snippet, Mode=OneWay}" />
                                                 </StackPanel>
                                             </Button>
                                         </DataTemplate>
