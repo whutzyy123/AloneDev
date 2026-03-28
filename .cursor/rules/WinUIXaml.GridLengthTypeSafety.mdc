@@ -1,9 +1,7 @@
 ---
 description: Prevent WinUI GridLength type-mismatch in XAML
-globs: src/PMTool.App/**/*.xaml
 alwaysApply: false
 ---
-
 # WinUI XAML GridLength Type Safety
 
 ## Hard Rule

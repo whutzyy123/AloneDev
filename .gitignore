@@ -1,0 +1,31 @@
+# NuGet globalPackagesFolder for this repo (see nuget.config)
+.nuget/
+
+# 本机可选的 NuGet 包镜像/旁路目录（体积大，勿提交）
+.nuget-workaround/
+
+# Build outputs & caches（主工程仍通过 dotnet build 生成）
+[Bb]in/
+[Oo]bj/
+**/obj-probe/
+
+# IDE / 工具缓存
+.vs/
+.idea/
+*.user
+
+# 测试结果
+TestResults/
+
+# MSBuild / binlog（调试管线时生成）
+*.binlog
+
+# 本地调试/一次性的日志与复现目录
+debug-*.log
+build.log
+build-xaml.txt
+pmtool.build.binlog
+tmp-msbuild.log
+watch-err.txt
+watch-out.txt
+tmp-xaml-repro/

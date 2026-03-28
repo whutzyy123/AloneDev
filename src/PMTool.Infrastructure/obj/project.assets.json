@@ -66,6 +66,15 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
+      "MiniExcel/1.41.4": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/MiniExcel.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/MiniExcel.dll": {}
+        }
+      },
       "SQLitePCLRaw.bundle_e_sqlite3/2.1.6": {
         "type": "package",
         "dependencies": {
@@ -312,6 +321,23 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "MiniExcel/1.41.4": {
+      "sha512": "fQwTTA2awWICM4xqjkldGTkAEr+U8TfncNdd7CCdQIMo3khCXoFkA1F080Ts8el7oeuRNhRauYjQs8aU0Z6v9Q==",
+      "type": "package",
+      "path": "miniexcel/1.41.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.png",
+        "lib/net45/MiniExcel.dll",
+        "lib/net8.0/MiniExcel.dll",
+        "lib/net9.0/MiniExcel.dll",
+        "lib/netstandard2.0/MiniExcel.dll",
+        "miniexcel.1.41.4.nupkg.sha512",
+        "miniexcel.nuspec"
+      ]
+    },
     "SQLitePCLRaw.bundle_e_sqlite3/2.1.6": {
       "sha512": "BmAf6XWt4TqtowmiWe4/5rRot6GerAeklmOPfviOvwLoF5WwgxcJHAxZtySuyW9r9w+HLILnm8VfJFLCUJYW8A==",
       "type": "package",
@@ -432,22 +458,24 @@
     "net8.0": [
       "Microsoft.Data.Sqlite >= 8.0.8",
       "Microsoft.Extensions.DependencyInjection >= 9.0.0",
+      "MiniExcel >= 1.41.4",
       "PMTool.Core >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\DELL\\.nuget\\packages\\": {}
+    "d:\\AloneDev\\.nuget\\packages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\AloneDev\\src\\PMTool.Infrastructure\\PMTool.Infrastructure.csproj",
+      "projectUniqueName": "d:\\AloneDev\\src\\PMTool.Infrastructure\\PMTool.Infrastructure.csproj",
       "projectName": "PMTool.Infrastructure",
-      "projectPath": "D:\\AloneDev\\src\\PMTool.Infrastructure\\PMTool.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "D:\\AloneDev\\src\\PMTool.Infrastructure\\obj\\",
+      "projectPath": "d:\\AloneDev\\src\\PMTool.Infrastructure\\PMTool.Infrastructure.csproj",
+      "packagesPath": "d:\\AloneDev\\.nuget\\packages",
+      "outputPath": "d:\\AloneDev\\src\\PMTool.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
+        "d:\\AloneDev\\NuGet.Config",
         "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
@@ -460,8 +488,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {
-              "projectPath": "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj"
+            "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {
+              "projectPath": "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj"
             }
           }
         }
@@ -489,6 +517,10 @@
           "Microsoft.Extensions.DependencyInjection": {
             "target": "Package",
             "version": "[9.0.0, )"
+          },
+          "MiniExcel": {
+            "target": "Package",
+            "version": "[1.41.4, )"
           }
         },
         "imports": [

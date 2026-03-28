@@ -10,6 +10,7 @@
         "dependencies": {
           "Microsoft.Data.Sqlite": "8.0.8",
           "Microsoft.Extensions.DependencyInjection": "9.0.0",
+          "MiniExcel": "1.41.4",
           "PMTool.Core": "1.0.0"
         },
         "runtime": {
@@ -49,6 +50,14 @@
           "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
+      "MiniExcel/1.41.4": {
+        "runtime": {
+          "lib/net8.0/MiniExcel.dll": {
+            "assemblyVersion": "1.41.4.0",
+            "fileVersion": "1.41.4.0"
           }
         }
       },
@@ -234,6 +243,13 @@
       "sha512": "sha512-+6f2qv2a3dLwd5w6JanPIPs47CxRbnk+ZocMJUhv9NxP88VlOcJYZs9jY+MYSjxvady08bUZn6qgiNh7DadGgg==",
       "path": "microsoft.extensions.dependencyinjection.abstractions/9.0.0",
       "hashPath": "microsoft.extensions.dependencyinjection.abstractions.9.0.0.nupkg.sha512"
+    },
+    "MiniExcel/1.41.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fQwTTA2awWICM4xqjkldGTkAEr+U8TfncNdd7CCdQIMo3khCXoFkA1F080Ts8el7oeuRNhRauYjQs8aU0Z6v9Q==",
+      "path": "miniexcel/1.41.4",
+      "hashPath": "miniexcel.1.41.4.nupkg.sha512"
     },
     "SQLitePCLRaw.bundle_e_sqlite3/2.1.6": {
       "type": "package",

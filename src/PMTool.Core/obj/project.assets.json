@@ -8,7 +8,7 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\DELL\\.nuget\\packages\\": {}
+    "D:\\AloneDev\\.nuget\\packages": {}
   },
   "project": {
     "version": "1.0.0",
@@ -16,10 +16,11 @@
       "projectUniqueName": "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
       "projectName": "PMTool.Core",
       "projectPath": "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
-      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+      "packagesPath": "D:\\AloneDev\\.nuget\\packages",
       "outputPath": "D:\\AloneDev\\src\\PMTool.Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
+        "D:\\AloneDev\\NuGet.Config",
         "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [

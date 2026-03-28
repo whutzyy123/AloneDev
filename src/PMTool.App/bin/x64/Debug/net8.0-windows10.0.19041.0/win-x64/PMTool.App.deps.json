@@ -10,10 +10,12 @@
       "PMTool.App/1.0.0": {
         "dependencies": {
           "CommunityToolkit.Mvvm": "8.4.2",
+          "Markdig": "0.37.0",
           "Microsoft.Extensions.DependencyInjection": "9.0.0",
           "Microsoft.Web.WebView2": "1.0.3856.49",
           "Microsoft.Windows.SDK.BuildTools": "10.0.26100.7705",
           "Microsoft.WindowsAppSDK": "1.8.260317003",
+          "MiniExcel": "1.41.4",
           "PMTool.Application": "1.0.0",
           "PMTool.Core": "1.0.0",
           "PMTool.Infrastructure": "1.0.0",
@@ -765,6 +767,14 @@
           }
         }
       },
+      "Markdig/0.37.0": {
+        "runtime": {
+          "lib/net8.0/Markdig.dll": {
+            "assemblyVersion": "0.37.0.0",
+            "fileVersion": "0.37.0.0"
+          }
+        }
+      },
       "Microsoft.Data.Sqlite/8.0.8": {
         "dependencies": {
           "Microsoft.Data.Sqlite.Core": "8.0.8",
@@ -1016,6 +1026,14 @@
           }
         }
       },
+      "MiniExcel/1.41.4": {
+        "runtime": {
+          "lib/net8.0/MiniExcel.dll": {
+            "assemblyVersion": "1.41.4.0",
+            "fileVersion": "1.41.4.0"
+          }
+        }
+      },
       "SQLitePCLRaw.bundle_e_sqlite3/2.1.6": {
         "dependencies": {
           "SQLitePCLRaw.lib.e_sqlite3": "2.1.6",
@@ -1090,6 +1108,7 @@
         "dependencies": {
           "Microsoft.Data.Sqlite": "8.0.8",
           "Microsoft.Extensions.DependencyInjection": "9.0.0",
+          "MiniExcel": "1.41.4",
           "PMTool.Core": "1.0.0"
         },
         "runtime": {
@@ -1131,6 +1150,13 @@
       "sha512": "sha512-WadCzGEc2U+3e20avRLng4qNtt4zoOGWrdUISqJWrHe3/FSnrYjuM5Sb4yQb09LhkBXrrI4Zt3dLKgRMbItsrg==",
       "path": "communitytoolkit.mvvm/8.4.2",
       "hashPath": "communitytoolkit.mvvm.8.4.2.nupkg.sha512"
+    },
+    "Markdig/0.37.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-biiu4MTPFjW55qw6v5Aphtj0MjDLJ14x8ndZwkJUHIeqvaSGKeqhLY7S7Vu/S3k7/c9KwhhnaCDP9hdFNUhcNA==",
+      "path": "markdig/0.37.0",
+      "hashPath": "markdig.0.37.0.nupkg.sha512"
     },
     "Microsoft.Data.Sqlite/8.0.8": {
       "type": "package",
@@ -1250,6 +1276,13 @@
       "sha512": "sha512-w3k3qK6gvJU0RgkP6gQUgvgUbuYvLP4OeQA+0Vrx+4mJtwCB+6D9LOhzFNVVq3y0yrW5eoPT4xeDQALTbpe2Sw==",
       "path": "microsoft.windowsappsdk.winui/1.8.260224000",
       "hashPath": "microsoft.windowsappsdk.winui.1.8.260224000.nupkg.sha512"
+    },
+    "MiniExcel/1.41.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fQwTTA2awWICM4xqjkldGTkAEr+U8TfncNdd7CCdQIMo3khCXoFkA1F080Ts8el7oeuRNhRauYjQs8aU0Z6v9Q==",
+      "path": "miniexcel/1.41.4",
+      "hashPath": "miniexcel.1.41.4.nupkg.sha512"
     },
     "SQLitePCLRaw.bundle_e_sqlite3/2.1.6": {
       "type": "package",

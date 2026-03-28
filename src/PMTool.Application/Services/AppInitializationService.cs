@@ -4,19 +4,20 @@ using PMTool.Core.Abstractions;
 namespace PMTool.Application.Services;
 
 public sealed class AppInitializationService(
+    IAccountManagementService accountManagement,
     IDataRootProvider dataRootProvider,
-    ICurrentAccountContext accountContext) : IAppInitializationService
+    ICurrentAccountContext accountContext,
+    IAppConfigStore appConfigStore) : IAppInitializationService
 {
-    public Task InitializeAsync(CancellationToken cancellationToken = default)
+    public async Task InitializeAsync(CancellationToken cancellationToken = default)
     {
-        return Task.Run(() =>
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-            _ = Directory.CreateDirectory(dataRootProvider.GetDataRootPath());
-            _ = Directory.CreateDirectory(accountContext.GetAccountDirectoryPath());
-            var logsDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                "PMProjectTool", "Logs");
-            _ = Directory.CreateDirectory(logsDir);
-        }, cancellationToken);
+        _ = await appConfigStore.TryRepairOnCorruptAsync(cancellationToken).ConfigureAwait(false);
+        await accountManagement.LoadCatalogAndApplyLastAccountAsync(cancellationToken).ConfigureAwait(false);
+        _ = Directory.CreateDirectory(dataRootProvider.GetDataRootPath());
+        _ = Directory.CreateDirectory(accountContext.GetAccountDirectoryPath());
+        _ = await appConfigStore.LoadAsync(cancellationToken).ConfigureAwait(false);
+        var logsDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            "PMProjectTool", "Logs");
+        _ = Directory.CreateDirectory(logsDir);
     }
 }

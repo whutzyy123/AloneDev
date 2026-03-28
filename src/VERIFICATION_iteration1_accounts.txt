@@ -1,0 +1,11 @@
+迭代 1 验收：两账号数据隔离（iteration1_account_probe）
+
+前置：应用已成功启动并完成首次初始化（%LocalAppData%\AloneDev\accounts.json 与账号数据目录已创建）。
+
+步骤：
+1. 打开主界面左侧头像按钮，在 Flyout 中新建账号 B（名称自定，与默认账号不同）。
+2. 保持当前为账号 A（或先切换到「默认账号」）：点击「写入验收探针」；记下 Flyout 中状态提示里的 payload 片段。
+3. 切换到账号 B，再次点击「写入验收探针」；确认 payload 与步骤 2 不同且体现当前账号名。
+4. 切回账号 A：若仅用 UI，可再次写入一行，并在「文档/PMProjectTool/Data/<账号名>/pmtool.db」用本地工具查看 iteration1_account_probe 表；账号 A 的库中不应出现仅账号 B 写入时的那条 payload（两库文件路径不同，互不可见）。
+
+预期：两账号各使用独立 pmtool.db；切换账号后 SQLite 单连接已重绑到当前账号库。

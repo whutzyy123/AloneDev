@@ -315,6 +315,14 @@
           }
         }
       },
+      "MiniExcel/1.41.4": {
+        "runtime": {
+          "lib/net8.0/MiniExcel.dll": {
+            "assemblyVersion": "1.41.4.0",
+            "fileVersion": "1.41.4.0"
+          }
+        }
+      },
       "Newtonsoft.Json/13.0.1": {
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {
@@ -540,6 +548,7 @@
         "dependencies": {
           "Microsoft.Data.Sqlite": "8.0.8",
           "Microsoft.Extensions.DependencyInjection": "9.0.0",
+          "MiniExcel": "1.41.4",
           "PMTool.Core": "1.0.0"
         },
         "runtime": {
@@ -612,6 +621,13 @@
       "sha512": "sha512-MiPEJQNyADfwZ4pJNpQex+t9/jOClBGMiCiVVFuELCMSX2nmNfvUor3uFVxNNCg30uxDP8JDYfPnMXQzsfzYyg==",
       "path": "microsoft.testplatform.testhost/17.12.0",
       "hashPath": "microsoft.testplatform.testhost.17.12.0.nupkg.sha512"
+    },
+    "MiniExcel/1.41.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fQwTTA2awWICM4xqjkldGTkAEr+U8TfncNdd7CCdQIMo3khCXoFkA1F080Ts8el7oeuRNhRauYjQs8aU0Z6v9Q==",
+      "path": "miniexcel/1.41.4",
+      "hashPath": "miniexcel.1.41.4.nupkg.sha512"
     },
     "Newtonsoft.Json/13.0.1": {
       "type": "package",

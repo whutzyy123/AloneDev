@@ -1,4 +1,5 @@
 using PMTool.Core.Abstractions;
+using PMTool.Core.Validation;
 
 namespace PMTool.Infrastructure.Storage;
 
@@ -10,8 +11,7 @@ public sealed class CurrentAccountContext(IDataRootProvider dataRootProvider) : 
 
     public void SetCurrentAccount(string accountName)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(accountName);
-        _accountName = accountName.Trim();
+        _accountName = AccountNameValidator.NormalizeAndValidate(accountName);
     }
 
     public string GetAccountDirectoryPath() =>

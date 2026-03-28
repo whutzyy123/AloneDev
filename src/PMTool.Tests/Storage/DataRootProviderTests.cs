@@ -8,7 +8,7 @@ public sealed class DataRootProviderTests
     [Fact]
     public void GetDataRootPath_contains_pmproject_and_data_segment()
     {
-        var sut = new DataRootProvider();
+        var sut = new MutableDataRootProvider(DataRootPaths.DefaultDocumentsDataRoot());
         var path = sut.GetDataRootPath();
         Assert.Contains("PMProjectTool", path, StringComparison.OrdinalIgnoreCase);
         Assert.EndsWith("Data", Path.GetFileName(path.TrimEnd(Path.DirectorySeparatorChar)), StringComparison.OrdinalIgnoreCase);

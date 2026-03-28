@@ -9,6 +9,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddPmToolApplication(this IServiceCollection services)
     {
         services.AddSingleton<IAppInitializationService, AppInitializationService>();
+        services.AddSingleton<IAccountManagementService, AccountManagementService>();
         return services;
     }
 }

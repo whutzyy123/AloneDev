@@ -8,6 +8,8 @@
         <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
         <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
         <OutputType>WinExe</OutputType>
+        <!-- Exclude probe-generated intermediates from default Compile globs to avoid duplicate .g.i.cs symbols. -->
+        <DefaultItemExcludes>$(DefaultItemExcludes);obj-probe\**;obj-probe/**</DefaultItemExcludes>
 
         <!-- WinUI 3 unpackaged + self-contained WAS (x64 dev): no machine-wide runtime; avoids Bootstrap.Initialize vs framework-package mismatch. -->
         <UseWinUI>true</UseWinUI>
@@ -48,6 +50,9 @@
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.*" />
 
         <Manifest Include="$(ApplicationManifest)" />
+
+        <PackageReference Include="MiniExcel" Version="1.41.4" />
+        <PackageReference Include="Markdig" Version="0.37.0" />
     </ItemGroup>
 
     <!-- 

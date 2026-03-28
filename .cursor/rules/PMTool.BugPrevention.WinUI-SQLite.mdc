@@ -1,0 +1,33 @@
+---
+description: Prevent common WinUI3/SQLite regressions in PMTool
+alwaysApply: true
+---
+
+# PMTool WinUI + SQLite Bug Prevention
+
+## 1) WinUI XAML Type Safety
+- Never use shorthand like `ColumnDefinitions="Auto,*"` or `RowDefinitions="Auto,*"` in this repo.
+- Always write explicit blocks:
+  - `<Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>`
+  - `<Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>`
+- Keep `Width`/`Height` as `GridLength` (`Auto`, `*`, `2*`) and avoid numeric-only values in definitions.
+
+## 2) Build Input Hygiene
+- Do not introduce extra generated-source folders that are not excluded by SDK defaults (e.g. `obj-probe`).
+- If such folders are required, ensure they are excluded via project file:
+  - `<DefaultItemExcludes>$(DefaultItemExcludes);obj-probe\**;obj-probe/**</DefaultItemExcludes>`
+- If build shows duplicate `App.g.i.cs`/`InitializeComponent`/`Program.Main`, first suspect generated file double-inclusion.
+
+## 3) SQLite Backward-Compatible Schema Ensure
+- In `EnsureAsync` startup schema code, never create indexes that assume a column always exists in legacy DBs.
+- Before index creation, query `PRAGMA table_info(<table>)` and branch by existing columns.
+- For old schemas, create degraded fallback indexes (project-based or active-only) instead of failing startup.
+
+## 4) Migration Ordering Guard
+- Startup order must remain: `ProjectsSchema.EnsureAsync` -> `SchemaMigration.ApplyAsync`.
+- Therefore, `ProjectsSchema` must be legacy-safe; all non-backward-compatible SQL belongs in migration steps.
+
+## 5) Final Validation Gate
+- Before finishing any change touching XAML/DB schema:
+  1) run `dotnet build src/PMTool.sln -c Debug`
+  2) verify app startup path (OnLaunched + initialization) does not throw schema or XAML parse errors.

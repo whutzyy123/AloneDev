@@ -1,0 +1,47 @@
+---
+description: 壳层/全局搜索/DI/WinUI 交互 — 本迭代教训与防回归要点
+alwaysApply: true
+---
+
+# PMTool 壳层 · DI · Flyout · WinUI 健壮性
+
+## 1) 依赖注入禁止环（卡死根因级）
+
+- **禁止**形成：`ViewModel A` → `Service B` → `Flyout/Coordinator` → 再依赖 `ViewModel A`（或等效闭环）。解析 `GetRequiredService` 时可能长时间阻塞，表现为主线程「全局搜索一开就卡死」。
+- **做法**：Navigator / 协调器只依赖 **接口 + 其它服务**；需要关浮层时由 **Panel 代码隐藏** 或通过 **已解析的单例 Coordinator** 调用 `Close()`，不要让 `ViewModel` 构造器注入 `IGlobalSearchFlyout`。
+- 新增服务前自问：构造链最终会否回到同一个 Scoped/Singleton VM？
+
+## 2) Flyout / 快捷键：禁止在输入回调里同步 `ShowAt`
+
+- **`KeyboardAccelerator` / KeyDown 同步路径**里不要直接 `Flyout.ShowAt`，易与 WinUI 输入队列死锁。
+- **做法**：`_ = DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Normal, OpenCore);` 在 core 里再 `TryOpen(anchor)`。
+
+## 3) 自定义标题栏与拖拽区
+
+- `SetTitleBar` 指向的元素内可放交互控件（如顶栏 `AutoSuggestBox`）；若出现「只能拖拽、点不到搜索」，再考虑 `InputNonClientPointerSource` / 划分子拖拽区。
+- 全局搜索 **锚点**优先用 **顶栏搜索框**，避免浮层盖住侧栏入口；宽度与锚点同步时在 `Opened` + `Low` 优先级里 `ApplyFlyoutWidth(ActualWidth)`，并订阅 `SizeChanged`。
+
+## 4) C# / WinRT 小坑（编译与行为）
+
+- **`??` 空合并**：左右类型须一致；`MainOperationBar ?? OpenSearchButton` 类名不同会 **CS0019**。使用 `FrameworkElement? anchor = MainOperationBar; anchor ??= OpenSearchButton;` 或显式转换。
+- **`DispatcherQueuePriority` / `VirtualKey` 二义性**：同时 `using Microsoft.UI.Dispatching` 与 `using Windows.System` 时，对已歧义符号写完整名，例如 **`Windows.System.VirtualKey.Enter`**，或只对 `VirtualKey` 使用别名，避免与 `Microsoft.UI.Dispatching.DispatcherQueuePriority` 冲突。
+- **compiled `x:Bind` 数据源**：若 Page 上绑定 `GlobalSearchVm` 等 **页面自身属性**，须在 **`InitializeComponent()` 之前** 赋值，避免首次解析时为空。
+
+## 5) MVVM 与 Shell 分工
+
+- **顶栏搜索框**与 **Flyout 内**不要重复「第二套」无意义的输入；关键词只保留一处绑定 `ViewModel.Query`，Flyout 只负责范围与结果列表时，用 **`QueryFocusTarget`**（锚点）统一「在搜索框内」的键盘判定，并在 `MainShellPage` 对 `AutoSuggestBox` 做 **`AddHandler(KeyDown, ..., handledEventsToo: true)`** 补全方向键/Enter/Esc。
+- **数据管理 / 设置**等非列表页：`IOperationBarViewModel` 设 **`ShowModuleSearch = false`**，避免与顶栏全局搜索重复；主按钮无文案时用 **`StringNotEmptyToVisibilityConverter`** 隐藏，勿留空白主按钮。
+
+## 6) 用户可见文案
+
+- 占位符、TeachingTip、标题等 **不得** 写实现细节（如「500ms 防抖」）；防抖留在 ViewModel 即可。
+
+## 7) 构建与仓库卫生
+
+- **`dotnet build` / `publish` 报 MSB3027 复制失败**：先 **结束正在运行的 PMTool.App**，再编译。
+- 勿提交 **`obj-probe`**、根目录 **`debug-*.log` / `*.binlog`**；主工程已 `DefaultItemExcludes` 的目录不要手建同级重复生成树。大规模清理用 `dotnet clean` + 有选择的删除，并更新 `.gitignore`。
+
+## 8) 合并前自检（本迭代约定）
+
+- 改 DI / Shell / 全局搜索：`dotnet build src/PMTool.sln -c Debug`，并手测 **Ctrl+K**、点击顶栏搜索、**Esc** 关闭、导航到命中项。
+- 改 XAML：对照 `PMTool.BugPrevention.WinUI-SQLite.mdc` 的 Grid 显式行列规则。

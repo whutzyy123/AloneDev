@@ -5,15 +5,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:PMTool.App.Controls"
+    xmlns:models="using:PMTool.App.Models"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="Root"
                                    
     mc:Ignorable="d">
-    <Grid
-        Height="{StaticResource OperationBarHeight}"
-        Padding="16,0,24,0"
-        Background="{StaticResource AloneSurfaceBrush}"
-        ColumnSpacing="16">
+    <Border
+        Background="{ThemeResource AloneChromeElevatedBrush}"
+        Shadow="{StaticResource AloneFloatThemeShadow}">
+        <Grid
+            Height="{StaticResource OperationBarHeight}"
+            Padding="{StaticResource AloneOperationBarPadding}"
+            Background="Transparent"
+            ColumnSpacing="{StaticResource AloneSpace16}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
@@ -27,22 +31,88 @@
         <AutoSuggestBox x:ConnectionId='3'
             x:Name="ModuleSearchBox"
             Grid.Column="1"
-            MinWidth="200"
-            MaxWidth="480"
-            HorizontalAlignment="Center"
+            MinWidth="240"
+            MinHeight="40"
+            HorizontalAlignment="Stretch"
             VerticalAlignment="Center"
-            Background="{StaticResource AloneSurfaceContainerHighestBrush}"
+            Background="{ThemeResource AloneSurfaceContainerLowBrush}"
             BorderThickness="0"
-            CornerRadius="{StaticResource DefaultCornerRadius}"
-            PlaceholderText="搜索当前模块…" />
+            CornerRadius="20"
+            IsEnabled="{Binding IsOperationBarInteractive, Mode=OneWay}"
+            PlaceholderText="{Binding SearchPlaceholderText, Mode=OneWay}"
+            Text="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding ShowModuleSearch, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
         <StackPanel
             Grid.Column="2"
             VerticalAlignment="Center"
             Orientation="Horizontal"
-            Spacing="8">
-            <Button x:ConnectionId='4'                                             Style="{StaticResource AloneSecondaryButtonStyle}" />
-            <Button x:ConnectionId='5'                                                    Style="{StaticResource AlonePrimaryButtonStyle}" />
+            Spacing="{StaticResource AloneSpace8}">
+            <Button
+                Style="{StaticResource AloneChromeButtonStyle}"
+                IsEnabled="{Binding IsOperationBarInteractive, Mode=OneWay}">
+                <Button.Flyout>
+                    <Flyout
+                        FlyoutPresenterStyle="{StaticResource AloneFlyoutPresenterStyle}"
+                        Placement="BottomEdgeAlignedLeft">
+                        <ScrollViewer MaxHeight="320">
+                            <ItemsControl IsTabStop="False" ItemsSource="{Binding FilterMenuItems, Mode=OneWay}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate                                         >
+                                        <HyperlinkButton x:ConnectionId='7'
+                                            Margin="{StaticResource AloneHyperlinkFlyoutItemMargin}"
+                                                                      
+                                                                    />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Flyout>
+                </Button.Flyout>
+                <StackPanel Orientation="Horizontal" Spacing="{StaticResource AloneSpace8}">
+                    <FontIcon
+                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                        FontSize="{StaticResource BodyMdFontSize}"
+                        Glyph="&#xE71C;" />
+                    <TextBlock VerticalAlignment="Center" Text="{Binding FilterButtonText, Mode=OneWay}" />
+                </StackPanel>
+            </Button>
+            <Button
+                Style="{StaticResource AloneChromeButtonStyle}"
+                IsEnabled="{Binding IsOperationBarInteractive, Mode=OneWay}">
+                <Button.Flyout>
+                    <Flyout
+                        FlyoutPresenterStyle="{StaticResource AloneFlyoutPresenterStyle}"
+                        Placement="BottomEdgeAlignedLeft">
+                        <ScrollViewer MaxHeight="320">
+                            <ItemsControl IsTabStop="False" ItemsSource="{Binding SortMenuItems, Mode=OneWay}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate                                         >
+                                        <HyperlinkButton x:ConnectionId='5'
+                                            Margin="{StaticResource AloneHyperlinkFlyoutItemMargin}"
+                                                                      
+                                                                    />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Flyout>
+                </Button.Flyout>
+                <StackPanel Orientation="Horizontal" Spacing="{StaticResource AloneSpace8}">
+                    <FontIcon
+                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                        FontSize="{StaticResource BodyMdFontSize}"
+                        Glyph="&#xE8CB;" />
+                    <TextBlock VerticalAlignment="Center" Text="{Binding SortButtonText, Mode=OneWay}" />
+                </StackPanel>
+            </Button>
+            <Button
+                Command="{Binding PrimaryActionCommand}"
+                Content="{Binding PrimaryActionLabel, Mode=OneWay}"
+                IsEnabled="{Binding IsOperationBarInteractive, Mode=OneWay}"
+                Style="{StaticResource AlonePrimaryButtonStyle}"
+                Visibility="{Binding PrimaryActionLabel, Mode=OneWay, Converter={StaticResource StringNotEmptyToVisibilityConverter}}" />
         </StackPanel>
-    </Grid>
+        </Grid>
+    </Border>
 </UserControl>
 

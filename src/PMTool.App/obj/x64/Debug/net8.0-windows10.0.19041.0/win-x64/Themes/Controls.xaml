@@ -3,17 +3,27 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="AlonePrimaryButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource AlonePrimaryGradientBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource AloneOnPrimaryBrush}" />
+        <Setter Property="Background" Value="{ThemeResource AlonePrimaryBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource AloneOnPrimaryBrush}" />
+        <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
+        <Setter Property="Padding" Value="18,11" />
+        <Setter Property="FontFamily" Value="Segoe UI Variable" />
+        <Setter Property="FontSize" Value="{StaticResource BodyMdFontSize}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+    <Style x:Key="AloneSecondaryButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{ThemeResource AloneSurfaceContainerLowBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource AloneOnSurfaceBrush}" />
         <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
         <Setter Property="Padding" Value="16,10" />
         <Setter Property="FontFamily" Value="Segoe UI Variable" />
         <Setter Property="FontSize" Value="{StaticResource BodyMdFontSize}" />
     </Style>
 
-    <Style x:Key="AloneSecondaryButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource AloneSurfaceContainerLowBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource AloneOnSurfaceBrush}" />
+    <Style x:Key="AloneSecondaryToggleButtonStyle" TargetType="ToggleButton">
+        <Setter Property="Background" Value="{ThemeResource AloneSurfaceContainerLowBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource AloneOnSurfaceBrush}" />
         <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
         <Setter Property="Padding" Value="16,10" />
         <Setter Property="FontFamily" Value="Segoe UI Variable" />
@@ -22,12 +32,26 @@
 
     <Style x:Key="AloneNavItemButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource AloneOnSurfaceVariantBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource AloneOnSurfaceVariantBrush}" />
         <Setter Property="Padding" Value="12,10" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="CornerRadius" Value="0" />
         <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+    <!-- Toolbar: filter/sort — flat, small radius, no border -->
+    <Style
+        x:Key="AloneChromeButtonStyle"
+        BasedOn="{StaticResource DefaultButtonStyle}"
+        TargetType="Button">
+        <Setter Property="Background" Value="{ThemeResource AloneSurfaceBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource AloneOnSurfaceBrush}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
+        <Setter Property="Padding" Value="{StaticResource AloneChromeButtonPadding}" />
+        <Setter Property="FontFamily" Value="Segoe UI Variable" />
+        <Setter Property="FontSize" Value="{StaticResource BodyMdFontSize}" />
     </Style>
 </ResourceDictionary>
 

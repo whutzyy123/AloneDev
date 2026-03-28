@@ -226,59 +226,173 @@ namespace PMTool.App.PMTool_App_XamlTypeInfo
         
         private void InitTypeTables()
         {
-            _typeNameTable = new string[25];
-            _typeNameTable[0] = "Microsoft.UI.Xaml.Controls.XamlControlsResources";
-            _typeNameTable[1] = "Microsoft.UI.Xaml.ResourceDictionary";
-            _typeNameTable[2] = "Object";
-            _typeNameTable[3] = "Boolean";
-            _typeNameTable[4] = "PMTool.App.Controls.GlobalSearchPanel";
-            _typeNameTable[5] = "Microsoft.UI.Xaml.Controls.UserControl";
-            _typeNameTable[6] = "PMTool.App.Controls.OperationBar";
-            _typeNameTable[7] = "String";
-            _typeNameTable[8] = "Windows.UI.Color";
-            _typeNameTable[9] = "System.ValueType";
-            _typeNameTable[10] = "Byte";
-            _typeNameTable[11] = "Microsoft.UI.Xaml.CornerRadius";
-            _typeNameTable[12] = "Double";
-            _typeNameTable[13] = "PMTool.App.Views.Placeholder.ModulePlaceholderPage";
-            _typeNameTable[14] = "Microsoft.UI.Xaml.Controls.Page";
-            _typeNameTable[15] = "PMTool.App.ViewModels.ModulePlaceholderViewModel";
-            _typeNameTable[16] = "CommunityToolkit.Mvvm.ComponentModel.ObservableObject";
-            _typeNameTable[17] = "PMTool.App.Views.Projects.ProjectListPage";
-            _typeNameTable[18] = "PMTool.App.ViewModels.ProjectListViewModel";
-            _typeNameTable[19] = "PMTool.App.Views.Shell.MainShellPage";
-            _typeNameTable[20] = "PMTool.App.ViewModels.ShellViewModel";
-            _typeNameTable[21] = "Microsoft.UI.Xaml.Controls.TreeViewNode";
-            _typeNameTable[22] = "Microsoft.UI.Xaml.DependencyObject";
-            _typeNameTable[23] = "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>";
-            _typeNameTable[24] = "Int32";
+            _typeNameTable = new string[82];
+            _typeNameTable[0] = "PMTool.App.Converters.SearchRowBackgroundConverter";
+            _typeNameTable[1] = "Object";
+            _typeNameTable[2] = "PMTool.App.Converters.BoolToVisibilityConverter";
+            _typeNameTable[3] = "PMTool.App.Converters.StringNotEmptyToVisibilityConverter";
+            _typeNameTable[4] = "PMTool.App.Converters.InverseBoolConverter";
+            _typeNameTable[5] = "PMTool.App.Converters.StringNotEmptyToBoolConverter";
+            _typeNameTable[6] = "PMTool.App.Converters.ProjectStatusChipBrushConverter";
+            _typeNameTable[7] = "PMTool.App.Converters.TaskTypeAccentBrushConverter";
+            _typeNameTable[8] = "Microsoft.UI.Xaml.Controls.XamlControlsResources";
+            _typeNameTable[9] = "Microsoft.UI.Xaml.ResourceDictionary";
+            _typeNameTable[10] = "Boolean";
+            _typeNameTable[11] = "Microsoft.UI.Xaml.Controls.ProgressRing";
+            _typeNameTable[12] = "Microsoft.UI.Xaml.Controls.Control";
+            _typeNameTable[13] = "Double";
+            _typeNameTable[14] = "Microsoft.UI.Xaml.Controls.ProgressRingTemplateSettings";
+            _typeNameTable[15] = "Microsoft.UI.Xaml.DependencyObject";
+            _typeNameTable[16] = "PMTool.App.Controls.GlobalSearchPanel";
+            _typeNameTable[17] = "Microsoft.UI.Xaml.Controls.UserControl";
+            _typeNameTable[18] = "PMTool.App.ViewModels.GlobalSearchViewModel";
+            _typeNameTable[19] = "CommunityToolkit.Mvvm.ComponentModel.ObservableObject";
+            _typeNameTable[20] = "Microsoft.UI.Xaml.FrameworkElement";
+            _typeNameTable[21] = "PMTool.App.Controls.ListEmptyState";
+            _typeNameTable[22] = "String";
+            _typeNameTable[23] = "System.Windows.Input.ICommand";
+            _typeNameTable[24] = "PMTool.App.Controls.OperationBar";
+            _typeNameTable[25] = "Microsoft.UI.Xaml.Thickness";
+            _typeNameTable[26] = "System.ValueType";
+            _typeNameTable[27] = "Microsoft.UI.Xaml.Controls.NumberBox";
+            _typeNameTable[28] = "Microsoft.UI.Xaml.DataTemplate";
+            _typeNameTable[29] = "Windows.Globalization.NumberFormatting.INumberFormatter2";
+            _typeNameTable[30] = "Microsoft.UI.Xaml.Controls.Primitives.FlyoutBase";
+            _typeNameTable[31] = "Microsoft.UI.Xaml.Media.SolidColorBrush";
+            _typeNameTable[32] = "Microsoft.UI.Xaml.Controls.NumberBoxSpinButtonPlacementMode";
+            _typeNameTable[33] = "System.Enum";
+            _typeNameTable[34] = "Microsoft.UI.Xaml.TextReadingOrder";
+            _typeNameTable[35] = "Microsoft.UI.Xaml.Controls.NumberBoxValidationMode";
+            _typeNameTable[36] = "Microsoft.UI.Xaml.Controls.Button";
+            _typeNameTable[37] = "Microsoft.UI.Xaml.GridLength";
+            _typeNameTable[38] = "Microsoft.UI.Xaml.GridUnitType";
+            _typeNameTable[39] = "Microsoft.UI.Xaml.CornerRadius";
+            _typeNameTable[40] = "Microsoft.UI.Xaml.Controls.InfoBar";
+            _typeNameTable[41] = "Microsoft.UI.Xaml.Controls.InfoBarSeverity";
+            _typeNameTable[42] = "Microsoft.UI.Xaml.Controls.Primitives.ButtonBase";
+            _typeNameTable[43] = "Microsoft.UI.Xaml.Style";
+            _typeNameTable[44] = "Microsoft.UI.Xaml.Controls.IconSource";
+            _typeNameTable[45] = "Microsoft.UI.Xaml.Controls.InfoBarTemplateSettings";
+            _typeNameTable[46] = "Microsoft.UI.Xaml.Controls.ProgressBar";
+            _typeNameTable[47] = "Microsoft.UI.Xaml.Controls.Primitives.RangeBase";
+            _typeNameTable[48] = "Microsoft.UI.Xaml.Controls.ProgressBarTemplateSettings";
+            _typeNameTable[49] = "PMTool.App.Views.DataManagement.DataManagementPage";
+            _typeNameTable[50] = "Microsoft.UI.Xaml.Controls.Page";
+            _typeNameTable[51] = "PMTool.App.ViewModels.DataManagementViewModel";
+            _typeNameTable[52] = "PMTool.App.Views.Documents.DocumentListPage";
+            _typeNameTable[53] = "PMTool.App.ViewModels.DocumentListViewModel";
+            _typeNameTable[54] = "PMTool.App.Views.Features.FeatureListPage";
+            _typeNameTable[55] = "PMTool.App.ViewModels.FeatureListViewModel";
+            _typeNameTable[56] = "PMTool.App.Views.Ideas.IdeaListPage";
+            _typeNameTable[57] = "PMTool.App.ViewModels.IdeaListViewModel";
+            _typeNameTable[58] = "PMTool.App.Views.Placeholder.ModulePlaceholderPage";
+            _typeNameTable[59] = "PMTool.App.ViewModels.ModulePlaceholderViewModel";
+            _typeNameTable[60] = "PMTool.App.Views.Projects.ProjectListPage";
+            _typeNameTable[61] = "PMTool.App.ViewModels.ProjectListViewModel";
+            _typeNameTable[62] = "PMTool.App.Views.Releases.ReleaseListPage";
+            _typeNameTable[63] = "PMTool.App.ViewModels.ReleaseListViewModel";
+            _typeNameTable[64] = "PMTool.App.Views.Settings.SettingsPage";
+            _typeNameTable[65] = "PMTool.App.ViewModels.SettingsViewModel";
+            _typeNameTable[66] = "PMTool.Core.Models.Settings.AppThemeOption";
+            _typeNameTable[67] = "Microsoft.UI.Xaml.Controls.TeachingTip";
+            _typeNameTable[68] = "Microsoft.UI.Xaml.Controls.ContentControl";
+            _typeNameTable[69] = "Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode";
+            _typeNameTable[70] = "Microsoft.UI.Xaml.UIElement";
+            _typeNameTable[71] = "Microsoft.UI.Xaml.Controls.TeachingTipHeroContentPlacementMode";
+            _typeNameTable[72] = "Microsoft.UI.Xaml.Controls.TeachingTipTailVisibility";
+            _typeNameTable[73] = "Microsoft.UI.Xaml.Controls.TeachingTipTemplateSettings";
+            _typeNameTable[74] = "PMTool.App.Views.Shell.MainShellPage";
+            _typeNameTable[75] = "PMTool.App.ViewModels.ShellViewModel";
+            _typeNameTable[76] = "PMTool.App.ViewModels.AccountManagementViewModel";
+            _typeNameTable[77] = "PMTool.App.Views.Tasks.TaskListPage";
+            _typeNameTable[78] = "PMTool.App.ViewModels.TaskListViewModel";
+            _typeNameTable[79] = "Microsoft.UI.Xaml.Controls.TreeViewNode";
+            _typeNameTable[80] = "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>";
+            _typeNameTable[81] = "Int32";
 
-            _typeTable = new global::System.Type[25];
-            _typeTable[0] = typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources);
-            _typeTable[1] = typeof(global::Microsoft.UI.Xaml.ResourceDictionary);
-            _typeTable[2] = typeof(global::System.Object);
-            _typeTable[3] = typeof(global::System.Boolean);
-            _typeTable[4] = typeof(global::PMTool.App.Controls.GlobalSearchPanel);
-            _typeTable[5] = typeof(global::Microsoft.UI.Xaml.Controls.UserControl);
-            _typeTable[6] = typeof(global::PMTool.App.Controls.OperationBar);
-            _typeTable[7] = typeof(global::System.String);
-            _typeTable[8] = typeof(global::Windows.UI.Color);
-            _typeTable[9] = typeof(global::System.ValueType);
-            _typeTable[10] = typeof(global::System.Byte);
-            _typeTable[11] = typeof(global::Microsoft.UI.Xaml.CornerRadius);
-            _typeTable[12] = typeof(global::System.Double);
-            _typeTable[13] = typeof(global::PMTool.App.Views.Placeholder.ModulePlaceholderPage);
-            _typeTable[14] = typeof(global::Microsoft.UI.Xaml.Controls.Page);
-            _typeTable[15] = typeof(global::PMTool.App.ViewModels.ModulePlaceholderViewModel);
-            _typeTable[16] = typeof(global::CommunityToolkit.Mvvm.ComponentModel.ObservableObject);
-            _typeTable[17] = typeof(global::PMTool.App.Views.Projects.ProjectListPage);
-            _typeTable[18] = typeof(global::PMTool.App.ViewModels.ProjectListViewModel);
-            _typeTable[19] = typeof(global::PMTool.App.Views.Shell.MainShellPage);
-            _typeTable[20] = typeof(global::PMTool.App.ViewModels.ShellViewModel);
-            _typeTable[21] = typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode);
-            _typeTable[22] = typeof(global::Microsoft.UI.Xaml.DependencyObject);
-            _typeTable[23] = typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>);
-            _typeTable[24] = typeof(global::System.Int32);
+            _typeTable = new global::System.Type[82];
+            _typeTable[0] = typeof(global::PMTool.App.Converters.SearchRowBackgroundConverter);
+            _typeTable[1] = typeof(global::System.Object);
+            _typeTable[2] = typeof(global::PMTool.App.Converters.BoolToVisibilityConverter);
+            _typeTable[3] = typeof(global::PMTool.App.Converters.StringNotEmptyToVisibilityConverter);
+            _typeTable[4] = typeof(global::PMTool.App.Converters.InverseBoolConverter);
+            _typeTable[5] = typeof(global::PMTool.App.Converters.StringNotEmptyToBoolConverter);
+            _typeTable[6] = typeof(global::PMTool.App.Converters.ProjectStatusChipBrushConverter);
+            _typeTable[7] = typeof(global::PMTool.App.Converters.TaskTypeAccentBrushConverter);
+            _typeTable[8] = typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources);
+            _typeTable[9] = typeof(global::Microsoft.UI.Xaml.ResourceDictionary);
+            _typeTable[10] = typeof(global::System.Boolean);
+            _typeTable[11] = typeof(global::Microsoft.UI.Xaml.Controls.ProgressRing);
+            _typeTable[12] = typeof(global::Microsoft.UI.Xaml.Controls.Control);
+            _typeTable[13] = typeof(global::System.Double);
+            _typeTable[14] = typeof(global::Microsoft.UI.Xaml.Controls.ProgressRingTemplateSettings);
+            _typeTable[15] = typeof(global::Microsoft.UI.Xaml.DependencyObject);
+            _typeTable[16] = typeof(global::PMTool.App.Controls.GlobalSearchPanel);
+            _typeTable[17] = typeof(global::Microsoft.UI.Xaml.Controls.UserControl);
+            _typeTable[18] = typeof(global::PMTool.App.ViewModels.GlobalSearchViewModel);
+            _typeTable[19] = typeof(global::CommunityToolkit.Mvvm.ComponentModel.ObservableObject);
+            _typeTable[20] = typeof(global::Microsoft.UI.Xaml.FrameworkElement);
+            _typeTable[21] = typeof(global::PMTool.App.Controls.ListEmptyState);
+            _typeTable[22] = typeof(global::System.String);
+            _typeTable[23] = typeof(global::System.Windows.Input.ICommand);
+            _typeTable[24] = typeof(global::PMTool.App.Controls.OperationBar);
+            _typeTable[25] = typeof(global::Microsoft.UI.Xaml.Thickness);
+            _typeTable[26] = typeof(global::System.ValueType);
+            _typeTable[27] = typeof(global::Microsoft.UI.Xaml.Controls.NumberBox);
+            _typeTable[28] = typeof(global::Microsoft.UI.Xaml.DataTemplate);
+            _typeTable[29] = typeof(global::Windows.Globalization.NumberFormatting.INumberFormatter2);
+            _typeTable[30] = typeof(global::Microsoft.UI.Xaml.Controls.Primitives.FlyoutBase);
+            _typeTable[31] = typeof(global::Microsoft.UI.Xaml.Media.SolidColorBrush);
+            _typeTable[32] = typeof(global::Microsoft.UI.Xaml.Controls.NumberBoxSpinButtonPlacementMode);
+            _typeTable[33] = typeof(global::System.Enum);
+            _typeTable[34] = typeof(global::Microsoft.UI.Xaml.TextReadingOrder);
+            _typeTable[35] = typeof(global::Microsoft.UI.Xaml.Controls.NumberBoxValidationMode);
+            _typeTable[36] = typeof(global::Microsoft.UI.Xaml.Controls.Button);
+            _typeTable[37] = typeof(global::Microsoft.UI.Xaml.GridLength);
+            _typeTable[38] = typeof(global::Microsoft.UI.Xaml.GridUnitType);
+            _typeTable[39] = typeof(global::Microsoft.UI.Xaml.CornerRadius);
+            _typeTable[40] = typeof(global::Microsoft.UI.Xaml.Controls.InfoBar);
+            _typeTable[41] = typeof(global::Microsoft.UI.Xaml.Controls.InfoBarSeverity);
+            _typeTable[42] = typeof(global::Microsoft.UI.Xaml.Controls.Primitives.ButtonBase);
+            _typeTable[43] = typeof(global::Microsoft.UI.Xaml.Style);
+            _typeTable[44] = typeof(global::Microsoft.UI.Xaml.Controls.IconSource);
+            _typeTable[45] = typeof(global::Microsoft.UI.Xaml.Controls.InfoBarTemplateSettings);
+            _typeTable[46] = typeof(global::Microsoft.UI.Xaml.Controls.ProgressBar);
+            _typeTable[47] = typeof(global::Microsoft.UI.Xaml.Controls.Primitives.RangeBase);
+            _typeTable[48] = typeof(global::Microsoft.UI.Xaml.Controls.ProgressBarTemplateSettings);
+            _typeTable[49] = typeof(global::PMTool.App.Views.DataManagement.DataManagementPage);
+            _typeTable[50] = typeof(global::Microsoft.UI.Xaml.Controls.Page);
+            _typeTable[51] = typeof(global::PMTool.App.ViewModels.DataManagementViewModel);
+            _typeTable[52] = typeof(global::PMTool.App.Views.Documents.DocumentListPage);
+            _typeTable[53] = typeof(global::PMTool.App.ViewModels.DocumentListViewModel);
+            _typeTable[54] = typeof(global::PMTool.App.Views.Features.FeatureListPage);
+            _typeTable[55] = typeof(global::PMTool.App.ViewModels.FeatureListViewModel);
+            _typeTable[56] = typeof(global::PMTool.App.Views.Ideas.IdeaListPage);
+            _typeTable[57] = typeof(global::PMTool.App.ViewModels.IdeaListViewModel);
+            _typeTable[58] = typeof(global::PMTool.App.Views.Placeholder.ModulePlaceholderPage);
+            _typeTable[59] = typeof(global::PMTool.App.ViewModels.ModulePlaceholderViewModel);
+            _typeTable[60] = typeof(global::PMTool.App.Views.Projects.ProjectListPage);
+            _typeTable[61] = typeof(global::PMTool.App.ViewModels.ProjectListViewModel);
+            _typeTable[62] = typeof(global::PMTool.App.Views.Releases.ReleaseListPage);
+            _typeTable[63] = typeof(global::PMTool.App.ViewModels.ReleaseListViewModel);
+            _typeTable[64] = typeof(global::PMTool.App.Views.Settings.SettingsPage);
+            _typeTable[65] = typeof(global::PMTool.App.ViewModels.SettingsViewModel);
+            _typeTable[66] = typeof(global::PMTool.Core.Models.Settings.AppThemeOption);
+            _typeTable[67] = typeof(global::Microsoft.UI.Xaml.Controls.TeachingTip);
+            _typeTable[68] = typeof(global::Microsoft.UI.Xaml.Controls.ContentControl);
+            _typeTable[69] = typeof(global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode);
+            _typeTable[70] = typeof(global::Microsoft.UI.Xaml.UIElement);
+            _typeTable[71] = typeof(global::Microsoft.UI.Xaml.Controls.TeachingTipHeroContentPlacementMode);
+            _typeTable[72] = typeof(global::Microsoft.UI.Xaml.Controls.TeachingTipTailVisibility);
+            _typeTable[73] = typeof(global::Microsoft.UI.Xaml.Controls.TeachingTipTemplateSettings);
+            _typeTable[74] = typeof(global::PMTool.App.Views.Shell.MainShellPage);
+            _typeTable[75] = typeof(global::PMTool.App.ViewModels.ShellViewModel);
+            _typeTable[76] = typeof(global::PMTool.App.ViewModels.AccountManagementViewModel);
+            _typeTable[77] = typeof(global::PMTool.App.Views.Tasks.TaskListPage);
+            _typeTable[78] = typeof(global::PMTool.App.ViewModels.TaskListViewModel);
+            _typeTable[79] = typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode);
+            _typeTable[80] = typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>);
+            _typeTable[81] = typeof(global::System.Int32);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -313,39 +427,104 @@ namespace PMTool.App.PMTool_App_XamlTypeInfo
             return -1;
         }
 
-        private object Activate_0_XamlControlsResources() { return new global::Microsoft.UI.Xaml.Controls.XamlControlsResources(); }
-        private object Activate_4_GlobalSearchPanel() { return new global::PMTool.App.Controls.GlobalSearchPanel(); }
-        private object Activate_6_OperationBar() { return new global::PMTool.App.Controls.OperationBar(); }
-        private object Activate_13_ModulePlaceholderPage() { return new global::PMTool.App.Views.Placeholder.ModulePlaceholderPage(); }
-        private object Activate_15_ModulePlaceholderViewModel() { return new global::PMTool.App.ViewModels.ModulePlaceholderViewModel(); }
-        private object Activate_17_ProjectListPage() { return new global::PMTool.App.Views.Projects.ProjectListPage(); }
-        private object Activate_18_ProjectListViewModel() { return new global::PMTool.App.ViewModels.ProjectListViewModel(); }
-        private object Activate_19_MainShellPage() { return new global::PMTool.App.Views.Shell.MainShellPage(); }
-        private object Activate_21_TreeViewNode() { return new global::Microsoft.UI.Xaml.Controls.TreeViewNode(); }
-        private void StaticInitializer_0_XamlControlsResources() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources).TypeHandle);
-        private void StaticInitializer_4_GlobalSearchPanel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Controls.GlobalSearchPanel).TypeHandle);
-        private void StaticInitializer_6_OperationBar() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Controls.OperationBar).TypeHandle);
-        private void StaticInitializer_8_Color() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Windows.UI.Color).TypeHandle);
-        private void StaticInitializer_9_ValueType() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.ValueType).TypeHandle);
-        private void StaticInitializer_10_Byte() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Byte).TypeHandle);
-        private void StaticInitializer_11_CornerRadius() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.CornerRadius).TypeHandle);
-        private void StaticInitializer_13_ModulePlaceholderPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Views.Placeholder.ModulePlaceholderPage).TypeHandle);
-        private void StaticInitializer_15_ModulePlaceholderViewModel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.ViewModels.ModulePlaceholderViewModel).TypeHandle);
-        private void StaticInitializer_16_ObservableObject() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::CommunityToolkit.Mvvm.ComponentModel.ObservableObject).TypeHandle);
-        private void StaticInitializer_17_ProjectListPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Views.Projects.ProjectListPage).TypeHandle);
-        private void StaticInitializer_18_ProjectListViewModel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.ViewModels.ProjectListViewModel).TypeHandle);
-        private void StaticInitializer_19_MainShellPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Views.Shell.MainShellPage).TypeHandle);
-        private void StaticInitializer_20_ShellViewModel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.ViewModels.ShellViewModel).TypeHandle);
-        private void StaticInitializer_21_TreeViewNode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode).TypeHandle);
-        private void StaticInitializer_23_IList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>).TypeHandle);
-        private void MapAdd_0_XamlControlsResources(object instance, object key, object item)
+        private object Activate_0_SearchRowBackgroundConverter() { return new global::PMTool.App.Converters.SearchRowBackgroundConverter(); }
+        private object Activate_2_BoolToVisibilityConverter() { return new global::PMTool.App.Converters.BoolToVisibilityConverter(); }
+        private object Activate_3_StringNotEmptyToVisibilityConverter() { return new global::PMTool.App.Converters.StringNotEmptyToVisibilityConverter(); }
+        private object Activate_4_InverseBoolConverter() { return new global::PMTool.App.Converters.InverseBoolConverter(); }
+        private object Activate_5_StringNotEmptyToBoolConverter() { return new global::PMTool.App.Converters.StringNotEmptyToBoolConverter(); }
+        private object Activate_6_ProjectStatusChipBrushConverter() { return new global::PMTool.App.Converters.ProjectStatusChipBrushConverter(); }
+        private object Activate_7_TaskTypeAccentBrushConverter() { return new global::PMTool.App.Converters.TaskTypeAccentBrushConverter(); }
+        private object Activate_8_XamlControlsResources() { return new global::Microsoft.UI.Xaml.Controls.XamlControlsResources(); }
+        private object Activate_11_ProgressRing() { return new global::Microsoft.UI.Xaml.Controls.ProgressRing(); }
+        private object Activate_16_GlobalSearchPanel() { return new global::PMTool.App.Controls.GlobalSearchPanel(); }
+        private object Activate_21_ListEmptyState() { return new global::PMTool.App.Controls.ListEmptyState(); }
+        private object Activate_24_OperationBar() { return new global::PMTool.App.Controls.OperationBar(); }
+        private object Activate_27_NumberBox() { return new global::Microsoft.UI.Xaml.Controls.NumberBox(); }
+        private object Activate_40_InfoBar() { return new global::Microsoft.UI.Xaml.Controls.InfoBar(); }
+        private object Activate_45_InfoBarTemplateSettings() { return new global::Microsoft.UI.Xaml.Controls.InfoBarTemplateSettings(); }
+        private object Activate_46_ProgressBar() { return new global::Microsoft.UI.Xaml.Controls.ProgressBar(); }
+        private object Activate_49_DataManagementPage() { return new global::PMTool.App.Views.DataManagement.DataManagementPage(); }
+        private object Activate_52_DocumentListPage() { return new global::PMTool.App.Views.Documents.DocumentListPage(); }
+        private object Activate_54_FeatureListPage() { return new global::PMTool.App.Views.Features.FeatureListPage(); }
+        private object Activate_56_IdeaListPage() { return new global::PMTool.App.Views.Ideas.IdeaListPage(); }
+        private object Activate_58_ModulePlaceholderPage() { return new global::PMTool.App.Views.Placeholder.ModulePlaceholderPage(); }
+        private object Activate_59_ModulePlaceholderViewModel() { return new global::PMTool.App.ViewModels.ModulePlaceholderViewModel(); }
+        private object Activate_60_ProjectListPage() { return new global::PMTool.App.Views.Projects.ProjectListPage(); }
+        private object Activate_62_ReleaseListPage() { return new global::PMTool.App.Views.Releases.ReleaseListPage(); }
+        private object Activate_64_SettingsPage() { return new global::PMTool.App.Views.Settings.SettingsPage(); }
+        private object Activate_67_TeachingTip() { return new global::Microsoft.UI.Xaml.Controls.TeachingTip(); }
+        private object Activate_73_TeachingTipTemplateSettings() { return new global::Microsoft.UI.Xaml.Controls.TeachingTipTemplateSettings(); }
+        private object Activate_74_MainShellPage() { return new global::PMTool.App.Views.Shell.MainShellPage(); }
+        private object Activate_77_TaskListPage() { return new global::PMTool.App.Views.Tasks.TaskListPage(); }
+        private object Activate_79_TreeViewNode() { return new global::Microsoft.UI.Xaml.Controls.TreeViewNode(); }
+        private void StaticInitializer_0_SearchRowBackgroundConverter() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Converters.SearchRowBackgroundConverter).TypeHandle);
+        private void StaticInitializer_2_BoolToVisibilityConverter() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Converters.BoolToVisibilityConverter).TypeHandle);
+        private void StaticInitializer_3_StringNotEmptyToVisibilityConverter() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Converters.StringNotEmptyToVisibilityConverter).TypeHandle);
+        private void StaticInitializer_4_InverseBoolConverter() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Converters.InverseBoolConverter).TypeHandle);
+        private void StaticInitializer_5_StringNotEmptyToBoolConverter() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Converters.StringNotEmptyToBoolConverter).TypeHandle);
+        private void StaticInitializer_6_ProjectStatusChipBrushConverter() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Converters.ProjectStatusChipBrushConverter).TypeHandle);
+        private void StaticInitializer_7_TaskTypeAccentBrushConverter() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Converters.TaskTypeAccentBrushConverter).TypeHandle);
+        private void StaticInitializer_8_XamlControlsResources() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources).TypeHandle);
+        private void StaticInitializer_11_ProgressRing() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.ProgressRing).TypeHandle);
+        private void StaticInitializer_14_ProgressRingTemplateSettings() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.ProgressRingTemplateSettings).TypeHandle);
+        private void StaticInitializer_16_GlobalSearchPanel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Controls.GlobalSearchPanel).TypeHandle);
+        private void StaticInitializer_18_GlobalSearchViewModel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.ViewModels.GlobalSearchViewModel).TypeHandle);
+        private void StaticInitializer_19_ObservableObject() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::CommunityToolkit.Mvvm.ComponentModel.ObservableObject).TypeHandle);
+        private void StaticInitializer_21_ListEmptyState() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Controls.ListEmptyState).TypeHandle);
+        private void StaticInitializer_23_ICommand() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Windows.Input.ICommand).TypeHandle);
+        private void StaticInitializer_24_OperationBar() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Controls.OperationBar).TypeHandle);
+        private void StaticInitializer_25_Thickness() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Thickness).TypeHandle);
+        private void StaticInitializer_26_ValueType() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.ValueType).TypeHandle);
+        private void StaticInitializer_27_NumberBox() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.NumberBox).TypeHandle);
+        private void StaticInitializer_29_INumberFormatter2() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Windows.Globalization.NumberFormatting.INumberFormatter2).TypeHandle);
+        private void StaticInitializer_32_NumberBoxSpinButtonPlacementMode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.NumberBoxSpinButtonPlacementMode).TypeHandle);
+        private void StaticInitializer_33_Enum() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Enum).TypeHandle);
+        private void StaticInitializer_35_NumberBoxValidationMode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.NumberBoxValidationMode).TypeHandle);
+        private void StaticInitializer_37_GridLength() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.GridLength).TypeHandle);
+        private void StaticInitializer_38_GridUnitType() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.GridUnitType).TypeHandle);
+        private void StaticInitializer_39_CornerRadius() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.CornerRadius).TypeHandle);
+        private void StaticInitializer_40_InfoBar() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.InfoBar).TypeHandle);
+        private void StaticInitializer_41_InfoBarSeverity() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.InfoBarSeverity).TypeHandle);
+        private void StaticInitializer_45_InfoBarTemplateSettings() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.InfoBarTemplateSettings).TypeHandle);
+        private void StaticInitializer_46_ProgressBar() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.ProgressBar).TypeHandle);
+        private void StaticInitializer_48_ProgressBarTemplateSettings() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.ProgressBarTemplateSettings).TypeHandle);
+        private void StaticInitializer_49_DataManagementPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Views.DataManagement.DataManagementPage).TypeHandle);
+        private void StaticInitializer_51_DataManagementViewModel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.ViewModels.DataManagementViewModel).TypeHandle);
+        private void StaticInitializer_52_DocumentListPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Views.Documents.DocumentListPage).TypeHandle);
+        private void StaticInitializer_53_DocumentListViewModel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.ViewModels.DocumentListViewModel).TypeHandle);
+        private void StaticInitializer_54_FeatureListPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Views.Features.FeatureListPage).TypeHandle);
+        private void StaticInitializer_55_FeatureListViewModel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.ViewModels.FeatureListViewModel).TypeHandle);
+        private void StaticInitializer_56_IdeaListPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Views.Ideas.IdeaListPage).TypeHandle);
+        private void StaticInitializer_57_IdeaListViewModel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.ViewModels.IdeaListViewModel).TypeHandle);
+        private void StaticInitializer_58_ModulePlaceholderPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Views.Placeholder.ModulePlaceholderPage).TypeHandle);
+        private void StaticInitializer_59_ModulePlaceholderViewModel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.ViewModels.ModulePlaceholderViewModel).TypeHandle);
+        private void StaticInitializer_60_ProjectListPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Views.Projects.ProjectListPage).TypeHandle);
+        private void StaticInitializer_61_ProjectListViewModel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.ViewModels.ProjectListViewModel).TypeHandle);
+        private void StaticInitializer_62_ReleaseListPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Views.Releases.ReleaseListPage).TypeHandle);
+        private void StaticInitializer_63_ReleaseListViewModel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.ViewModels.ReleaseListViewModel).TypeHandle);
+        private void StaticInitializer_64_SettingsPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Views.Settings.SettingsPage).TypeHandle);
+        private void StaticInitializer_65_SettingsViewModel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.ViewModels.SettingsViewModel).TypeHandle);
+        private void StaticInitializer_66_AppThemeOption() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.Core.Models.Settings.AppThemeOption).TypeHandle);
+        private void StaticInitializer_67_TeachingTip() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TeachingTip).TypeHandle);
+        private void StaticInitializer_69_TeachingTipPlacementMode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode).TypeHandle);
+        private void StaticInitializer_71_TeachingTipHeroContentPlacementMode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TeachingTipHeroContentPlacementMode).TypeHandle);
+        private void StaticInitializer_72_TeachingTipTailVisibility() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TeachingTipTailVisibility).TypeHandle);
+        private void StaticInitializer_73_TeachingTipTemplateSettings() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TeachingTipTemplateSettings).TypeHandle);
+        private void StaticInitializer_74_MainShellPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Views.Shell.MainShellPage).TypeHandle);
+        private void StaticInitializer_75_ShellViewModel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.ViewModels.ShellViewModel).TypeHandle);
+        private void StaticInitializer_76_AccountManagementViewModel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.ViewModels.AccountManagementViewModel).TypeHandle);
+        private void StaticInitializer_77_TaskListPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.Views.Tasks.TaskListPage).TypeHandle);
+        private void StaticInitializer_78_TaskListViewModel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PMTool.App.ViewModels.TaskListViewModel).TypeHandle);
+        private void StaticInitializer_79_TreeViewNode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode).TypeHandle);
+        private void StaticInitializer_80_IList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>).TypeHandle);
+        private void MapAdd_8_XamlControlsResources(object instance, object key, object item)
         {
             var collection = (global::System.Collections.Generic.IDictionary<global::System.Object, global::System.Object>)instance;
             var newKey = (global::System.Object)key;
             var newItem = (global::System.Object)item;
             collection.Add(newKey, newItem);
         }
-        private void VectorAdd_23_IList(object instance, object item)
+        private void VectorAdd_80_IList(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::Microsoft.UI.Xaml.Controls.TreeViewNode>)instance;
             var newItem = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)item;
@@ -362,80 +541,296 @@ namespace PMTool.App.PMTool_App_XamlTypeInfo
             switch (typeIndex)
             {
 
-            case 0:   //  Microsoft.UI.Xaml.Controls.XamlControlsResources
+            case 0:   //  PMTool.App.Converters.SearchRowBackgroundConverter
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_0_SearchRowBackgroundConverter;
+                userType.StaticInitializer = StaticInitializer_0_SearchRowBackgroundConverter;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 1:   //  Object
+                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 2:   //  PMTool.App.Converters.BoolToVisibilityConverter
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_2_BoolToVisibilityConverter;
+                userType.StaticInitializer = StaticInitializer_2_BoolToVisibilityConverter;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 3:   //  PMTool.App.Converters.StringNotEmptyToVisibilityConverter
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_3_StringNotEmptyToVisibilityConverter;
+                userType.StaticInitializer = StaticInitializer_3_StringNotEmptyToVisibilityConverter;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 4:   //  PMTool.App.Converters.InverseBoolConverter
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_4_InverseBoolConverter;
+                userType.StaticInitializer = StaticInitializer_4_InverseBoolConverter;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 5:   //  PMTool.App.Converters.StringNotEmptyToBoolConverter
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_5_StringNotEmptyToBoolConverter;
+                userType.StaticInitializer = StaticInitializer_5_StringNotEmptyToBoolConverter;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 6:   //  PMTool.App.Converters.ProjectStatusChipBrushConverter
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_6_ProjectStatusChipBrushConverter;
+                userType.StaticInitializer = StaticInitializer_6_ProjectStatusChipBrushConverter;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 7:   //  PMTool.App.Converters.TaskTypeAccentBrushConverter
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_7_TaskTypeAccentBrushConverter;
+                userType.StaticInitializer = StaticInitializer_7_TaskTypeAccentBrushConverter;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 8:   //  Microsoft.UI.Xaml.Controls.XamlControlsResources
                 userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.ResourceDictionary"));
-                userType.Activator = Activate_0_XamlControlsResources;
-                userType.StaticInitializer = StaticInitializer_0_XamlControlsResources;
-                userType.DictionaryAdd = MapAdd_0_XamlControlsResources;
+                userType.Activator = Activate_8_XamlControlsResources;
+                userType.StaticInitializer = StaticInitializer_8_XamlControlsResources;
+                userType.DictionaryAdd = MapAdd_8_XamlControlsResources;
                 userType.AddMemberName("UseCompactResources");
                 xamlType = userType;
                 break;
 
-            case 1:   //  Microsoft.UI.Xaml.ResourceDictionary
+            case 9:   //  Microsoft.UI.Xaml.ResourceDictionary
                 xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 2:   //  Object
+            case 10:   //  Boolean
                 xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 3:   //  Boolean
-                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
-                break;
-
-            case 4:   //  PMTool.App.Controls.GlobalSearchPanel
-                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.UserControl"));
-                userType.Activator = Activate_4_GlobalSearchPanel;
-                userType.StaticInitializer = StaticInitializer_4_GlobalSearchPanel;
-                userType.SetIsLocalType();
+            case 11:   //  Microsoft.UI.Xaml.Controls.ProgressRing
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Control"));
+                userType.Activator = Activate_11_ProgressRing;
+                userType.StaticInitializer = StaticInitializer_11_ProgressRing;
+                userType.AddMemberName("IsActive");
+                userType.AddMemberName("IsIndeterminate");
+                userType.AddMemberName("Maximum");
+                userType.AddMemberName("Minimum");
+                userType.AddMemberName("TemplateSettings");
+                userType.AddMemberName("Value");
                 xamlType = userType;
                 break;
 
-            case 5:   //  Microsoft.UI.Xaml.Controls.UserControl
+            case 12:   //  Microsoft.UI.Xaml.Controls.Control
                 xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 6:   //  PMTool.App.Controls.OperationBar
-                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.UserControl"));
-                userType.Activator = Activate_6_OperationBar;
-                userType.StaticInitializer = StaticInitializer_6_OperationBar;
-                userType.AddMemberName("Title");
-                userType.AddMemberName("FilterLabel");
-                userType.AddMemberName("PrimaryActionLabel");
-                userType.SetIsLocalType();
-                xamlType = userType;
-                break;
-
-            case 7:   //  String
+            case 13:   //  Double
                 xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 8:   //  Windows.UI.Color
-                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
-                userType.StaticInitializer = StaticInitializer_8_Color;
-                userType.AddMemberName("A");
-                userType.AddMemberName("R");
-                userType.AddMemberName("G");
-                userType.AddMemberName("B");
-                xamlType = userType;
-                break;
-
-            case 9:   //  System.ValueType
-                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.StaticInitializer = StaticInitializer_9_ValueType;
-                xamlType = userType;
-                break;
-
-            case 10:   //  Byte
-                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
-                userType.StaticInitializer = StaticInitializer_10_Byte;
+            case 14:   //  Microsoft.UI.Xaml.Controls.ProgressRingTemplateSettings
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.DependencyObject"));
+                userType.StaticInitializer = StaticInitializer_14_ProgressRingTemplateSettings;
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;
 
-            case 11:   //  Microsoft.UI.Xaml.CornerRadius
+            case 15:   //  Microsoft.UI.Xaml.DependencyObject
+                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 16:   //  PMTool.App.Controls.GlobalSearchPanel
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_16_GlobalSearchPanel;
+                userType.StaticInitializer = StaticInitializer_16_GlobalSearchPanel;
+                userType.AddMemberName("ViewModel");
+                userType.AddMemberName("QueryFocusTarget");
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 17:   //  Microsoft.UI.Xaml.Controls.UserControl
+                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 18:   //  PMTool.App.ViewModels.GlobalSearchViewModel
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("CommunityToolkit.Mvvm.ComponentModel.ObservableObject"));
+                userType.StaticInitializer = StaticInitializer_18_GlobalSearchViewModel;
+                userType.SetIsReturnTypeStub();
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 19:   //  CommunityToolkit.Mvvm.ComponentModel.ObservableObject
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.StaticInitializer = StaticInitializer_19_ObservableObject;
+                xamlType = userType;
+                break;
+
+            case 20:   //  Microsoft.UI.Xaml.FrameworkElement
+                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 21:   //  PMTool.App.Controls.ListEmptyState
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_21_ListEmptyState;
+                userType.StaticInitializer = StaticInitializer_21_ListEmptyState;
+                userType.AddMemberName("Title");
+                userType.AddMemberName("Description");
+                userType.AddMemberName("Glyph");
+                userType.AddMemberName("PrimaryLabel");
+                userType.AddMemberName("PrimaryCommand");
+                userType.AddMemberName("IsPrimaryVisible");
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 22:   //  String
+                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 23:   //  System.Windows.Input.ICommand
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, null);
+                userType.StaticInitializer = StaticInitializer_23_ICommand;
+                userType.SetIsReturnTypeStub();
+                xamlType = userType;
+                break;
+
+            case 24:   //  PMTool.App.Controls.OperationBar
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_24_OperationBar;
+                userType.StaticInitializer = StaticInitializer_24_OperationBar;
+                userType.AddMemberName("Title");
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 25:   //  Microsoft.UI.Xaml.Thickness
                 userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
-                userType.StaticInitializer = StaticInitializer_11_CornerRadius;
+                userType.StaticInitializer = StaticInitializer_25_Thickness;
+                userType.AddMemberName("Left");
+                userType.AddMemberName("Top");
+                userType.AddMemberName("Right");
+                userType.AddMemberName("Bottom");
+                xamlType = userType;
+                break;
+
+            case 26:   //  System.ValueType
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.StaticInitializer = StaticInitializer_26_ValueType;
+                xamlType = userType;
+                break;
+
+            case 27:   //  Microsoft.UI.Xaml.Controls.NumberBox
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Control"));
+                userType.Activator = Activate_27_NumberBox;
+                userType.StaticInitializer = StaticInitializer_27_NumberBox;
+                userType.AddMemberName("AcceptsExpression");
+                userType.AddMemberName("Description");
+                userType.AddMemberName("Header");
+                userType.AddMemberName("HeaderTemplate");
+                userType.AddMemberName("IsWrapEnabled");
+                userType.AddMemberName("LargeChange");
+                userType.AddMemberName("Maximum");
+                userType.AddMemberName("Minimum");
+                userType.AddMemberName("NumberFormatter");
+                userType.AddMemberName("PlaceholderText");
+                userType.AddMemberName("PreventKeyboardDisplayOnProgrammaticFocus");
+                userType.AddMemberName("SelectionFlyout");
+                userType.AddMemberName("SelectionHighlightColor");
+                userType.AddMemberName("SmallChange");
+                userType.AddMemberName("SpinButtonPlacementMode");
+                userType.AddMemberName("Text");
+                userType.AddMemberName("TextReadingOrder");
+                userType.AddMemberName("ValidationMode");
+                userType.AddMemberName("Value");
+                xamlType = userType;
+                break;
+
+            case 28:   //  Microsoft.UI.Xaml.DataTemplate
+                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 29:   //  Windows.Globalization.NumberFormatting.INumberFormatter2
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, null);
+                userType.StaticInitializer = StaticInitializer_29_INumberFormatter2;
+                userType.SetIsReturnTypeStub();
+                xamlType = userType;
+                break;
+
+            case 30:   //  Microsoft.UI.Xaml.Controls.Primitives.FlyoutBase
+                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 31:   //  Microsoft.UI.Xaml.Media.SolidColorBrush
+                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 32:   //  Microsoft.UI.Xaml.Controls.NumberBoxSpinButtonPlacementMode
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Enum"));
+                userType.StaticInitializer = StaticInitializer_32_NumberBoxSpinButtonPlacementMode;
+                userType.AddEnumValue("Hidden", global::Microsoft.UI.Xaml.Controls.NumberBoxSpinButtonPlacementMode.Hidden);
+                userType.AddEnumValue("Compact", global::Microsoft.UI.Xaml.Controls.NumberBoxSpinButtonPlacementMode.Compact);
+                userType.AddEnumValue("Inline", global::Microsoft.UI.Xaml.Controls.NumberBoxSpinButtonPlacementMode.Inline);
+                xamlType = userType;
+                break;
+
+            case 33:   //  System.Enum
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
+                userType.StaticInitializer = StaticInitializer_33_Enum;
+                xamlType = userType;
+                break;
+
+            case 34:   //  Microsoft.UI.Xaml.TextReadingOrder
+                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 35:   //  Microsoft.UI.Xaml.Controls.NumberBoxValidationMode
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Enum"));
+                userType.StaticInitializer = StaticInitializer_35_NumberBoxValidationMode;
+                userType.AddEnumValue("InvalidInputOverwritten", global::Microsoft.UI.Xaml.Controls.NumberBoxValidationMode.InvalidInputOverwritten);
+                userType.AddEnumValue("Disabled", global::Microsoft.UI.Xaml.Controls.NumberBoxValidationMode.Disabled);
+                xamlType = userType;
+                break;
+
+            case 36:   //  Microsoft.UI.Xaml.Controls.Button
+                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 37:   //  Microsoft.UI.Xaml.GridLength
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
+                userType.StaticInitializer = StaticInitializer_37_GridLength;
+                userType.AddMemberName("Value");
+                userType.AddMemberName("GridUnitType");
+                userType.AddMemberName("IsAbsolute");
+                userType.AddMemberName("IsAuto");
+                userType.AddMemberName("IsStar");
+                xamlType = userType;
+                break;
+
+            case 38:   //  Microsoft.UI.Xaml.GridUnitType
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Enum"));
+                userType.StaticInitializer = StaticInitializer_38_GridUnitType;
+                userType.AddEnumValue("Auto", global::Microsoft.UI.Xaml.GridUnitType.Auto);
+                userType.AddEnumValue("Pixel", global::Microsoft.UI.Xaml.GridUnitType.Pixel);
+                userType.AddEnumValue("Star", global::Microsoft.UI.Xaml.GridUnitType.Star);
+                xamlType = userType;
+                break;
+
+            case 39:   //  Microsoft.UI.Xaml.CornerRadius
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
+                userType.StaticInitializer = StaticInitializer_39_CornerRadius;
                 userType.AddMemberName("TopLeft");
                 userType.AddMemberName("TopRight");
                 userType.AddMemberName("BottomRight");
@@ -443,75 +838,360 @@ namespace PMTool.App.PMTool_App_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 12:   //  Double
+            case 40:   //  Microsoft.UI.Xaml.Controls.InfoBar
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Control"));
+                userType.Activator = Activate_40_InfoBar;
+                userType.StaticInitializer = StaticInitializer_40_InfoBar;
+                userType.SetContentPropertyName("Microsoft.UI.Xaml.Controls.InfoBar.Content");
+                userType.AddMemberName("Content");
+                userType.AddMemberName("IsClosable");
+                userType.AddMemberName("IsOpen");
+                userType.AddMemberName("Message");
+                userType.AddMemberName("Severity");
+                userType.AddMemberName("ActionButton");
+                userType.AddMemberName("CloseButtonCommand");
+                userType.AddMemberName("CloseButtonCommandParameter");
+                userType.AddMemberName("CloseButtonStyle");
+                userType.AddMemberName("ContentTemplate");
+                userType.AddMemberName("IconSource");
+                userType.AddMemberName("IsIconVisible");
+                userType.AddMemberName("TemplateSettings");
+                userType.AddMemberName("Title");
+                xamlType = userType;
+                break;
+
+            case 41:   //  Microsoft.UI.Xaml.Controls.InfoBarSeverity
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Enum"));
+                userType.StaticInitializer = StaticInitializer_41_InfoBarSeverity;
+                userType.AddEnumValue("Informational", global::Microsoft.UI.Xaml.Controls.InfoBarSeverity.Informational);
+                userType.AddEnumValue("Success", global::Microsoft.UI.Xaml.Controls.InfoBarSeverity.Success);
+                userType.AddEnumValue("Warning", global::Microsoft.UI.Xaml.Controls.InfoBarSeverity.Warning);
+                userType.AddEnumValue("Error", global::Microsoft.UI.Xaml.Controls.InfoBarSeverity.Error);
+                xamlType = userType;
+                break;
+
+            case 42:   //  Microsoft.UI.Xaml.Controls.Primitives.ButtonBase
                 xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 13:   //  PMTool.App.Views.Placeholder.ModulePlaceholderPage
-                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_13_ModulePlaceholderPage;
-                userType.StaticInitializer = StaticInitializer_13_ModulePlaceholderPage;
-                userType.AddMemberName("ViewModel");
-                userType.SetIsLocalType();
-                xamlType = userType;
-                break;
-
-            case 14:   //  Microsoft.UI.Xaml.Controls.Page
+            case 43:   //  Microsoft.UI.Xaml.Style
                 xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 15:   //  PMTool.App.ViewModels.ModulePlaceholderViewModel
-                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("CommunityToolkit.Mvvm.ComponentModel.ObservableObject"));
-                userType.StaticInitializer = StaticInitializer_15_ModulePlaceholderViewModel;
-                userType.SetIsReturnTypeStub();
-                userType.SetIsLocalType();
-                xamlType = userType;
+            case 44:   //  Microsoft.UI.Xaml.Controls.IconSource
+                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 16:   //  CommunityToolkit.Mvvm.ComponentModel.ObservableObject
-                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.StaticInitializer = StaticInitializer_16_ObservableObject;
-                xamlType = userType;
-                break;
-
-            case 17:   //  PMTool.App.Views.Projects.ProjectListPage
-                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_17_ProjectListPage;
-                userType.StaticInitializer = StaticInitializer_17_ProjectListPage;
-                userType.AddMemberName("ViewModel");
-                userType.SetIsLocalType();
-                xamlType = userType;
-                break;
-
-            case 18:   //  PMTool.App.ViewModels.ProjectListViewModel
-                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("CommunityToolkit.Mvvm.ComponentModel.ObservableObject"));
-                userType.StaticInitializer = StaticInitializer_18_ProjectListViewModel;
-                userType.SetIsReturnTypeStub();
-                userType.SetIsLocalType();
-                xamlType = userType;
-                break;
-
-            case 19:   //  PMTool.App.Views.Shell.MainShellPage
-                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_19_MainShellPage;
-                userType.StaticInitializer = StaticInitializer_19_MainShellPage;
-                userType.AddMemberName("ViewModel");
-                userType.SetIsLocalType();
-                xamlType = userType;
-                break;
-
-            case 20:   //  PMTool.App.ViewModels.ShellViewModel
-                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("CommunityToolkit.Mvvm.ComponentModel.ObservableObject"));
-                userType.StaticInitializer = StaticInitializer_20_ShellViewModel;
-                userType.SetIsReturnTypeStub();
-                userType.SetIsLocalType();
-                xamlType = userType;
-                break;
-
-            case 21:   //  Microsoft.UI.Xaml.Controls.TreeViewNode
+            case 45:   //  Microsoft.UI.Xaml.Controls.InfoBarTemplateSettings
                 userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.DependencyObject"));
-                userType.Activator = Activate_21_TreeViewNode;
-                userType.StaticInitializer = StaticInitializer_21_TreeViewNode;
+                userType.StaticInitializer = StaticInitializer_45_InfoBarTemplateSettings;
+                userType.SetIsReturnTypeStub();
+                xamlType = userType;
+                break;
+
+            case 46:   //  Microsoft.UI.Xaml.Controls.ProgressBar
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Primitives.RangeBase"));
+                userType.Activator = Activate_46_ProgressBar;
+                userType.StaticInitializer = StaticInitializer_46_ProgressBar;
+                userType.AddMemberName("IsIndeterminate");
+                userType.AddMemberName("ShowError");
+                userType.AddMemberName("ShowPaused");
+                userType.AddMemberName("TemplateSettings");
+                xamlType = userType;
+                break;
+
+            case 47:   //  Microsoft.UI.Xaml.Controls.Primitives.RangeBase
+                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 48:   //  Microsoft.UI.Xaml.Controls.ProgressBarTemplateSettings
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.DependencyObject"));
+                userType.StaticInitializer = StaticInitializer_48_ProgressBarTemplateSettings;
+                userType.SetIsReturnTypeStub();
+                xamlType = userType;
+                break;
+
+            case 49:   //  PMTool.App.Views.DataManagement.DataManagementPage
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_49_DataManagementPage;
+                userType.StaticInitializer = StaticInitializer_49_DataManagementPage;
+                userType.AddMemberName("ViewModel");
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 50:   //  Microsoft.UI.Xaml.Controls.Page
+                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 51:   //  PMTool.App.ViewModels.DataManagementViewModel
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("CommunityToolkit.Mvvm.ComponentModel.ObservableObject"));
+                userType.StaticInitializer = StaticInitializer_51_DataManagementViewModel;
+                userType.SetIsReturnTypeStub();
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 52:   //  PMTool.App.Views.Documents.DocumentListPage
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_52_DocumentListPage;
+                userType.StaticInitializer = StaticInitializer_52_DocumentListPage;
+                userType.AddMemberName("ViewModel");
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 53:   //  PMTool.App.ViewModels.DocumentListViewModel
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("CommunityToolkit.Mvvm.ComponentModel.ObservableObject"));
+                userType.StaticInitializer = StaticInitializer_53_DocumentListViewModel;
+                userType.SetIsReturnTypeStub();
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 54:   //  PMTool.App.Views.Features.FeatureListPage
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_54_FeatureListPage;
+                userType.StaticInitializer = StaticInitializer_54_FeatureListPage;
+                userType.AddMemberName("ViewModel");
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 55:   //  PMTool.App.ViewModels.FeatureListViewModel
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("CommunityToolkit.Mvvm.ComponentModel.ObservableObject"));
+                userType.StaticInitializer = StaticInitializer_55_FeatureListViewModel;
+                userType.SetIsReturnTypeStub();
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 56:   //  PMTool.App.Views.Ideas.IdeaListPage
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_56_IdeaListPage;
+                userType.StaticInitializer = StaticInitializer_56_IdeaListPage;
+                userType.AddMemberName("ViewModel");
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 57:   //  PMTool.App.ViewModels.IdeaListViewModel
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("CommunityToolkit.Mvvm.ComponentModel.ObservableObject"));
+                userType.StaticInitializer = StaticInitializer_57_IdeaListViewModel;
+                userType.SetIsReturnTypeStub();
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 58:   //  PMTool.App.Views.Placeholder.ModulePlaceholderPage
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_58_ModulePlaceholderPage;
+                userType.StaticInitializer = StaticInitializer_58_ModulePlaceholderPage;
+                userType.AddMemberName("ViewModel");
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 59:   //  PMTool.App.ViewModels.ModulePlaceholderViewModel
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("CommunityToolkit.Mvvm.ComponentModel.ObservableObject"));
+                userType.StaticInitializer = StaticInitializer_59_ModulePlaceholderViewModel;
+                userType.SetIsReturnTypeStub();
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 60:   //  PMTool.App.Views.Projects.ProjectListPage
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_60_ProjectListPage;
+                userType.StaticInitializer = StaticInitializer_60_ProjectListPage;
+                userType.AddMemberName("ViewModel");
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 61:   //  PMTool.App.ViewModels.ProjectListViewModel
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("CommunityToolkit.Mvvm.ComponentModel.ObservableObject"));
+                userType.StaticInitializer = StaticInitializer_61_ProjectListViewModel;
+                userType.SetIsReturnTypeStub();
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 62:   //  PMTool.App.Views.Releases.ReleaseListPage
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_62_ReleaseListPage;
+                userType.StaticInitializer = StaticInitializer_62_ReleaseListPage;
+                userType.AddMemberName("ViewModel");
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 63:   //  PMTool.App.ViewModels.ReleaseListViewModel
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("CommunityToolkit.Mvvm.ComponentModel.ObservableObject"));
+                userType.StaticInitializer = StaticInitializer_63_ReleaseListViewModel;
+                userType.SetIsReturnTypeStub();
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 64:   //  PMTool.App.Views.Settings.SettingsPage
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_64_SettingsPage;
+                userType.StaticInitializer = StaticInitializer_64_SettingsPage;
+                userType.AddMemberName("ViewModel");
+                userType.AddMemberName("ThemeLight");
+                userType.AddMemberName("ThemeDark");
+                userType.AddMemberName("ThemeFollowSystem");
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 65:   //  PMTool.App.ViewModels.SettingsViewModel
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("CommunityToolkit.Mvvm.ComponentModel.ObservableObject"));
+                userType.StaticInitializer = StaticInitializer_65_SettingsViewModel;
+                userType.SetIsReturnTypeStub();
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 66:   //  PMTool.Core.Models.Settings.AppThemeOption
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Enum"));
+                userType.StaticInitializer = StaticInitializer_66_AppThemeOption;
+                userType.AddEnumValue("Light", global::PMTool.Core.Models.Settings.AppThemeOption.Light);
+                userType.AddEnumValue("Dark", global::PMTool.Core.Models.Settings.AppThemeOption.Dark);
+                userType.AddEnumValue("FollowSystem", global::PMTool.Core.Models.Settings.AppThemeOption.FollowSystem);
+                xamlType = userType;
+                break;
+
+            case 67:   //  Microsoft.UI.Xaml.Controls.TeachingTip
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.ContentControl"));
+                userType.Activator = Activate_67_TeachingTip;
+                userType.StaticInitializer = StaticInitializer_67_TeachingTip;
+                userType.AddMemberName("Title");
+                userType.AddMemberName("Subtitle");
+                userType.AddMemberName("PreferredPlacement");
+                userType.AddMemberName("IsLightDismissEnabled");
+                userType.AddMemberName("ActionButtonContent");
+                userType.AddMemberName("ActionButtonCommand");
+                userType.AddMemberName("ActionButtonCommandParameter");
+                userType.AddMemberName("ActionButtonStyle");
+                userType.AddMemberName("CloseButtonCommand");
+                userType.AddMemberName("CloseButtonCommandParameter");
+                userType.AddMemberName("CloseButtonContent");
+                userType.AddMemberName("CloseButtonStyle");
+                userType.AddMemberName("HeroContent");
+                userType.AddMemberName("HeroContentPlacement");
+                userType.AddMemberName("IconSource");
+                userType.AddMemberName("IsOpen");
+                userType.AddMemberName("PlacementMargin");
+                userType.AddMemberName("ShouldConstrainToRootBounds");
+                userType.AddMemberName("TailVisibility");
+                userType.AddMemberName("Target");
+                userType.AddMemberName("TemplateSettings");
+                xamlType = userType;
+                break;
+
+            case 68:   //  Microsoft.UI.Xaml.Controls.ContentControl
+                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 69:   //  Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Enum"));
+                userType.StaticInitializer = StaticInitializer_69_TeachingTipPlacementMode;
+                userType.AddEnumValue("Auto", global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode.Auto);
+                userType.AddEnumValue("Top", global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode.Top);
+                userType.AddEnumValue("Bottom", global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode.Bottom);
+                userType.AddEnumValue("Left", global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode.Left);
+                userType.AddEnumValue("Right", global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode.Right);
+                userType.AddEnumValue("TopRight", global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode.TopRight);
+                userType.AddEnumValue("TopLeft", global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode.TopLeft);
+                userType.AddEnumValue("BottomRight", global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode.BottomRight);
+                userType.AddEnumValue("BottomLeft", global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode.BottomLeft);
+                userType.AddEnumValue("LeftTop", global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode.LeftTop);
+                userType.AddEnumValue("LeftBottom", global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode.LeftBottom);
+                userType.AddEnumValue("RightTop", global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode.RightTop);
+                userType.AddEnumValue("RightBottom", global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode.RightBottom);
+                userType.AddEnumValue("Center", global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode.Center);
+                xamlType = userType;
+                break;
+
+            case 70:   //  Microsoft.UI.Xaml.UIElement
+                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 71:   //  Microsoft.UI.Xaml.Controls.TeachingTipHeroContentPlacementMode
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Enum"));
+                userType.StaticInitializer = StaticInitializer_71_TeachingTipHeroContentPlacementMode;
+                userType.AddEnumValue("Auto", global::Microsoft.UI.Xaml.Controls.TeachingTipHeroContentPlacementMode.Auto);
+                userType.AddEnumValue("Top", global::Microsoft.UI.Xaml.Controls.TeachingTipHeroContentPlacementMode.Top);
+                userType.AddEnumValue("Bottom", global::Microsoft.UI.Xaml.Controls.TeachingTipHeroContentPlacementMode.Bottom);
+                xamlType = userType;
+                break;
+
+            case 72:   //  Microsoft.UI.Xaml.Controls.TeachingTipTailVisibility
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Enum"));
+                userType.StaticInitializer = StaticInitializer_72_TeachingTipTailVisibility;
+                userType.AddEnumValue("Auto", global::Microsoft.UI.Xaml.Controls.TeachingTipTailVisibility.Auto);
+                userType.AddEnumValue("Visible", global::Microsoft.UI.Xaml.Controls.TeachingTipTailVisibility.Visible);
+                userType.AddEnumValue("Collapsed", global::Microsoft.UI.Xaml.Controls.TeachingTipTailVisibility.Collapsed);
+                xamlType = userType;
+                break;
+
+            case 73:   //  Microsoft.UI.Xaml.Controls.TeachingTipTemplateSettings
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.DependencyObject"));
+                userType.StaticInitializer = StaticInitializer_73_TeachingTipTemplateSettings;
+                userType.SetIsReturnTypeStub();
+                xamlType = userType;
+                break;
+
+            case 74:   //  PMTool.App.Views.Shell.MainShellPage
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_74_MainShellPage;
+                userType.StaticInitializer = StaticInitializer_74_MainShellPage;
+                userType.AddMemberName("ViewModel");
+                userType.AddMemberName("AccountVm");
+                userType.AddMemberName("GlobalSearchVm");
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 75:   //  PMTool.App.ViewModels.ShellViewModel
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("CommunityToolkit.Mvvm.ComponentModel.ObservableObject"));
+                userType.StaticInitializer = StaticInitializer_75_ShellViewModel;
+                userType.SetIsReturnTypeStub();
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 76:   //  PMTool.App.ViewModels.AccountManagementViewModel
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("CommunityToolkit.Mvvm.ComponentModel.ObservableObject"));
+                userType.StaticInitializer = StaticInitializer_76_AccountManagementViewModel;
+                userType.SetIsReturnTypeStub();
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 77:   //  PMTool.App.Views.Tasks.TaskListPage
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_77_TaskListPage;
+                userType.StaticInitializer = StaticInitializer_77_TaskListPage;
+                userType.AddMemberName("ViewModel");
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 78:   //  PMTool.App.ViewModels.TaskListViewModel
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("CommunityToolkit.Mvvm.ComponentModel.ObservableObject"));
+                userType.StaticInitializer = StaticInitializer_78_TaskListViewModel;
+                userType.SetIsReturnTypeStub();
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 79:   //  Microsoft.UI.Xaml.Controls.TreeViewNode
+                userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.DependencyObject"));
+                userType.Activator = Activate_79_TreeViewNode;
+                userType.StaticInitializer = StaticInitializer_79_TreeViewNode;
                 userType.AddMemberName("Children");
                 userType.AddMemberName("Content");
                 userType.AddMemberName("Depth");
@@ -523,19 +1203,15 @@ namespace PMTool.App.PMTool_App_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 22:   //  Microsoft.UI.Xaml.DependencyObject
-                xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
-                break;
-
-            case 23:   //  System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>
+            case 80:   //  System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>
                 userType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType(this, typeName, type, null);
-                userType.StaticInitializer = StaticInitializer_23_IList;
-                userType.CollectionAdd = VectorAdd_23_IList;
+                userType.StaticInitializer = StaticInitializer_80_IList;
+                userType.CollectionAdd = VectorAdd_80_IList;
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;
 
-            case 24:   //  Int32
+            case 81:   //  Int32
                 xamlType = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
             }
@@ -607,177 +1283,937 @@ namespace PMTool.App.PMTool_App_XamlTypeInfo
             var that = (global::Microsoft.UI.Xaml.Controls.XamlControlsResources)instance;
             that.UseCompactResources = (global::System.Boolean)Value;
         }
-        private object get_1_OperationBar_Title(object instance)
+        private object get_1_ProgressRing_IsActive(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressRing)instance;
+            return that.IsActive;
+        }
+        private void set_1_ProgressRing_IsActive(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressRing)instance;
+            that.IsActive = (global::System.Boolean)Value;
+        }
+        private object get_2_ProgressRing_IsIndeterminate(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressRing)instance;
+            return that.IsIndeterminate;
+        }
+        private void set_2_ProgressRing_IsIndeterminate(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressRing)instance;
+            that.IsIndeterminate = (global::System.Boolean)Value;
+        }
+        private object get_3_ProgressRing_Maximum(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressRing)instance;
+            return that.Maximum;
+        }
+        private void set_3_ProgressRing_Maximum(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressRing)instance;
+            that.Maximum = (global::System.Double)Value;
+        }
+        private object get_4_ProgressRing_Minimum(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressRing)instance;
+            return that.Minimum;
+        }
+        private void set_4_ProgressRing_Minimum(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressRing)instance;
+            that.Minimum = (global::System.Double)Value;
+        }
+        private object get_5_ProgressRing_TemplateSettings(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressRing)instance;
+            return that.TemplateSettings;
+        }
+        private object get_6_ProgressRing_Value(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressRing)instance;
+            return that.Value;
+        }
+        private void set_6_ProgressRing_Value(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressRing)instance;
+            that.Value = (global::System.Double)Value;
+        }
+        private object get_7_GlobalSearchPanel_ViewModel(object instance)
+        {
+            var that = (global::PMTool.App.Controls.GlobalSearchPanel)instance;
+            return that.ViewModel;
+        }
+        private object get_8_GlobalSearchPanel_QueryFocusTarget(object instance)
+        {
+            var that = (global::PMTool.App.Controls.GlobalSearchPanel)instance;
+            return that.QueryFocusTarget;
+        }
+        private void set_8_GlobalSearchPanel_QueryFocusTarget(object instance, object Value)
+        {
+            var that = (global::PMTool.App.Controls.GlobalSearchPanel)instance;
+            that.QueryFocusTarget = (global::Microsoft.UI.Xaml.FrameworkElement)Value;
+        }
+        private object get_9_ListEmptyState_Title(object instance)
+        {
+            var that = (global::PMTool.App.Controls.ListEmptyState)instance;
+            return that.Title;
+        }
+        private void set_9_ListEmptyState_Title(object instance, object Value)
+        {
+            var that = (global::PMTool.App.Controls.ListEmptyState)instance;
+            that.Title = (global::System.String)Value;
+        }
+        private object get_10_ListEmptyState_Description(object instance)
+        {
+            var that = (global::PMTool.App.Controls.ListEmptyState)instance;
+            return that.Description;
+        }
+        private void set_10_ListEmptyState_Description(object instance, object Value)
+        {
+            var that = (global::PMTool.App.Controls.ListEmptyState)instance;
+            that.Description = (global::System.String)Value;
+        }
+        private object get_11_ListEmptyState_Glyph(object instance)
+        {
+            var that = (global::PMTool.App.Controls.ListEmptyState)instance;
+            return that.Glyph;
+        }
+        private void set_11_ListEmptyState_Glyph(object instance, object Value)
+        {
+            var that = (global::PMTool.App.Controls.ListEmptyState)instance;
+            that.Glyph = (global::System.String)Value;
+        }
+        private object get_12_ListEmptyState_PrimaryLabel(object instance)
+        {
+            var that = (global::PMTool.App.Controls.ListEmptyState)instance;
+            return that.PrimaryLabel;
+        }
+        private void set_12_ListEmptyState_PrimaryLabel(object instance, object Value)
+        {
+            var that = (global::PMTool.App.Controls.ListEmptyState)instance;
+            that.PrimaryLabel = (global::System.String)Value;
+        }
+        private object get_13_ListEmptyState_PrimaryCommand(object instance)
+        {
+            var that = (global::PMTool.App.Controls.ListEmptyState)instance;
+            return that.PrimaryCommand;
+        }
+        private void set_13_ListEmptyState_PrimaryCommand(object instance, object Value)
+        {
+            var that = (global::PMTool.App.Controls.ListEmptyState)instance;
+            that.PrimaryCommand = (global::System.Windows.Input.ICommand)Value;
+        }
+        private object get_14_ListEmptyState_IsPrimaryVisible(object instance)
+        {
+            var that = (global::PMTool.App.Controls.ListEmptyState)instance;
+            return that.IsPrimaryVisible;
+        }
+        private void set_14_ListEmptyState_IsPrimaryVisible(object instance, object Value)
+        {
+            var that = (global::PMTool.App.Controls.ListEmptyState)instance;
+            that.IsPrimaryVisible = (global::System.Boolean)Value;
+        }
+        private object get_15_OperationBar_Title(object instance)
         {
             var that = (global::PMTool.App.Controls.OperationBar)instance;
             return that.Title;
         }
-        private void set_1_OperationBar_Title(object instance, object Value)
+        private void set_15_OperationBar_Title(object instance, object Value)
         {
             var that = (global::PMTool.App.Controls.OperationBar)instance;
             that.Title = (global::System.String)Value;
         }
-        private object get_2_OperationBar_FilterLabel(object instance)
+        private object get_16_Thickness_Left(object instance)
         {
-            var that = (global::PMTool.App.Controls.OperationBar)instance;
-            return that.FilterLabel;
+            var that = (global::Microsoft.UI.Xaml.Thickness)instance;
+            return that.Left;
         }
-        private void set_2_OperationBar_FilterLabel(object instance, object Value)
+        private void set_16_Thickness_Left(object instance, object Value)
         {
-            var that = (global::PMTool.App.Controls.OperationBar)instance;
-            that.FilterLabel = (global::System.String)Value;
+            var that = (global::Microsoft.UI.Xaml.Thickness)instance;
+            that.Left = (global::System.Double)Value;
         }
-        private object get_3_OperationBar_PrimaryActionLabel(object instance)
+        private object get_17_Thickness_Top(object instance)
         {
-            var that = (global::PMTool.App.Controls.OperationBar)instance;
-            return that.PrimaryActionLabel;
+            var that = (global::Microsoft.UI.Xaml.Thickness)instance;
+            return that.Top;
         }
-        private void set_3_OperationBar_PrimaryActionLabel(object instance, object Value)
+        private void set_17_Thickness_Top(object instance, object Value)
         {
-            var that = (global::PMTool.App.Controls.OperationBar)instance;
-            that.PrimaryActionLabel = (global::System.String)Value;
+            var that = (global::Microsoft.UI.Xaml.Thickness)instance;
+            that.Top = (global::System.Double)Value;
         }
-        private object get_4_Color_A(object instance)
+        private object get_18_Thickness_Right(object instance)
         {
-            var that = (global::Windows.UI.Color)instance;
-            return that.A;
+            var that = (global::Microsoft.UI.Xaml.Thickness)instance;
+            return that.Right;
         }
-        private void set_4_Color_A(object instance, object Value)
+        private void set_18_Thickness_Right(object instance, object Value)
         {
-            var that = (global::Windows.UI.Color)instance;
-            that.A = (global::System.Byte)Value;
+            var that = (global::Microsoft.UI.Xaml.Thickness)instance;
+            that.Right = (global::System.Double)Value;
         }
-        private object get_5_Color_R(object instance)
+        private object get_19_Thickness_Bottom(object instance)
         {
-            var that = (global::Windows.UI.Color)instance;
-            return that.R;
+            var that = (global::Microsoft.UI.Xaml.Thickness)instance;
+            return that.Bottom;
         }
-        private void set_5_Color_R(object instance, object Value)
+        private void set_19_Thickness_Bottom(object instance, object Value)
         {
-            var that = (global::Windows.UI.Color)instance;
-            that.R = (global::System.Byte)Value;
+            var that = (global::Microsoft.UI.Xaml.Thickness)instance;
+            that.Bottom = (global::System.Double)Value;
         }
-        private object get_6_Color_G(object instance)
+        private object get_20_NumberBox_AcceptsExpression(object instance)
         {
-            var that = (global::Windows.UI.Color)instance;
-            return that.G;
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.AcceptsExpression;
         }
-        private void set_6_Color_G(object instance, object Value)
+        private void set_20_NumberBox_AcceptsExpression(object instance, object Value)
         {
-            var that = (global::Windows.UI.Color)instance;
-            that.G = (global::System.Byte)Value;
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.AcceptsExpression = (global::System.Boolean)Value;
         }
-        private object get_7_Color_B(object instance)
+        private object get_21_NumberBox_Description(object instance)
         {
-            var that = (global::Windows.UI.Color)instance;
-            return that.B;
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.Description;
         }
-        private void set_7_Color_B(object instance, object Value)
+        private void set_21_NumberBox_Description(object instance, object Value)
         {
-            var that = (global::Windows.UI.Color)instance;
-            that.B = (global::System.Byte)Value;
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.Description = (global::System.Object)Value;
         }
-        private object get_8_CornerRadius_TopLeft(object instance)
+        private object get_22_NumberBox_Header(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.Header;
+        }
+        private void set_22_NumberBox_Header(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.Header = (global::System.Object)Value;
+        }
+        private object get_23_NumberBox_HeaderTemplate(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.HeaderTemplate;
+        }
+        private void set_23_NumberBox_HeaderTemplate(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.HeaderTemplate = (global::Microsoft.UI.Xaml.DataTemplate)Value;
+        }
+        private object get_24_NumberBox_IsWrapEnabled(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.IsWrapEnabled;
+        }
+        private void set_24_NumberBox_IsWrapEnabled(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.IsWrapEnabled = (global::System.Boolean)Value;
+        }
+        private object get_25_NumberBox_LargeChange(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.LargeChange;
+        }
+        private void set_25_NumberBox_LargeChange(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.LargeChange = (global::System.Double)Value;
+        }
+        private object get_26_NumberBox_Maximum(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.Maximum;
+        }
+        private void set_26_NumberBox_Maximum(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.Maximum = (global::System.Double)Value;
+        }
+        private object get_27_NumberBox_Minimum(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.Minimum;
+        }
+        private void set_27_NumberBox_Minimum(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.Minimum = (global::System.Double)Value;
+        }
+        private object get_28_NumberBox_NumberFormatter(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.NumberFormatter;
+        }
+        private void set_28_NumberBox_NumberFormatter(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.NumberFormatter = (global::Windows.Globalization.NumberFormatting.INumberFormatter2)Value;
+        }
+        private object get_29_NumberBox_PlaceholderText(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.PlaceholderText;
+        }
+        private void set_29_NumberBox_PlaceholderText(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.PlaceholderText = (global::System.String)Value;
+        }
+        private object get_30_NumberBox_PreventKeyboardDisplayOnProgrammaticFocus(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.PreventKeyboardDisplayOnProgrammaticFocus;
+        }
+        private void set_30_NumberBox_PreventKeyboardDisplayOnProgrammaticFocus(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.PreventKeyboardDisplayOnProgrammaticFocus = (global::System.Boolean)Value;
+        }
+        private object get_31_NumberBox_SelectionFlyout(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.SelectionFlyout;
+        }
+        private void set_31_NumberBox_SelectionFlyout(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.SelectionFlyout = (global::Microsoft.UI.Xaml.Controls.Primitives.FlyoutBase)Value;
+        }
+        private object get_32_NumberBox_SelectionHighlightColor(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.SelectionHighlightColor;
+        }
+        private void set_32_NumberBox_SelectionHighlightColor(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.SelectionHighlightColor = (global::Microsoft.UI.Xaml.Media.SolidColorBrush)Value;
+        }
+        private object get_33_NumberBox_SmallChange(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.SmallChange;
+        }
+        private void set_33_NumberBox_SmallChange(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.SmallChange = (global::System.Double)Value;
+        }
+        private object get_34_NumberBox_SpinButtonPlacementMode(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.SpinButtonPlacementMode;
+        }
+        private void set_34_NumberBox_SpinButtonPlacementMode(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.SpinButtonPlacementMode = (global::Microsoft.UI.Xaml.Controls.NumberBoxSpinButtonPlacementMode)Value;
+        }
+        private object get_35_NumberBox_Text(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.Text;
+        }
+        private void set_35_NumberBox_Text(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.Text = (global::System.String)Value;
+        }
+        private object get_36_NumberBox_TextReadingOrder(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.TextReadingOrder;
+        }
+        private void set_36_NumberBox_TextReadingOrder(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.TextReadingOrder = (global::Microsoft.UI.Xaml.TextReadingOrder)Value;
+        }
+        private object get_37_NumberBox_ValidationMode(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.ValidationMode;
+        }
+        private void set_37_NumberBox_ValidationMode(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.ValidationMode = (global::Microsoft.UI.Xaml.Controls.NumberBoxValidationMode)Value;
+        }
+        private object get_38_NumberBox_Value(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            return that.Value;
+        }
+        private void set_38_NumberBox_Value(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.NumberBox)instance;
+            that.Value = (global::System.Double)Value;
+        }
+        private object get_39_GridLength_Value(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.GridLength)instance;
+            return that.Value;
+        }
+        private object get_40_GridLength_GridUnitType(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.GridLength)instance;
+            return that.GridUnitType;
+        }
+        private object get_41_GridLength_IsAbsolute(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.GridLength)instance;
+            return that.IsAbsolute;
+        }
+        private object get_42_GridLength_IsAuto(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.GridLength)instance;
+            return that.IsAuto;
+        }
+        private object get_43_GridLength_IsStar(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.GridLength)instance;
+            return that.IsStar;
+        }
+        private object get_44_CornerRadius_TopLeft(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.CornerRadius)instance;
             return that.TopLeft;
         }
-        private void set_8_CornerRadius_TopLeft(object instance, object Value)
+        private void set_44_CornerRadius_TopLeft(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.CornerRadius)instance;
             that.TopLeft = (global::System.Double)Value;
         }
-        private object get_9_CornerRadius_TopRight(object instance)
+        private object get_45_CornerRadius_TopRight(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.CornerRadius)instance;
             return that.TopRight;
         }
-        private void set_9_CornerRadius_TopRight(object instance, object Value)
+        private void set_45_CornerRadius_TopRight(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.CornerRadius)instance;
             that.TopRight = (global::System.Double)Value;
         }
-        private object get_10_CornerRadius_BottomRight(object instance)
+        private object get_46_CornerRadius_BottomRight(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.CornerRadius)instance;
             return that.BottomRight;
         }
-        private void set_10_CornerRadius_BottomRight(object instance, object Value)
+        private void set_46_CornerRadius_BottomRight(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.CornerRadius)instance;
             that.BottomRight = (global::System.Double)Value;
         }
-        private object get_11_CornerRadius_BottomLeft(object instance)
+        private object get_47_CornerRadius_BottomLeft(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.CornerRadius)instance;
             return that.BottomLeft;
         }
-        private void set_11_CornerRadius_BottomLeft(object instance, object Value)
+        private void set_47_CornerRadius_BottomLeft(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.CornerRadius)instance;
             that.BottomLeft = (global::System.Double)Value;
         }
-        private object get_12_ModulePlaceholderPage_ViewModel(object instance)
+        private object get_48_InfoBar_Content(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            return that.Content;
+        }
+        private void set_48_InfoBar_Content(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            that.Content = (global::System.Object)Value;
+        }
+        private object get_49_InfoBar_IsClosable(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            return that.IsClosable;
+        }
+        private void set_49_InfoBar_IsClosable(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            that.IsClosable = (global::System.Boolean)Value;
+        }
+        private object get_50_InfoBar_IsOpen(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            return that.IsOpen;
+        }
+        private void set_50_InfoBar_IsOpen(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            that.IsOpen = (global::System.Boolean)Value;
+        }
+        private object get_51_InfoBar_Message(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            return that.Message;
+        }
+        private void set_51_InfoBar_Message(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            that.Message = (global::System.String)Value;
+        }
+        private object get_52_InfoBar_Severity(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            return that.Severity;
+        }
+        private void set_52_InfoBar_Severity(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            that.Severity = (global::Microsoft.UI.Xaml.Controls.InfoBarSeverity)Value;
+        }
+        private object get_53_InfoBar_ActionButton(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            return that.ActionButton;
+        }
+        private void set_53_InfoBar_ActionButton(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            that.ActionButton = (global::Microsoft.UI.Xaml.Controls.Primitives.ButtonBase)Value;
+        }
+        private object get_54_InfoBar_CloseButtonCommand(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            return that.CloseButtonCommand;
+        }
+        private void set_54_InfoBar_CloseButtonCommand(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            that.CloseButtonCommand = (global::System.Windows.Input.ICommand)Value;
+        }
+        private object get_55_InfoBar_CloseButtonCommandParameter(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            return that.CloseButtonCommandParameter;
+        }
+        private void set_55_InfoBar_CloseButtonCommandParameter(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            that.CloseButtonCommandParameter = (global::System.Object)Value;
+        }
+        private object get_56_InfoBar_CloseButtonStyle(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            return that.CloseButtonStyle;
+        }
+        private void set_56_InfoBar_CloseButtonStyle(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            that.CloseButtonStyle = (global::Microsoft.UI.Xaml.Style)Value;
+        }
+        private object get_57_InfoBar_ContentTemplate(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            return that.ContentTemplate;
+        }
+        private void set_57_InfoBar_ContentTemplate(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            that.ContentTemplate = (global::Microsoft.UI.Xaml.DataTemplate)Value;
+        }
+        private object get_58_InfoBar_IconSource(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            return that.IconSource;
+        }
+        private void set_58_InfoBar_IconSource(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            that.IconSource = (global::Microsoft.UI.Xaml.Controls.IconSource)Value;
+        }
+        private object get_59_InfoBar_IsIconVisible(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            return that.IsIconVisible;
+        }
+        private void set_59_InfoBar_IsIconVisible(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            that.IsIconVisible = (global::System.Boolean)Value;
+        }
+        private object get_60_InfoBar_TemplateSettings(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            return that.TemplateSettings;
+        }
+        private object get_61_InfoBar_Title(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            return that.Title;
+        }
+        private void set_61_InfoBar_Title(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.InfoBar)instance;
+            that.Title = (global::System.String)Value;
+        }
+        private object get_62_ProgressBar_IsIndeterminate(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressBar)instance;
+            return that.IsIndeterminate;
+        }
+        private void set_62_ProgressBar_IsIndeterminate(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressBar)instance;
+            that.IsIndeterminate = (global::System.Boolean)Value;
+        }
+        private object get_63_ProgressBar_ShowError(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressBar)instance;
+            return that.ShowError;
+        }
+        private void set_63_ProgressBar_ShowError(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressBar)instance;
+            that.ShowError = (global::System.Boolean)Value;
+        }
+        private object get_64_ProgressBar_ShowPaused(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressBar)instance;
+            return that.ShowPaused;
+        }
+        private void set_64_ProgressBar_ShowPaused(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressBar)instance;
+            that.ShowPaused = (global::System.Boolean)Value;
+        }
+        private object get_65_ProgressBar_TemplateSettings(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.ProgressBar)instance;
+            return that.TemplateSettings;
+        }
+        private object get_66_DataManagementPage_ViewModel(object instance)
+        {
+            var that = (global::PMTool.App.Views.DataManagement.DataManagementPage)instance;
+            return that.ViewModel;
+        }
+        private object get_67_DocumentListPage_ViewModel(object instance)
+        {
+            var that = (global::PMTool.App.Views.Documents.DocumentListPage)instance;
+            return that.ViewModel;
+        }
+        private object get_68_FeatureListPage_ViewModel(object instance)
+        {
+            var that = (global::PMTool.App.Views.Features.FeatureListPage)instance;
+            return that.ViewModel;
+        }
+        private object get_69_IdeaListPage_ViewModel(object instance)
+        {
+            var that = (global::PMTool.App.Views.Ideas.IdeaListPage)instance;
+            return that.ViewModel;
+        }
+        private object get_70_ModulePlaceholderPage_ViewModel(object instance)
         {
             var that = (global::PMTool.App.Views.Placeholder.ModulePlaceholderPage)instance;
             return that.ViewModel;
         }
-        private object get_13_ProjectListPage_ViewModel(object instance)
+        private object get_71_ProjectListPage_ViewModel(object instance)
         {
             var that = (global::PMTool.App.Views.Projects.ProjectListPage)instance;
             return that.ViewModel;
         }
-        private object get_14_MainShellPage_ViewModel(object instance)
+        private object get_72_ReleaseListPage_ViewModel(object instance)
+        {
+            var that = (global::PMTool.App.Views.Releases.ReleaseListPage)instance;
+            return that.ViewModel;
+        }
+        private object get_73_SettingsPage_ViewModel(object instance)
+        {
+            var that = (global::PMTool.App.Views.Settings.SettingsPage)instance;
+            return that.ViewModel;
+        }
+        private object get_74_SettingsPage_ThemeLight(object instance)
+        {
+            var that = (global::PMTool.App.Views.Settings.SettingsPage)instance;
+            return that.ThemeLight;
+        }
+        private object get_75_SettingsPage_ThemeDark(object instance)
+        {
+            var that = (global::PMTool.App.Views.Settings.SettingsPage)instance;
+            return that.ThemeDark;
+        }
+        private object get_76_SettingsPage_ThemeFollowSystem(object instance)
+        {
+            var that = (global::PMTool.App.Views.Settings.SettingsPage)instance;
+            return that.ThemeFollowSystem;
+        }
+        private object get_77_TeachingTip_Title(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.Title;
+        }
+        private void set_77_TeachingTip_Title(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.Title = (global::System.String)Value;
+        }
+        private object get_78_TeachingTip_Subtitle(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.Subtitle;
+        }
+        private void set_78_TeachingTip_Subtitle(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.Subtitle = (global::System.String)Value;
+        }
+        private object get_79_TeachingTip_PreferredPlacement(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.PreferredPlacement;
+        }
+        private void set_79_TeachingTip_PreferredPlacement(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.PreferredPlacement = (global::Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode)Value;
+        }
+        private object get_80_TeachingTip_IsLightDismissEnabled(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.IsLightDismissEnabled;
+        }
+        private void set_80_TeachingTip_IsLightDismissEnabled(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.IsLightDismissEnabled = (global::System.Boolean)Value;
+        }
+        private object get_81_TeachingTip_ActionButtonContent(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.ActionButtonContent;
+        }
+        private void set_81_TeachingTip_ActionButtonContent(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.ActionButtonContent = (global::System.Object)Value;
+        }
+        private object get_82_TeachingTip_ActionButtonCommand(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.ActionButtonCommand;
+        }
+        private void set_82_TeachingTip_ActionButtonCommand(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.ActionButtonCommand = (global::System.Windows.Input.ICommand)Value;
+        }
+        private object get_83_TeachingTip_ActionButtonCommandParameter(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.ActionButtonCommandParameter;
+        }
+        private void set_83_TeachingTip_ActionButtonCommandParameter(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.ActionButtonCommandParameter = (global::System.Object)Value;
+        }
+        private object get_84_TeachingTip_ActionButtonStyle(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.ActionButtonStyle;
+        }
+        private void set_84_TeachingTip_ActionButtonStyle(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.ActionButtonStyle = (global::Microsoft.UI.Xaml.Style)Value;
+        }
+        private object get_85_TeachingTip_CloseButtonCommand(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.CloseButtonCommand;
+        }
+        private void set_85_TeachingTip_CloseButtonCommand(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.CloseButtonCommand = (global::System.Windows.Input.ICommand)Value;
+        }
+        private object get_86_TeachingTip_CloseButtonCommandParameter(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.CloseButtonCommandParameter;
+        }
+        private void set_86_TeachingTip_CloseButtonCommandParameter(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.CloseButtonCommandParameter = (global::System.Object)Value;
+        }
+        private object get_87_TeachingTip_CloseButtonContent(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.CloseButtonContent;
+        }
+        private void set_87_TeachingTip_CloseButtonContent(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.CloseButtonContent = (global::System.Object)Value;
+        }
+        private object get_88_TeachingTip_CloseButtonStyle(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.CloseButtonStyle;
+        }
+        private void set_88_TeachingTip_CloseButtonStyle(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.CloseButtonStyle = (global::Microsoft.UI.Xaml.Style)Value;
+        }
+        private object get_89_TeachingTip_HeroContent(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.HeroContent;
+        }
+        private void set_89_TeachingTip_HeroContent(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.HeroContent = (global::Microsoft.UI.Xaml.UIElement)Value;
+        }
+        private object get_90_TeachingTip_HeroContentPlacement(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.HeroContentPlacement;
+        }
+        private void set_90_TeachingTip_HeroContentPlacement(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.HeroContentPlacement = (global::Microsoft.UI.Xaml.Controls.TeachingTipHeroContentPlacementMode)Value;
+        }
+        private object get_91_TeachingTip_IconSource(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.IconSource;
+        }
+        private void set_91_TeachingTip_IconSource(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.IconSource = (global::Microsoft.UI.Xaml.Controls.IconSource)Value;
+        }
+        private object get_92_TeachingTip_IsOpen(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.IsOpen;
+        }
+        private void set_92_TeachingTip_IsOpen(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.IsOpen = (global::System.Boolean)Value;
+        }
+        private object get_93_TeachingTip_PlacementMargin(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.PlacementMargin;
+        }
+        private void set_93_TeachingTip_PlacementMargin(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.PlacementMargin = (global::Microsoft.UI.Xaml.Thickness)Value;
+        }
+        private object get_94_TeachingTip_ShouldConstrainToRootBounds(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.ShouldConstrainToRootBounds;
+        }
+        private void set_94_TeachingTip_ShouldConstrainToRootBounds(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.ShouldConstrainToRootBounds = (global::System.Boolean)Value;
+        }
+        private object get_95_TeachingTip_TailVisibility(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.TailVisibility;
+        }
+        private void set_95_TeachingTip_TailVisibility(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.TailVisibility = (global::Microsoft.UI.Xaml.Controls.TeachingTipTailVisibility)Value;
+        }
+        private object get_96_TeachingTip_Target(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.Target;
+        }
+        private void set_96_TeachingTip_Target(object instance, object Value)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            that.Target = (global::Microsoft.UI.Xaml.FrameworkElement)Value;
+        }
+        private object get_97_TeachingTip_TemplateSettings(object instance)
+        {
+            var that = (global::Microsoft.UI.Xaml.Controls.TeachingTip)instance;
+            return that.TemplateSettings;
+        }
+        private object get_98_MainShellPage_ViewModel(object instance)
         {
             var that = (global::PMTool.App.Views.Shell.MainShellPage)instance;
             return that.ViewModel;
         }
-        private object get_15_TreeViewNode_Children(object instance)
+        private object get_99_MainShellPage_AccountVm(object instance)
+        {
+            var that = (global::PMTool.App.Views.Shell.MainShellPage)instance;
+            return that.AccountVm;
+        }
+        private object get_100_MainShellPage_GlobalSearchVm(object instance)
+        {
+            var that = (global::PMTool.App.Views.Shell.MainShellPage)instance;
+            return that.GlobalSearchVm;
+        }
+        private object get_101_TaskListPage_ViewModel(object instance)
+        {
+            var that = (global::PMTool.App.Views.Tasks.TaskListPage)instance;
+            return that.ViewModel;
+        }
+        private object get_102_TreeViewNode_Children(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.Children;
         }
-        private object get_16_TreeViewNode_Content(object instance)
+        private object get_103_TreeViewNode_Content(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.Content;
         }
-        private void set_16_TreeViewNode_Content(object instance, object Value)
+        private void set_103_TreeViewNode_Content(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             that.Content = (global::System.Object)Value;
         }
-        private object get_17_TreeViewNode_Depth(object instance)
+        private object get_104_TreeViewNode_Depth(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.Depth;
         }
-        private object get_18_TreeViewNode_HasChildren(object instance)
+        private object get_105_TreeViewNode_HasChildren(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.HasChildren;
         }
-        private object get_19_TreeViewNode_HasUnrealizedChildren(object instance)
+        private object get_106_TreeViewNode_HasUnrealizedChildren(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.HasUnrealizedChildren;
         }
-        private void set_19_TreeViewNode_HasUnrealizedChildren(object instance, object Value)
+        private void set_106_TreeViewNode_HasUnrealizedChildren(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             that.HasUnrealizedChildren = (global::System.Boolean)Value;
         }
-        private object get_20_TreeViewNode_IsExpanded(object instance)
+        private object get_107_TreeViewNode_IsExpanded(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.IsExpanded;
         }
-        private void set_20_TreeViewNode_IsExpanded(object instance, object Value)
+        private void set_107_TreeViewNode_IsExpanded(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             that.IsExpanded = (global::System.Boolean)Value;
         }
-        private object get_21_TreeViewNode_Parent(object instance)
+        private object get_108_TreeViewNode_Parent(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.Parent;
@@ -797,137 +2233,725 @@ namespace PMTool.App.PMTool_App_XamlTypeInfo
                 xamlMember.Getter = get_0_XamlControlsResources_UseCompactResources;
                 xamlMember.Setter = set_0_XamlControlsResources_UseCompactResources;
                 break;
+            case "Microsoft.UI.Xaml.Controls.ProgressRing.IsActive":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.ProgressRing");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "IsActive", "Boolean");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_1_ProgressRing_IsActive;
+                xamlMember.Setter = set_1_ProgressRing_IsActive;
+                break;
+            case "Microsoft.UI.Xaml.Controls.ProgressRing.IsIndeterminate":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.ProgressRing");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "IsIndeterminate", "Boolean");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_2_ProgressRing_IsIndeterminate;
+                xamlMember.Setter = set_2_ProgressRing_IsIndeterminate;
+                break;
+            case "Microsoft.UI.Xaml.Controls.ProgressRing.Maximum":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.ProgressRing");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Maximum", "Double");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_3_ProgressRing_Maximum;
+                xamlMember.Setter = set_3_ProgressRing_Maximum;
+                break;
+            case "Microsoft.UI.Xaml.Controls.ProgressRing.Minimum":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.ProgressRing");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Minimum", "Double");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_4_ProgressRing_Minimum;
+                xamlMember.Setter = set_4_ProgressRing_Minimum;
+                break;
+            case "Microsoft.UI.Xaml.Controls.ProgressRing.TemplateSettings":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.ProgressRing");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "TemplateSettings", "Microsoft.UI.Xaml.Controls.ProgressRingTemplateSettings");
+                xamlMember.Getter = get_5_ProgressRing_TemplateSettings;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "Microsoft.UI.Xaml.Controls.ProgressRing.Value":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.ProgressRing");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Value", "Double");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_6_ProgressRing_Value;
+                xamlMember.Setter = set_6_ProgressRing_Value;
+                break;
+            case "PMTool.App.Controls.GlobalSearchPanel.ViewModel":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Controls.GlobalSearchPanel");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ViewModel", "PMTool.App.ViewModels.GlobalSearchViewModel");
+                xamlMember.Getter = get_7_GlobalSearchPanel_ViewModel;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "PMTool.App.Controls.GlobalSearchPanel.QueryFocusTarget":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Controls.GlobalSearchPanel");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "QueryFocusTarget", "Microsoft.UI.Xaml.FrameworkElement");
+                xamlMember.Getter = get_8_GlobalSearchPanel_QueryFocusTarget;
+                xamlMember.Setter = set_8_GlobalSearchPanel_QueryFocusTarget;
+                break;
+            case "PMTool.App.Controls.ListEmptyState.Title":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Controls.ListEmptyState");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Title", "String");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_9_ListEmptyState_Title;
+                xamlMember.Setter = set_9_ListEmptyState_Title;
+                break;
+            case "PMTool.App.Controls.ListEmptyState.Description":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Controls.ListEmptyState");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Description", "String");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_10_ListEmptyState_Description;
+                xamlMember.Setter = set_10_ListEmptyState_Description;
+                break;
+            case "PMTool.App.Controls.ListEmptyState.Glyph":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Controls.ListEmptyState");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Glyph", "String");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_11_ListEmptyState_Glyph;
+                xamlMember.Setter = set_11_ListEmptyState_Glyph;
+                break;
+            case "PMTool.App.Controls.ListEmptyState.PrimaryLabel":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Controls.ListEmptyState");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "PrimaryLabel", "String");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_12_ListEmptyState_PrimaryLabel;
+                xamlMember.Setter = set_12_ListEmptyState_PrimaryLabel;
+                break;
+            case "PMTool.App.Controls.ListEmptyState.PrimaryCommand":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Controls.ListEmptyState");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "PrimaryCommand", "System.Windows.Input.ICommand");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_13_ListEmptyState_PrimaryCommand;
+                xamlMember.Setter = set_13_ListEmptyState_PrimaryCommand;
+                break;
+            case "PMTool.App.Controls.ListEmptyState.IsPrimaryVisible":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Controls.ListEmptyState");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "IsPrimaryVisible", "Boolean");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_14_ListEmptyState_IsPrimaryVisible;
+                xamlMember.Setter = set_14_ListEmptyState_IsPrimaryVisible;
+                break;
             case "PMTool.App.Controls.OperationBar.Title":
                 userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Controls.OperationBar");
                 xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Title", "String");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_1_OperationBar_Title;
-                xamlMember.Setter = set_1_OperationBar_Title;
+                xamlMember.Getter = get_15_OperationBar_Title;
+                xamlMember.Setter = set_15_OperationBar_Title;
                 break;
-            case "PMTool.App.Controls.OperationBar.FilterLabel":
-                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Controls.OperationBar");
-                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "FilterLabel", "String");
+            case "Microsoft.UI.Xaml.Thickness.Left":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Thickness");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Left", "Double");
+                xamlMember.Getter = get_16_Thickness_Left;
+                xamlMember.Setter = set_16_Thickness_Left;
+                break;
+            case "Microsoft.UI.Xaml.Thickness.Top":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Thickness");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Top", "Double");
+                xamlMember.Getter = get_17_Thickness_Top;
+                xamlMember.Setter = set_17_Thickness_Top;
+                break;
+            case "Microsoft.UI.Xaml.Thickness.Right":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Thickness");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Right", "Double");
+                xamlMember.Getter = get_18_Thickness_Right;
+                xamlMember.Setter = set_18_Thickness_Right;
+                break;
+            case "Microsoft.UI.Xaml.Thickness.Bottom":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Thickness");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Bottom", "Double");
+                xamlMember.Getter = get_19_Thickness_Bottom;
+                xamlMember.Setter = set_19_Thickness_Bottom;
+                break;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.AcceptsExpression":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "AcceptsExpression", "Boolean");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_2_OperationBar_FilterLabel;
-                xamlMember.Setter = set_2_OperationBar_FilterLabel;
+                xamlMember.Getter = get_20_NumberBox_AcceptsExpression;
+                xamlMember.Setter = set_20_NumberBox_AcceptsExpression;
                 break;
-            case "PMTool.App.Controls.OperationBar.PrimaryActionLabel":
-                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Controls.OperationBar");
-                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "PrimaryActionLabel", "String");
+            case "Microsoft.UI.Xaml.Controls.NumberBox.Description":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Description", "Object");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_3_OperationBar_PrimaryActionLabel;
-                xamlMember.Setter = set_3_OperationBar_PrimaryActionLabel;
+                xamlMember.Getter = get_21_NumberBox_Description;
+                xamlMember.Setter = set_21_NumberBox_Description;
                 break;
-            case "Windows.UI.Color.A":
-                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Windows.UI.Color");
-                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "A", "Byte");
-                xamlMember.Getter = get_4_Color_A;
-                xamlMember.Setter = set_4_Color_A;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.Header":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Header", "Object");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_22_NumberBox_Header;
+                xamlMember.Setter = set_22_NumberBox_Header;
                 break;
-            case "Windows.UI.Color.R":
-                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Windows.UI.Color");
-                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "R", "Byte");
-                xamlMember.Getter = get_5_Color_R;
-                xamlMember.Setter = set_5_Color_R;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.HeaderTemplate":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "HeaderTemplate", "Microsoft.UI.Xaml.DataTemplate");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_23_NumberBox_HeaderTemplate;
+                xamlMember.Setter = set_23_NumberBox_HeaderTemplate;
                 break;
-            case "Windows.UI.Color.G":
-                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Windows.UI.Color");
-                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "G", "Byte");
-                xamlMember.Getter = get_6_Color_G;
-                xamlMember.Setter = set_6_Color_G;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.IsWrapEnabled":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "IsWrapEnabled", "Boolean");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_24_NumberBox_IsWrapEnabled;
+                xamlMember.Setter = set_24_NumberBox_IsWrapEnabled;
                 break;
-            case "Windows.UI.Color.B":
-                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Windows.UI.Color");
-                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "B", "Byte");
-                xamlMember.Getter = get_7_Color_B;
-                xamlMember.Setter = set_7_Color_B;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.LargeChange":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "LargeChange", "Double");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_25_NumberBox_LargeChange;
+                xamlMember.Setter = set_25_NumberBox_LargeChange;
+                break;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.Maximum":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Maximum", "Double");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_26_NumberBox_Maximum;
+                xamlMember.Setter = set_26_NumberBox_Maximum;
+                break;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.Minimum":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Minimum", "Double");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_27_NumberBox_Minimum;
+                xamlMember.Setter = set_27_NumberBox_Minimum;
+                break;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.NumberFormatter":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "NumberFormatter", "Windows.Globalization.NumberFormatting.INumberFormatter2");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_28_NumberBox_NumberFormatter;
+                xamlMember.Setter = set_28_NumberBox_NumberFormatter;
+                break;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.PlaceholderText":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "PlaceholderText", "String");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_29_NumberBox_PlaceholderText;
+                xamlMember.Setter = set_29_NumberBox_PlaceholderText;
+                break;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.PreventKeyboardDisplayOnProgrammaticFocus":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "PreventKeyboardDisplayOnProgrammaticFocus", "Boolean");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_30_NumberBox_PreventKeyboardDisplayOnProgrammaticFocus;
+                xamlMember.Setter = set_30_NumberBox_PreventKeyboardDisplayOnProgrammaticFocus;
+                break;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.SelectionFlyout":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "SelectionFlyout", "Microsoft.UI.Xaml.Controls.Primitives.FlyoutBase");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_31_NumberBox_SelectionFlyout;
+                xamlMember.Setter = set_31_NumberBox_SelectionFlyout;
+                break;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.SelectionHighlightColor":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "SelectionHighlightColor", "Microsoft.UI.Xaml.Media.SolidColorBrush");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_32_NumberBox_SelectionHighlightColor;
+                xamlMember.Setter = set_32_NumberBox_SelectionHighlightColor;
+                break;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.SmallChange":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "SmallChange", "Double");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_33_NumberBox_SmallChange;
+                xamlMember.Setter = set_33_NumberBox_SmallChange;
+                break;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.SpinButtonPlacementMode":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "SpinButtonPlacementMode", "Microsoft.UI.Xaml.Controls.NumberBoxSpinButtonPlacementMode");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_34_NumberBox_SpinButtonPlacementMode;
+                xamlMember.Setter = set_34_NumberBox_SpinButtonPlacementMode;
+                break;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.Text":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Text", "String");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_35_NumberBox_Text;
+                xamlMember.Setter = set_35_NumberBox_Text;
+                break;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.TextReadingOrder":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "TextReadingOrder", "Microsoft.UI.Xaml.TextReadingOrder");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_36_NumberBox_TextReadingOrder;
+                xamlMember.Setter = set_36_NumberBox_TextReadingOrder;
+                break;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.ValidationMode":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ValidationMode", "Microsoft.UI.Xaml.Controls.NumberBoxValidationMode");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_37_NumberBox_ValidationMode;
+                xamlMember.Setter = set_37_NumberBox_ValidationMode;
+                break;
+            case "Microsoft.UI.Xaml.Controls.NumberBox.Value":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.NumberBox");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Value", "Double");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_38_NumberBox_Value;
+                xamlMember.Setter = set_38_NumberBox_Value;
+                break;
+            case "Microsoft.UI.Xaml.GridLength.Value":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.GridLength");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Value", "Double");
+                xamlMember.Getter = get_39_GridLength_Value;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "Microsoft.UI.Xaml.GridLength.GridUnitType":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.GridLength");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "GridUnitType", "Microsoft.UI.Xaml.GridUnitType");
+                xamlMember.Getter = get_40_GridLength_GridUnitType;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "Microsoft.UI.Xaml.GridLength.IsAbsolute":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.GridLength");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "IsAbsolute", "Boolean");
+                xamlMember.Getter = get_41_GridLength_IsAbsolute;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "Microsoft.UI.Xaml.GridLength.IsAuto":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.GridLength");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "IsAuto", "Boolean");
+                xamlMember.Getter = get_42_GridLength_IsAuto;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "Microsoft.UI.Xaml.GridLength.IsStar":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.GridLength");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "IsStar", "Boolean");
+                xamlMember.Getter = get_43_GridLength_IsStar;
+                xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.CornerRadius.TopLeft":
                 userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.CornerRadius");
                 xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "TopLeft", "Double");
-                xamlMember.Getter = get_8_CornerRadius_TopLeft;
-                xamlMember.Setter = set_8_CornerRadius_TopLeft;
+                xamlMember.Getter = get_44_CornerRadius_TopLeft;
+                xamlMember.Setter = set_44_CornerRadius_TopLeft;
                 break;
             case "Microsoft.UI.Xaml.CornerRadius.TopRight":
                 userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.CornerRadius");
                 xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "TopRight", "Double");
-                xamlMember.Getter = get_9_CornerRadius_TopRight;
-                xamlMember.Setter = set_9_CornerRadius_TopRight;
+                xamlMember.Getter = get_45_CornerRadius_TopRight;
+                xamlMember.Setter = set_45_CornerRadius_TopRight;
                 break;
             case "Microsoft.UI.Xaml.CornerRadius.BottomRight":
                 userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.CornerRadius");
                 xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "BottomRight", "Double");
-                xamlMember.Getter = get_10_CornerRadius_BottomRight;
-                xamlMember.Setter = set_10_CornerRadius_BottomRight;
+                xamlMember.Getter = get_46_CornerRadius_BottomRight;
+                xamlMember.Setter = set_46_CornerRadius_BottomRight;
                 break;
             case "Microsoft.UI.Xaml.CornerRadius.BottomLeft":
                 userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.CornerRadius");
                 xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "BottomLeft", "Double");
-                xamlMember.Getter = get_11_CornerRadius_BottomLeft;
-                xamlMember.Setter = set_11_CornerRadius_BottomLeft;
+                xamlMember.Getter = get_47_CornerRadius_BottomLeft;
+                xamlMember.Setter = set_47_CornerRadius_BottomLeft;
+                break;
+            case "Microsoft.UI.Xaml.Controls.InfoBar.Content":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.InfoBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Content", "Object");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_48_InfoBar_Content;
+                xamlMember.Setter = set_48_InfoBar_Content;
+                break;
+            case "Microsoft.UI.Xaml.Controls.InfoBar.IsClosable":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.InfoBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "IsClosable", "Boolean");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_49_InfoBar_IsClosable;
+                xamlMember.Setter = set_49_InfoBar_IsClosable;
+                break;
+            case "Microsoft.UI.Xaml.Controls.InfoBar.IsOpen":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.InfoBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "IsOpen", "Boolean");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_50_InfoBar_IsOpen;
+                xamlMember.Setter = set_50_InfoBar_IsOpen;
+                break;
+            case "Microsoft.UI.Xaml.Controls.InfoBar.Message":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.InfoBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Message", "String");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_51_InfoBar_Message;
+                xamlMember.Setter = set_51_InfoBar_Message;
+                break;
+            case "Microsoft.UI.Xaml.Controls.InfoBar.Severity":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.InfoBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Severity", "Microsoft.UI.Xaml.Controls.InfoBarSeverity");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_52_InfoBar_Severity;
+                xamlMember.Setter = set_52_InfoBar_Severity;
+                break;
+            case "Microsoft.UI.Xaml.Controls.InfoBar.ActionButton":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.InfoBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ActionButton", "Microsoft.UI.Xaml.Controls.Primitives.ButtonBase");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_53_InfoBar_ActionButton;
+                xamlMember.Setter = set_53_InfoBar_ActionButton;
+                break;
+            case "Microsoft.UI.Xaml.Controls.InfoBar.CloseButtonCommand":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.InfoBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "CloseButtonCommand", "System.Windows.Input.ICommand");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_54_InfoBar_CloseButtonCommand;
+                xamlMember.Setter = set_54_InfoBar_CloseButtonCommand;
+                break;
+            case "Microsoft.UI.Xaml.Controls.InfoBar.CloseButtonCommandParameter":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.InfoBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "CloseButtonCommandParameter", "Object");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_55_InfoBar_CloseButtonCommandParameter;
+                xamlMember.Setter = set_55_InfoBar_CloseButtonCommandParameter;
+                break;
+            case "Microsoft.UI.Xaml.Controls.InfoBar.CloseButtonStyle":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.InfoBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "CloseButtonStyle", "Microsoft.UI.Xaml.Style");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_56_InfoBar_CloseButtonStyle;
+                xamlMember.Setter = set_56_InfoBar_CloseButtonStyle;
+                break;
+            case "Microsoft.UI.Xaml.Controls.InfoBar.ContentTemplate":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.InfoBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ContentTemplate", "Microsoft.UI.Xaml.DataTemplate");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_57_InfoBar_ContentTemplate;
+                xamlMember.Setter = set_57_InfoBar_ContentTemplate;
+                break;
+            case "Microsoft.UI.Xaml.Controls.InfoBar.IconSource":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.InfoBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "IconSource", "Microsoft.UI.Xaml.Controls.IconSource");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_58_InfoBar_IconSource;
+                xamlMember.Setter = set_58_InfoBar_IconSource;
+                break;
+            case "Microsoft.UI.Xaml.Controls.InfoBar.IsIconVisible":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.InfoBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "IsIconVisible", "Boolean");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_59_InfoBar_IsIconVisible;
+                xamlMember.Setter = set_59_InfoBar_IsIconVisible;
+                break;
+            case "Microsoft.UI.Xaml.Controls.InfoBar.TemplateSettings":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.InfoBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "TemplateSettings", "Microsoft.UI.Xaml.Controls.InfoBarTemplateSettings");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_60_InfoBar_TemplateSettings;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "Microsoft.UI.Xaml.Controls.InfoBar.Title":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.InfoBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Title", "String");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_61_InfoBar_Title;
+                xamlMember.Setter = set_61_InfoBar_Title;
+                break;
+            case "Microsoft.UI.Xaml.Controls.ProgressBar.IsIndeterminate":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.ProgressBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "IsIndeterminate", "Boolean");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_62_ProgressBar_IsIndeterminate;
+                xamlMember.Setter = set_62_ProgressBar_IsIndeterminate;
+                break;
+            case "Microsoft.UI.Xaml.Controls.ProgressBar.ShowError":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.ProgressBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ShowError", "Boolean");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_63_ProgressBar_ShowError;
+                xamlMember.Setter = set_63_ProgressBar_ShowError;
+                break;
+            case "Microsoft.UI.Xaml.Controls.ProgressBar.ShowPaused":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.ProgressBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ShowPaused", "Boolean");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_64_ProgressBar_ShowPaused;
+                xamlMember.Setter = set_64_ProgressBar_ShowPaused;
+                break;
+            case "Microsoft.UI.Xaml.Controls.ProgressBar.TemplateSettings":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.ProgressBar");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "TemplateSettings", "Microsoft.UI.Xaml.Controls.ProgressBarTemplateSettings");
+                xamlMember.Getter = get_65_ProgressBar_TemplateSettings;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "PMTool.App.Views.DataManagement.DataManagementPage.ViewModel":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Views.DataManagement.DataManagementPage");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ViewModel", "PMTool.App.ViewModels.DataManagementViewModel");
+                xamlMember.Getter = get_66_DataManagementPage_ViewModel;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "PMTool.App.Views.Documents.DocumentListPage.ViewModel":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Views.Documents.DocumentListPage");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ViewModel", "PMTool.App.ViewModels.DocumentListViewModel");
+                xamlMember.Getter = get_67_DocumentListPage_ViewModel;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "PMTool.App.Views.Features.FeatureListPage.ViewModel":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Views.Features.FeatureListPage");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ViewModel", "PMTool.App.ViewModels.FeatureListViewModel");
+                xamlMember.Getter = get_68_FeatureListPage_ViewModel;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "PMTool.App.Views.Ideas.IdeaListPage.ViewModel":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Views.Ideas.IdeaListPage");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ViewModel", "PMTool.App.ViewModels.IdeaListViewModel");
+                xamlMember.Getter = get_69_IdeaListPage_ViewModel;
+                xamlMember.SetIsReadOnly();
                 break;
             case "PMTool.App.Views.Placeholder.ModulePlaceholderPage.ViewModel":
                 userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Views.Placeholder.ModulePlaceholderPage");
                 xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ViewModel", "PMTool.App.ViewModels.ModulePlaceholderViewModel");
-                xamlMember.Getter = get_12_ModulePlaceholderPage_ViewModel;
+                xamlMember.Getter = get_70_ModulePlaceholderPage_ViewModel;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PMTool.App.Views.Projects.ProjectListPage.ViewModel":
                 userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Views.Projects.ProjectListPage");
                 xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ViewModel", "PMTool.App.ViewModels.ProjectListViewModel");
-                xamlMember.Getter = get_13_ProjectListPage_ViewModel;
+                xamlMember.Getter = get_71_ProjectListPage_ViewModel;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "PMTool.App.Views.Releases.ReleaseListPage.ViewModel":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Views.Releases.ReleaseListPage");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ViewModel", "PMTool.App.ViewModels.ReleaseListViewModel");
+                xamlMember.Getter = get_72_ReleaseListPage_ViewModel;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "PMTool.App.Views.Settings.SettingsPage.ViewModel":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Views.Settings.SettingsPage");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ViewModel", "PMTool.App.ViewModels.SettingsViewModel");
+                xamlMember.Getter = get_73_SettingsPage_ViewModel;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "PMTool.App.Views.Settings.SettingsPage.ThemeLight":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Views.Settings.SettingsPage");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ThemeLight", "PMTool.Core.Models.Settings.AppThemeOption");
+                xamlMember.Getter = get_74_SettingsPage_ThemeLight;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "PMTool.App.Views.Settings.SettingsPage.ThemeDark":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Views.Settings.SettingsPage");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ThemeDark", "PMTool.Core.Models.Settings.AppThemeOption");
+                xamlMember.Getter = get_75_SettingsPage_ThemeDark;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "PMTool.App.Views.Settings.SettingsPage.ThemeFollowSystem":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Views.Settings.SettingsPage");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ThemeFollowSystem", "PMTool.Core.Models.Settings.AppThemeOption");
+                xamlMember.Getter = get_76_SettingsPage_ThemeFollowSystem;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.Title":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Title", "String");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_77_TeachingTip_Title;
+                xamlMember.Setter = set_77_TeachingTip_Title;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.Subtitle":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Subtitle", "String");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_78_TeachingTip_Subtitle;
+                xamlMember.Setter = set_78_TeachingTip_Subtitle;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.PreferredPlacement":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "PreferredPlacement", "Microsoft.UI.Xaml.Controls.TeachingTipPlacementMode");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_79_TeachingTip_PreferredPlacement;
+                xamlMember.Setter = set_79_TeachingTip_PreferredPlacement;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.IsLightDismissEnabled":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "IsLightDismissEnabled", "Boolean");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_80_TeachingTip_IsLightDismissEnabled;
+                xamlMember.Setter = set_80_TeachingTip_IsLightDismissEnabled;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.ActionButtonContent":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ActionButtonContent", "Object");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_81_TeachingTip_ActionButtonContent;
+                xamlMember.Setter = set_81_TeachingTip_ActionButtonContent;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.ActionButtonCommand":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ActionButtonCommand", "System.Windows.Input.ICommand");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_82_TeachingTip_ActionButtonCommand;
+                xamlMember.Setter = set_82_TeachingTip_ActionButtonCommand;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.ActionButtonCommandParameter":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ActionButtonCommandParameter", "Object");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_83_TeachingTip_ActionButtonCommandParameter;
+                xamlMember.Setter = set_83_TeachingTip_ActionButtonCommandParameter;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.ActionButtonStyle":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ActionButtonStyle", "Microsoft.UI.Xaml.Style");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_84_TeachingTip_ActionButtonStyle;
+                xamlMember.Setter = set_84_TeachingTip_ActionButtonStyle;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.CloseButtonCommand":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "CloseButtonCommand", "System.Windows.Input.ICommand");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_85_TeachingTip_CloseButtonCommand;
+                xamlMember.Setter = set_85_TeachingTip_CloseButtonCommand;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.CloseButtonCommandParameter":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "CloseButtonCommandParameter", "Object");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_86_TeachingTip_CloseButtonCommandParameter;
+                xamlMember.Setter = set_86_TeachingTip_CloseButtonCommandParameter;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.CloseButtonContent":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "CloseButtonContent", "Object");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_87_TeachingTip_CloseButtonContent;
+                xamlMember.Setter = set_87_TeachingTip_CloseButtonContent;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.CloseButtonStyle":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "CloseButtonStyle", "Microsoft.UI.Xaml.Style");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_88_TeachingTip_CloseButtonStyle;
+                xamlMember.Setter = set_88_TeachingTip_CloseButtonStyle;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.HeroContent":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "HeroContent", "Microsoft.UI.Xaml.UIElement");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_89_TeachingTip_HeroContent;
+                xamlMember.Setter = set_89_TeachingTip_HeroContent;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.HeroContentPlacement":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "HeroContentPlacement", "Microsoft.UI.Xaml.Controls.TeachingTipHeroContentPlacementMode");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_90_TeachingTip_HeroContentPlacement;
+                xamlMember.Setter = set_90_TeachingTip_HeroContentPlacement;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.IconSource":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "IconSource", "Microsoft.UI.Xaml.Controls.IconSource");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_91_TeachingTip_IconSource;
+                xamlMember.Setter = set_91_TeachingTip_IconSource;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.IsOpen":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "IsOpen", "Boolean");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_92_TeachingTip_IsOpen;
+                xamlMember.Setter = set_92_TeachingTip_IsOpen;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.PlacementMargin":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "PlacementMargin", "Microsoft.UI.Xaml.Thickness");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_93_TeachingTip_PlacementMargin;
+                xamlMember.Setter = set_93_TeachingTip_PlacementMargin;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.ShouldConstrainToRootBounds":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ShouldConstrainToRootBounds", "Boolean");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_94_TeachingTip_ShouldConstrainToRootBounds;
+                xamlMember.Setter = set_94_TeachingTip_ShouldConstrainToRootBounds;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.TailVisibility":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "TailVisibility", "Microsoft.UI.Xaml.Controls.TeachingTipTailVisibility");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_95_TeachingTip_TailVisibility;
+                xamlMember.Setter = set_95_TeachingTip_TailVisibility;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.Target":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Target", "Microsoft.UI.Xaml.FrameworkElement");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_96_TeachingTip_Target;
+                xamlMember.Setter = set_96_TeachingTip_Target;
+                break;
+            case "Microsoft.UI.Xaml.Controls.TeachingTip.TemplateSettings":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TeachingTip");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "TemplateSettings", "Microsoft.UI.Xaml.Controls.TeachingTipTemplateSettings");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_97_TeachingTip_TemplateSettings;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PMTool.App.Views.Shell.MainShellPage.ViewModel":
                 userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Views.Shell.MainShellPage");
                 xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ViewModel", "PMTool.App.ViewModels.ShellViewModel");
-                xamlMember.Getter = get_14_MainShellPage_ViewModel;
+                xamlMember.Getter = get_98_MainShellPage_ViewModel;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "PMTool.App.Views.Shell.MainShellPage.AccountVm":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Views.Shell.MainShellPage");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "AccountVm", "PMTool.App.ViewModels.AccountManagementViewModel");
+                xamlMember.Getter = get_99_MainShellPage_AccountVm;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "PMTool.App.Views.Shell.MainShellPage.GlobalSearchVm":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Views.Shell.MainShellPage");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "GlobalSearchVm", "PMTool.App.ViewModels.GlobalSearchViewModel");
+                xamlMember.Getter = get_100_MainShellPage_GlobalSearchVm;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "PMTool.App.Views.Tasks.TaskListPage.ViewModel":
+                userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PMTool.App.Views.Tasks.TaskListPage");
+                xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "ViewModel", "PMTool.App.ViewModels.TaskListViewModel");
+                xamlMember.Getter = get_101_TaskListPage_ViewModel;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Children":
                 userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Children", "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>");
-                xamlMember.Getter = get_15_TreeViewNode_Children;
+                xamlMember.Getter = get_102_TreeViewNode_Children;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Content":
                 userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Content", "Object");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_16_TreeViewNode_Content;
-                xamlMember.Setter = set_16_TreeViewNode_Content;
+                xamlMember.Getter = get_103_TreeViewNode_Content;
+                xamlMember.Setter = set_103_TreeViewNode_Content;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Depth":
                 userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Depth", "Int32");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_17_TreeViewNode_Depth;
+                xamlMember.Getter = get_104_TreeViewNode_Depth;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.HasChildren":
                 userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "HasChildren", "Boolean");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_18_TreeViewNode_HasChildren;
+                xamlMember.Getter = get_105_TreeViewNode_HasChildren;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.HasUnrealizedChildren":
                 userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "HasUnrealizedChildren", "Boolean");
-                xamlMember.Getter = get_19_TreeViewNode_HasUnrealizedChildren;
-                xamlMember.Setter = set_19_TreeViewNode_HasUnrealizedChildren;
+                xamlMember.Getter = get_106_TreeViewNode_HasUnrealizedChildren;
+                xamlMember.Setter = set_106_TreeViewNode_HasUnrealizedChildren;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.IsExpanded":
                 userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "IsExpanded", "Boolean");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_20_TreeViewNode_IsExpanded;
-                xamlMember.Setter = set_20_TreeViewNode_IsExpanded;
+                xamlMember.Getter = get_107_TreeViewNode_IsExpanded;
+                xamlMember.Setter = set_107_TreeViewNode_IsExpanded;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Parent":
                 userType = (global::PMTool.App.PMTool_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::PMTool.App.PMTool_App_XamlTypeInfo.XamlMember(this, "Parent", "Microsoft.UI.Xaml.Controls.TreeViewNode");
-                xamlMember.Getter = get_21_TreeViewNode_Parent;
+                xamlMember.Getter = get_108_TreeViewNode_Parent;
                 xamlMember.SetIsReadOnly();
                 break;
             }

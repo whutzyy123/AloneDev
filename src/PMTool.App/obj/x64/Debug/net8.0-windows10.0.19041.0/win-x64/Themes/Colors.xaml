@@ -1,35 +1,108 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-    <Color x:Key="AloneSurfaceColor">#f8f9ff</Color>
-    <Color x:Key="AloneSurfaceContainerLowColor">#f1f3fc</Color>
-    <Color x:Key="AloneSurfaceContainerLowestColor">#ffffff</Color>
-    <Color x:Key="AloneSurfaceContainerHighColor">#e6e8f0</Color>
-    <Color x:Key="AloneSurfaceContainerHighestColor">#e0e2ea</Color>
-    <Color x:Key="AlonePrimaryColor">#0078D4</Color>
-    <Color x:Key="AlonePrimaryContainerColor">#005faa</Color>
-    <Color x:Key="AloneOnSurfaceColor">#181c22</Color>
-    <Color x:Key="AloneOnSurfaceVariantColor">#404752</Color>
-    <Color x:Key="AloneOnPrimaryColor">#ffffff</Color>
-    <Color x:Key="AloneSecondaryContainerColor">#b8d3fd</Color>
-
-    <SolidColorBrush x:Key="AloneSurfaceBrush" Color="{StaticResource AloneSurfaceColor}" />
-    <SolidColorBrush x:Key="AloneSurfaceContainerLowBrush" Color="{StaticResource AloneSurfaceContainerLowColor}" />
-    <SolidColorBrush x:Key="AloneSurfaceContainerLowestBrush" Color="{StaticResource AloneSurfaceContainerLowestColor}" />
-    <SolidColorBrush x:Key="AloneSurfaceContainerHighBrush" Color="{StaticResource AloneSurfaceContainerHighColor}" />
-    <SolidColorBrush x:Key="AloneSurfaceContainerHighestBrush" Color="{StaticResource AloneSurfaceContainerHighestColor}" />
-    <SolidColorBrush x:Key="AlonePrimaryBrush" Color="{StaticResource AlonePrimaryColor}" />
-    <SolidColorBrush x:Key="AlonePrimaryContainerBrush" Color="{StaticResource AlonePrimaryContainerColor}" />
-    <SolidColorBrush x:Key="AloneOnSurfaceBrush" Color="{StaticResource AloneOnSurfaceColor}" />
-    <SolidColorBrush x:Key="AloneOnSurfaceVariantBrush" Color="{StaticResource AloneOnSurfaceVariantColor}" />
-    <SolidColorBrush x:Key="AloneOnPrimaryBrush" Color="{StaticResource AloneOnPrimaryColor}" />
-    <SolidColorBrush x:Key="AloneSecondaryContainerBrush" Color="{StaticResource AloneSecondaryContainerColor}" />
-    <SolidColorBrush x:Key="AloneNavHoverBrush" Color="{StaticResource AloneSecondaryContainerColor}" Opacity="0.3" />
-
-    <LinearGradientBrush x:Key="AlonePrimaryGradientBrush" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Offset="0" Color="{StaticResource AlonePrimaryContainerColor}" />
-        <GradientStop Offset="1" Color="{StaticResource AlonePrimaryColor}" />
-    </LinearGradientBrush>
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <!-- 色阶分层：画布凹进 / 侧栏与导航色带 / 顶栏与卡片浮起（无 1px 描边） -->
+            <SolidColorBrush x:Key="AloneSurfaceBrush" Color="#EEF1FA" />
+            <SolidColorBrush x:Key="AloneSurfaceContainerLowBrush" Color="#E4E9F4" />
+            <SolidColorBrush x:Key="AloneSurfaceContainerLowestBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="AloneChromeElevatedBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="AloneSurfaceContainerHighBrush" Color="#E6E8EE" />
+            <SolidColorBrush x:Key="AloneSurfaceContainerHighestBrush" Color="#D9DCE3" />
+            <SolidColorBrush x:Key="AloneNavRailActiveBrush" Color="#DCEBFA" />
+            <SolidColorBrush x:Key="AlonePrimaryBrush" Color="#0078D4" />
+            <SolidColorBrush x:Key="AlonePrimaryContainerBrush" Color="#005faa" />
+            <SolidColorBrush x:Key="AloneOnSurfaceBrush" Color="#181c22" />
+            <SolidColorBrush x:Key="AloneOnSurfaceVariantBrush" Color="#404752" />
+            <SolidColorBrush x:Key="AloneSectionHeadingBrush" Color="#2B3340" />
+            <SolidColorBrush x:Key="AloneOnPrimaryBrush" Color="#ffffff" />
+            <SolidColorBrush x:Key="AloneSecondaryContainerBrush" Color="#b8d3fd" />
+            <SolidColorBrush x:Key="AloneNavHoverBrush" Color="#b8d3fd" Opacity="0.3" />
+            <SolidColorBrush x:Key="AloneOnSurfaceDisabledBrush" Color="#181c22" Opacity="0.38" />
+            <SolidColorBrush x:Key="AloneSuccessBrush" Color="#107C10" />
+            <SolidColorBrush x:Key="AloneWarningBrush" Color="#CA5010" />
+            <SolidColorBrush x:Key="AloneErrorBrush" Color="#C42B1C" />
+            <SolidColorBrush x:Key="AloneInfoBrush" Color="#0078D4" />
+            <SolidColorBrush x:Key="SearchRowHighlightBrush" Color="#E8F3FC" />
+            <!-- 项目状态胶囊 -->
+            <SolidColorBrush x:Key="AloneChipProjectActiveBackgroundBrush" Color="#D8F3DC" />
+            <SolidColorBrush x:Key="AloneChipProjectMutedBackgroundBrush" Color="#E4E7EE" />
+            <!-- 开发者语义：任务类型色条（低饱和） -->
+            <SolidColorBrush x:Key="AloneDevAccentBugBrush" Color="#C25C5E" />
+            <LinearGradientBrush x:Key="AloneDevAccentBugBrushGradient" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Offset="0" Color="#D07072" />
+                <GradientStop Offset="1" Color="#A8484A" />
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="AloneDevAccentRefactorBrush" Color="#7E6BA8" />
+            <SolidColorBrush x:Key="AloneDevAccentResearchBrush" Color="#3D5F78" />
+            <SolidColorBrush x:Key="AloneDevAccentFeatureBrush" Color="#0078D4" />
+            <!-- 看板列底色（轻微区分） / 拖放目标 -->
+            <SolidColorBrush x:Key="AloneKanbanColumnBrush0" Color="#EBEDFA" />
+            <SolidColorBrush x:Key="AloneKanbanColumnBrush1" Color="#E8F2FC" />
+            <SolidColorBrush x:Key="AloneKanbanColumnBrush2" Color="#ECF4EE" />
+            <SolidColorBrush x:Key="AloneKanbanColumnBrush3" Color="#F2ECF8" />
+            <SolidColorBrush x:Key="AloneKanbanDropTargetBrush" Color="#D6E8FD" />
+            <LinearGradientBrush x:Key="AlonePrimaryGradientBrush" StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Offset="0" Color="#005faa" />
+                <GradientStop Offset="1" Color="#0078D4" />
+            </LinearGradientBrush>
+            <!-- 侧栏选中：浅渐变叠加（约 10% 视感） -->
+            <LinearGradientBrush x:Key="AloneNavRailActiveOverlayBrush" StartPoint="0,0" EndPoint="1,0">
+                <GradientStop Offset="0" Color="#220078D4" />
+                <GradientStop Offset="1" Color="#0D0078D4" />
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="AloneChipPriorityP0BackgroundBrush" Color="#F5D4D6" />
+            <SolidColorBrush x:Key="AloneChipPriorityP0ForegroundBrush" Color="#8B292F" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush x:Key="AloneSurfaceBrush" Color="#0E1016" />
+            <SolidColorBrush x:Key="AloneSurfaceContainerLowBrush" Color="#151722" />
+            <SolidColorBrush x:Key="AloneSurfaceContainerLowestBrush" Color="#1C1E2C" />
+            <SolidColorBrush x:Key="AloneChromeElevatedBrush" Color="#232536" />
+            <SolidColorBrush x:Key="AloneSurfaceContainerHighBrush" Color="#2e3040" />
+            <SolidColorBrush x:Key="AloneSurfaceContainerHighestBrush" Color="#383a4d" />
+            <SolidColorBrush x:Key="AloneNavRailActiveBrush" Color="#2A3F5E" />
+            <SolidColorBrush x:Key="AlonePrimaryBrush" Color="#0078D4" />
+            <SolidColorBrush x:Key="AlonePrimaryContainerBrush" Color="#4da3ff" />
+            <SolidColorBrush x:Key="AloneOnSurfaceBrush" Color="#f0f1f5" />
+            <SolidColorBrush x:Key="AloneOnSurfaceVariantBrush" Color="#b8bac7" />
+            <SolidColorBrush x:Key="AloneSectionHeadingBrush" Color="#D2D5E0" />
+            <SolidColorBrush x:Key="AloneOnPrimaryBrush" Color="#ffffff" />
+            <SolidColorBrush x:Key="AloneSecondaryContainerBrush" Color="#3b5998" />
+            <SolidColorBrush x:Key="AloneNavHoverBrush" Color="#4da3ff" Opacity="0.22" />
+            <SolidColorBrush x:Key="AloneOnSurfaceDisabledBrush" Color="#f0f1f5" Opacity="0.38" />
+            <SolidColorBrush x:Key="AloneSuccessBrush" Color="#6CCB5F" />
+            <SolidColorBrush x:Key="AloneWarningBrush" Color="#FFB74D" />
+            <SolidColorBrush x:Key="AloneErrorBrush" Color="#F1707B" />
+            <SolidColorBrush x:Key="AloneInfoBrush" Color="#47a7ff" />
+            <SolidColorBrush x:Key="SearchRowHighlightBrush" Color="#2a3f5c" />
+            <SolidColorBrush x:Key="AloneChipProjectActiveBackgroundBrush" Color="#1E3D28" />
+            <SolidColorBrush x:Key="AloneChipProjectMutedBackgroundBrush" Color="#2E3040" />
+            <SolidColorBrush x:Key="AloneDevAccentBugBrush" Color="#E0787A" />
+            <LinearGradientBrush x:Key="AloneDevAccentBugBrushGradient" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Offset="0" Color="#F09092" />
+                <GradientStop Offset="1" Color="#C06062" />
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="AloneDevAccentRefactorBrush" Color="#9B8BC8" />
+            <SolidColorBrush x:Key="AloneDevAccentResearchBrush" Color="#5A8AB0" />
+            <SolidColorBrush x:Key="AloneDevAccentFeatureBrush" Color="#47A7FF" />
+            <SolidColorBrush x:Key="AloneKanbanColumnBrush0" Color="#222338" />
+            <SolidColorBrush x:Key="AloneKanbanColumnBrush1" Color="#1E2C3A" />
+            <SolidColorBrush x:Key="AloneKanbanColumnBrush2" Color="#1E2E24" />
+            <SolidColorBrush x:Key="AloneKanbanColumnBrush3" Color="#2A2435" />
+            <SolidColorBrush x:Key="AloneKanbanDropTargetBrush" Color="#2A4A6A" />
+            <LinearGradientBrush x:Key="AlonePrimaryGradientBrush" StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Offset="0" Color="#005faa" />
+                <GradientStop Offset="1" Color="#2b8be9" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="AloneNavRailActiveOverlayBrush" StartPoint="0,0" EndPoint="1,0">
+                <GradientStop Offset="0" Color="#3347A7FF" />
+                <GradientStop Offset="1" Color="#1847A7FF" />
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="AloneChipPriorityP0BackgroundBrush" Color="#4A2830" />
+            <SolidColorBrush x:Key="AloneChipPriorityP0ForegroundBrush" Color="#F0C4C8" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>
 

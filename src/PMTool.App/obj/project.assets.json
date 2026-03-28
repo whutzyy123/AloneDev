@@ -18,6 +18,19 @@
           "buildTransitive/CommunityToolkit.Mvvm.targets": {}
         }
       },
+      "Markdig/0.37.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Markdig.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Markdig.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.Data.Sqlite/8.0.8": {
         "type": "package",
         "dependencies": {
@@ -410,6 +423,15 @@
           "buildTransitive/Microsoft.WindowsAppSDK.WinUI.targets": {}
         }
       },
+      "MiniExcel/1.41.4": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/MiniExcel.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/MiniExcel.dll": {}
+        }
+      },
       "SQLitePCLRaw.bundle_e_sqlite3/2.1.6": {
         "type": "package",
         "dependencies": {
@@ -596,6 +618,7 @@
         "dependencies": {
           "Microsoft.Data.Sqlite": "8.0.8",
           "Microsoft.Extensions.DependencyInjection": "9.0.0",
+          "MiniExcel": "1.41.4",
           "PMTool.Core": "1.0.0"
         },
         "compile": {
@@ -621,6 +644,19 @@
         },
         "build": {
           "buildTransitive/CommunityToolkit.Mvvm.targets": {}
+        }
+      },
+      "Markdig/0.37.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Markdig.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Markdig.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Data.Sqlite/8.0.8": {
@@ -974,6 +1010,15 @@
           "buildTransitive/Microsoft.WindowsAppSDK.WinUI.targets": {}
         }
       },
+      "MiniExcel/1.41.4": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/MiniExcel.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/MiniExcel.dll": {}
+        }
+      },
       "SQLitePCLRaw.bundle_e_sqlite3/2.1.6": {
         "type": "package",
         "dependencies": {
@@ -1081,6 +1126,7 @@
         "dependencies": {
           "Microsoft.Data.Sqlite": "8.0.8",
           "Microsoft.Extensions.DependencyInjection": "9.0.0",
+          "MiniExcel": "1.41.4",
           "PMTool.Core": "1.0.0"
         },
         "compile": {
@@ -1131,6 +1177,29 @@
         "lib/netstandard2.0/CommunityToolkit.Mvvm.xml",
         "lib/netstandard2.1/CommunityToolkit.Mvvm.dll",
         "lib/netstandard2.1/CommunityToolkit.Mvvm.xml"
+      ]
+    },
+    "Markdig/0.37.0": {
+      "sha512": "biiu4MTPFjW55qw6v5Aphtj0MjDLJ14x8ndZwkJUHIeqvaSGKeqhLY7S7Vu/S3k7/c9KwhhnaCDP9hdFNUhcNA==",
+      "type": "package",
+      "path": "markdig/0.37.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net462/Markdig.dll",
+        "lib/net462/Markdig.xml",
+        "lib/net6.0/Markdig.dll",
+        "lib/net6.0/Markdig.xml",
+        "lib/net8.0/Markdig.dll",
+        "lib/net8.0/Markdig.xml",
+        "lib/netstandard2.0/Markdig.dll",
+        "lib/netstandard2.0/Markdig.xml",
+        "lib/netstandard2.1/Markdig.dll",
+        "lib/netstandard2.1/Markdig.xml",
+        "markdig.0.37.0.nupkg.sha512",
+        "markdig.nuspec",
+        "markdig.png",
+        "readme.md"
       ]
     },
     "Microsoft.Data.Sqlite/8.0.8": {
@@ -3114,6 +3183,23 @@
         "tools/x86/GenXbf.dll"
       ]
     },
+    "MiniExcel/1.41.4": {
+      "sha512": "fQwTTA2awWICM4xqjkldGTkAEr+U8TfncNdd7CCdQIMo3khCXoFkA1F080Ts8el7oeuRNhRauYjQs8aU0Z6v9Q==",
+      "type": "package",
+      "path": "miniexcel/1.41.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.png",
+        "lib/net45/MiniExcel.dll",
+        "lib/net8.0/MiniExcel.dll",
+        "lib/net9.0/MiniExcel.dll",
+        "lib/netstandard2.0/MiniExcel.dll",
+        "miniexcel.1.41.4.nupkg.sha512",
+        "miniexcel.nuspec"
+      ]
+    },
     "SQLitePCLRaw.bundle_e_sqlite3/2.1.6": {
       "sha512": "BmAf6XWt4TqtowmiWe4/5rRot6GerAeklmOPfviOvwLoF5WwgxcJHAxZtySuyW9r9w+HLILnm8VfJFLCUJYW8A==",
       "type": "package",
@@ -3271,28 +3357,31 @@
   "projectFileDependencyGroups": {
     "net8.0-windows10.0.19041": [
       "CommunityToolkit.Mvvm >= 8.*",
+      "Markdig >= 0.37.0",
       "Microsoft.Extensions.DependencyInjection >= 9.0.0",
       "Microsoft.Web.WebView2 >= 1.*",
       "Microsoft.Windows.SDK.BuildTools >= 10.*",
       "Microsoft.WindowsAppSDK >= 1.8.260317003",
+      "MiniExcel >= 1.41.4",
       "PMTool.Application >= 1.0.0",
       "PMTool.Core >= 1.0.0",
       "PMTool.Infrastructure >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\DELL\\.nuget\\packages\\": {}
+    "d:\\AloneDev\\.nuget\\packages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\AloneDev\\src\\PMTool.App\\PMTool.App.csproj",
+      "projectUniqueName": "d:\\AloneDev\\src\\PMTool.App\\PMTool.App.csproj",
       "projectName": "PMTool.App",
-      "projectPath": "D:\\AloneDev\\src\\PMTool.App\\PMTool.App.csproj",
-      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "D:\\AloneDev\\src\\PMTool.App\\obj\\",
+      "projectPath": "d:\\AloneDev\\src\\PMTool.App\\PMTool.App.csproj",
+      "packagesPath": "d:\\AloneDev\\.nuget\\packages",
+      "outputPath": "d:\\AloneDev\\src\\PMTool.App\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
+        "d:\\AloneDev\\NuGet.Config",
         "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
@@ -3305,14 +3394,14 @@
         "net8.0-windows10.0.19041": {
           "targetAlias": "net8.0-windows10.0.19041.0",
           "projectReferences": {
-            "D:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj": {
-              "projectPath": "D:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj"
+            "d:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj": {
+              "projectPath": "d:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj"
             },
-            "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {
-              "projectPath": "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj"
+            "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {
+              "projectPath": "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj"
             },
-            "D:\\AloneDev\\src\\PMTool.Infrastructure\\PMTool.Infrastructure.csproj": {
-              "projectPath": "D:\\AloneDev\\src\\PMTool.Infrastructure\\PMTool.Infrastructure.csproj"
+            "d:\\AloneDev\\src\\PMTool.Infrastructure\\PMTool.Infrastructure.csproj": {
+              "projectPath": "d:\\AloneDev\\src\\PMTool.Infrastructure\\PMTool.Infrastructure.csproj"
             }
           }
         }
@@ -3337,6 +3426,10 @@
             "target": "Package",
             "version": "[8.*, )"
           },
+          "Markdig": {
+            "target": "Package",
+            "version": "[0.37.0, )"
+          },
           "Microsoft.Extensions.DependencyInjection": {
             "target": "Package",
             "version": "[9.0.0, )"
@@ -3352,6 +3445,10 @@
           "Microsoft.WindowsAppSDK": {
             "target": "Package",
             "version": "[1.8.260317003, )"
+          },
+          "MiniExcel": {
+            "target": "Package",
+            "version": "[1.41.4, )"
           }
         },
         "imports": [

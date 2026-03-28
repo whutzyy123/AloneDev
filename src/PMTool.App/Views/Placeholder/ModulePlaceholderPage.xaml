@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:DataType="local:ModulePlaceholderPage"
     mc:Ignorable="d">
-    <Grid Padding="32" Background="{StaticResource AloneSurfaceBrush}">
+    <Grid Padding="32" Background="{ThemeResource AloneSurfaceBrush}">
         <StackPanel HorizontalAlignment="Center" Spacing="24" VerticalAlignment="Center">
             <TextBlock
                 HorizontalAlignment="Center"

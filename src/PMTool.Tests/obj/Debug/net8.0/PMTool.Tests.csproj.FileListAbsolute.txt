@@ -130,3 +130,4 @@ D:\AloneDev\src\PMTool.Tests\obj\Debug\net8.0\refint\PMTool.Tests.dll
 D:\AloneDev\src\PMTool.Tests\obj\Debug\net8.0\PMTool.Tests.pdb
 D:\AloneDev\src\PMTool.Tests\obj\Debug\net8.0\PMTool.Tests.genruntimeconfig.cache
 D:\AloneDev\src\PMTool.Tests\obj\Debug\net8.0\ref\PMTool.Tests.dll
+d:\AloneDev\src\PMTool.Tests\bin\Debug\net8.0\MiniExcel.dll

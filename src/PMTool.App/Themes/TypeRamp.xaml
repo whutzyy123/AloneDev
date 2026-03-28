@@ -7,27 +7,30 @@
     <x:Double x:Key="TitleSmFontSize">16</x:Double>
     <x:Double x:Key="BodyMdFontSize">14</x:Double>
     <x:Double x:Key="LabelMdFontSize">12</x:Double>
+    <x:Double x:Key="CaptionFontSize">11</x:Double>
 
     <Style x:Key="AloneDisplayMdTextBlockStyle" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Segoe UI Variable" />
         <Setter Property="FontSize" Value="{StaticResource DisplayMdFontSize}" />
         <Setter Property="FontWeight" Value="SemiBold" />
-        <Setter Property="Foreground" Value="{StaticResource AloneOnSurfaceBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource AloneOnSurfaceBrush}" />
     </Style>
 
     <Style x:Key="AloneHeadlineSmTextBlockStyle" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Segoe UI Variable" />
         <Setter Property="FontSize" Value="{StaticResource HeadlineSmFontSize}" />
         <Setter Property="FontWeight" Value="SemiBold" />
-        <Setter Property="CharacterSpacing" Value="-10" />
-        <Setter Property="Foreground" Value="{StaticResource AloneOnSurfaceBrush}" />
+        <Setter Property="CharacterSpacing" Value="-18" />
+        <Setter Property="Foreground" Value="{ThemeResource AloneOnSurfaceBrush}" />
     </Style>
+
+    <Style x:Key="AloneTitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource AloneHeadlineSmTextBlockStyle}" />
 
     <Style x:Key="AloneTitleSmTextBlockStyle" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Segoe UI Variable" />
         <Setter Property="FontSize" Value="{StaticResource TitleSmFontSize}" />
         <Setter Property="FontWeight" Value="Medium" />
-        <Setter Property="Foreground" Value="{StaticResource AloneOnSurfaceBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource AloneOnSurfaceBrush}" />
     </Style>
 
     <Style x:Key="AloneTitleLgTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource AloneTitleSmTextBlockStyle}">
@@ -35,17 +38,37 @@
         <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
+    <Style x:Key="AloneSubtitleTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe UI Variable" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="Foreground" Value="{ThemeResource AloneOnSurfaceVariantBrush}" />
+    </Style>
+
     <Style x:Key="AloneBodyMdTextBlockStyle" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Segoe UI Variable" />
         <Setter Property="FontSize" Value="{StaticResource BodyMdFontSize}" />
         <Setter Property="FontWeight" Value="Normal" />
-        <Setter Property="Foreground" Value="{StaticResource AloneOnSurfaceBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource AloneOnSurfaceBrush}" />
+    </Style>
+
+    <Style x:Key="AloneBodyTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource AloneBodyMdTextBlockStyle}" />
+
+    <Style x:Key="AloneBodySecondaryTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource AloneBodyMdTextBlockStyle}">
+        <Setter Property="Foreground" Value="{ThemeResource AloneOnSurfaceVariantBrush}" />
     </Style>
 
     <Style x:Key="AloneLabelMdTextBlockStyle" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Segoe UI Variable" />
         <Setter Property="FontSize" Value="{StaticResource LabelMdFontSize}" />
-        <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="Foreground" Value="{StaticResource AloneOnSurfaceVariantBrush}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{ThemeResource AloneSectionHeadingBrush}" />
+    </Style>
+
+    <Style x:Key="AloneCaptionTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe UI Variable" />
+        <Setter Property="FontSize" Value="{StaticResource CaptionFontSize}" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Foreground" Value="{ThemeResource AloneOnSurfaceVariantBrush}" />
     </Style>
 </ResourceDictionary>

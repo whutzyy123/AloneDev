@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PMTool.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6bc7d19306ce48bbe4bd8a1cab6d7293f809d27c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+272a7b41621b600ed4a2a03fd88062541ef4af18")]
 [assembly: System.Reflection.AssemblyProductAttribute("PMTool.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PMTool.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

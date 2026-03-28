@@ -6,19 +6,117 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:PMTool.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:PMTool.App.ViewModels"
+    x:Name="SearchPanelRoot"
+    x:DataType="local:GlobalSearchPanel"
+    Padding="0"
     mc:Ignorable="d">
     <Border
-        Padding="16"
-        MinWidth="360"
-        Background="{StaticResource AloneSurfaceContainerLowestBrush}"
+        x:Name="FlyoutRootBorder"
+        MaxHeight="320"
+        Padding="8"
+        HorizontalAlignment="Stretch"
+        Background="Transparent"
         CornerRadius="{StaticResource DefaultCornerRadius}">
-        <StackPanel Spacing="12">
-            <TextBlock Style="{StaticResource AloneTitleSmTextBlockStyle}" Text="全局搜索" />
-            <AutoSuggestBox x:Name="QueryBox" PlaceholderText="输入关键词（500ms 防抖后查询将接入）" />
+        <Grid RowSpacing="{StaticResource AloneSpace8}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <!-- 单列范围；由顶栏搜索框输入关键词，此处不再重复搜索框 -->
+            <StackPanel Grid.Row="0" Spacing="{StaticResource AloneSpace8}">
+                <TextBlock Style="{StaticResource AloneCaptionTextBlockStyle}" Text="搜索范围（默认全选）" />
+                <StackPanel Spacing="4">
+                    <CheckBox Content="项目" IsChecked="{x:Bind ViewModel.ScopeProjects, Mode=TwoWay}" />
+                    <CheckBox Content="特性" IsChecked="{x:Bind ViewModel.ScopeFeatures, Mode=TwoWay}" />
+                    <CheckBox Content="任务" IsChecked="{x:Bind ViewModel.ScopeTasks, Mode=TwoWay}" />
+                    <CheckBox Content="文档" IsChecked="{x:Bind ViewModel.ScopeDocuments, Mode=TwoWay}" />
+                    <CheckBox Content="灵感" IsChecked="{x:Bind ViewModel.ScopeIdeas, Mode=TwoWay}" />
+                </StackPanel>
+            </StackPanel>
             <TextBlock
-                Opacity="0.7"
-                Style="{StaticResource AloneLabelMdTextBlockStyle}"
-                Text="暂未连接数据库；仅 UI 骨架。" />
-        </StackPanel>
+                Grid.Row="1"
+                Foreground="{ThemeResource AloneWarningBrush}"
+                Style="{StaticResource AloneBodyMdTextBlockStyle}"
+                Text="{x:Bind ViewModel.FilterHint, Mode=OneWay}"
+                TextWrapping="WrapWholeWords"
+                Visibility="{x:Bind ViewModel.FilterHint, Mode=OneWay, Converter={StaticResource StringNotEmptyToVisibilityConverter}}" />
+            <!-- 固定高度、禁用滚动；超出部分不展示（结果数量由 VM 上限控制） -->
+            <ScrollViewer
+                Grid.Row="2"
+                MaxHeight="168"
+                HorizontalScrollBarVisibility="Disabled"
+                HorizontalScrollMode="Disabled"
+                VerticalScrollBarVisibility="Disabled"
+                VerticalScrollMode="Disabled">
+                <ItemsControl ItemsSource="{x:Bind ViewModel.Groups, Mode=OneWay}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="vm:GlobalSearchGroupViewModel">
+                            <StackPanel Margin="0,0,0,8" Spacing="4">
+                                <TextBlock Style="{StaticResource AloneLabelMdTextBlockStyle}" Text="{x:Bind Title, Mode=OneWay}" />
+                                <Button
+                                    Padding="0"
+                                    HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Left"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Command="{x:Bind ToggleExpandCommand, Mode=OneWay}"
+                                    Content="{x:Bind ExpandToggleText, Mode=OneWay}"
+                                    CornerRadius="{StaticResource DefaultCornerRadius}"
+                                    Visibility="{x:Bind ShowMoreChevron, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                <ItemsControl ItemsSource="{x:Bind DisplayedHits, Mode=OneWay}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="vm:GlobalSearchHitRowViewModel">
+                                            <Button
+                                                Margin="0,0,0,4"
+                                                Padding="8,6"
+                                                HorizontalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                Background="{x:Bind IsKeyboardHighlighted, Converter={StaticResource SearchRowBackgroundConverter}, Mode=OneWay}"
+                                                Click="HitResult_Click"
+                                                GotFocus="HitRow_GotFocus"
+                                                Style="{StaticResource AloneGlobalSearchHitButtonStyle}">
+                                                <StackPanel Spacing="2">
+                                                    <TextBlock
+                                                        Style="{StaticResource AloneTitleSmTextBlockStyle}"
+                                                        Text="{x:Bind Title, Mode=OneWay}"
+                                                        MaxLines="1"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        Opacity="0.85"
+                                                        Style="{StaticResource AloneCaptionTextBlockStyle}"
+                                                        Text="{x:Bind Snippet, Mode=OneWay}"
+                                                        MaxLines="1"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                </StackPanel>
+                                            </Button>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <StackPanel
+                Grid.Row="3"
+                Orientation="Horizontal"
+                Spacing="{StaticResource AloneSpace8}"
+                VerticalAlignment="Center">
+                <ProgressRing
+                    Width="22"
+                    Height="22"
+                    VerticalAlignment="Center"
+                    IsActive="{x:Bind ViewModel.IsSearching, Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsSearching, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Style="{StaticResource AloneBodySecondaryTextBlockStyle}"
+                    Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
+                    TextWrapping="WrapWholeWords" />
+            </StackPanel>
+        </Grid>
     </Border>
 </UserControl>

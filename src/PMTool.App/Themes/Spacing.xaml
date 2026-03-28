@@ -1,11 +1,59 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--
+        Fine step ladder (dip): use for new layout. See docs/ui/UI_TOKENS_AND_THEMES.md.
+        Legacy Spacing4/6/8 remain 16/24/32 for existing pages / design spacing-4,6,8 naming.
+    -->
+    <x:Double x:Key="AloneSpace4">4</x:Double>
+    <x:Double x:Key="AloneSpace8">8</x:Double>
+    <x:Double x:Key="AloneSpace12">12</x:Double>
+    <x:Double x:Key="AloneSpace16">16</x:Double>
+    <x:Double x:Key="AloneSpace24">24</x:Double>
+
     <x:Double x:Key="Spacing4">16</x:Double>
     <x:Double x:Key="Spacing6">24</x:Double>
     <x:Double x:Key="Spacing8">32</x:Double>
-    <x:Double x:Key="NavRailWidth">256</x:Double>
+    <x:Double x:Key="NavRailWidth">272</x:Double>
     <x:Double x:Key="OperationBarHeight">56</x:Double>
+    <x:Double x:Key="ShellChromeBarHeight">54</x:Double>
+    <GridLength x:Key="NavRailWidthGrid">272</GridLength>
+    <GridLength x:Key="OperationBarHeightGrid">56</GridLength>
+    <GridLength x:Key="ShellChromeBarHeightGrid">54</GridLength>
+    <!-- 为系统最小化/最大化/关闭预留，避免与顶栏搜索重叠 -->
+    <GridLength x:Key="ShellChromeCaptionRightInsetGrid">140</GridLength>
     <x:Double x:Key="DetailPanelWidth">320</x:Double>
+    <!-- Main column: limit line length on ultra-wide monitors -->
+    <x:Double x:Key="AloneContentMaxWidth">1280</x:Double>
+    <x:Double x:Key="AloneNavItemHeight">44</x:Double>
+    <x:Double x:Key="AloneNavIconBox">20</x:Double>
+
+    <Thickness x:Key="AloneNavItemPadding">12,8,16,8</Thickness>
+    <Thickness x:Key="AloneContentHostPadding">28,24,28,32</Thickness>
+    <Thickness x:Key="AloneChromeButtonPadding">12,8,12,8</Thickness>
+    <Thickness x:Key="AloneOperationBarPadding">28,0,28,0</Thickness>
+    <Thickness x:Key="AloneShellChromePadding">12,0,8,0</Thickness>
+    <Thickness x:Key="AloneNavRailOuterPadding">0,16,0,16</Thickness>
+    <Thickness x:Key="AloneNavHeaderStackPadding">16,0,16,16</Thickness>
+    <Thickness x:Key="AloneNavFooterSeparatorPadding">0,16,0,0</Thickness>
+    <Thickness x:Key="AloneListViewInlayPadding">0,4,0,4</Thickness>
+    <Thickness x:Key="AloneDetailPanelMargin">24,0,0,0</Thickness>
+    <Thickness x:Key="AloneHyperlinkFlyoutItemMargin">0,4,0,4</Thickness>
+    <Thickness x:Key="AloneFlyoutPanelPadding">12,12,12,12</Thickness>
+    <!-- Padding on Border/Control：须为 Thickness，不可复用 AloneSpace*（Double） -->
+    <Thickness x:Key="AlonePadding8">8,8,8,8</Thickness>
+    <Thickness x:Key="AlonePadding12">12,12,12,12</Thickness>
+    <Thickness x:Key="AlonePadding16">16,16,16,16</Thickness>
+    <!-- WinUI：Margin/Thickness 的逗号分量里不能写 {StaticResource}，须用完整 Thickness 资源。 -->
+    <Thickness x:Key="AloneMarginTop8">0,8,0,0</Thickness>
+    <Thickness x:Key="AloneMarginTop24">0,24,0,0</Thickness>
+    <Thickness x:Key="AloneMarginTop24Bottom12">0,24,0,12</Thickness>
+    <Thickness x:Key="AloneMarginBottom8">0,0,0,8</Thickness>
+    <Thickness x:Key="AloneMarginBottom12">0,0,0,12</Thickness>
+    <Thickness x:Key="AloneMarginBottom16">0,0,0,16</Thickness>
+    <Thickness x:Key="AloneMarginBottomListCard">0,0,0,16</Thickness>
+
+    <CornerRadius x:Key="CornerRadiusSmall">4</CornerRadius>
     <CornerRadius x:Key="DefaultCornerRadius">8</CornerRadius>
+    <CornerRadius x:Key="CornerRadiusLarge">12</CornerRadius>
 </ResourceDictionary>

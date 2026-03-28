@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Microsoft.UI.Xaml.Controls;
+using PMTool.App.Diagnostics;
 
 namespace PMTool.App.Controls;
 
@@ -7,6 +9,17 @@ public sealed partial class OperationBar : UserControl
     public OperationBar()
     {
         InitializeComponent();
+        Loaded += OnLoaded;
+    }
+
+    private void OnLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        Loaded -= OnLoaded;
+        ModuleSearchBox.QueryIcon = new SymbolIcon { Symbol = Symbol.Find };
+        // #region agent log
+        var ctx = DataContext?.GetType().FullName ?? "null";
+        DebugAgentLog.Write("E", "OperationBar.Loaded", "DataContext type", new Dictionary<string, string> { ["dataContext"] = ctx });
+        // #endregion
     }
 
     public string Title
@@ -20,28 +33,4 @@ public sealed partial class OperationBar : UserControl
         typeof(string),
         typeof(OperationBar),
         new PropertyMetadata(string.Empty));
-
-    public string FilterLabel
-    {
-        get => (string)GetValue(FilterLabelProperty);
-        set => SetValue(FilterLabelProperty, value);
-    }
-
-    public static readonly DependencyProperty FilterLabelProperty = DependencyProperty.Register(
-        nameof(FilterLabel),
-        typeof(string),
-        typeof(OperationBar),
-        new PropertyMetadata("筛选"));
-
-    public string PrimaryActionLabel
-    {
-        get => (string)GetValue(PrimaryActionLabelProperty);
-        set => SetValue(PrimaryActionLabelProperty, value);
-    }
-
-    public static readonly DependencyProperty PrimaryActionLabelProperty = DependencyProperty.Register(
-        nameof(PrimaryActionLabel),
-        typeof(string),
-        typeof(OperationBar),
-        new PropertyMetadata("新建"));
 }

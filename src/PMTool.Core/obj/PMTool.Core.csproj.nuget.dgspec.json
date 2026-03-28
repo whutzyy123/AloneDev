@@ -1,19 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {}
+    "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {}
   },
   "projects": {
-    "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {
+    "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
+        "projectUniqueName": "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
         "projectName": "PMTool.Core",
-        "projectPath": "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
-        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "D:\\AloneDev\\src\\PMTool.Core\\obj\\",
+        "projectPath": "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
+        "packagesPath": "d:\\AloneDev\\.nuget\\packages",
+        "outputPath": "d:\\AloneDev\\src\\PMTool.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+          "d:\\AloneDev\\NuGet.Config",
           "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [

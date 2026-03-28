@@ -1,19 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj": {}
+    "d:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj": {}
   },
   "projects": {
-    "D:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj": {
+    "d:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj",
+        "projectUniqueName": "d:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj",
         "projectName": "PMTool.Application",
-        "projectPath": "D:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj",
-        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "D:\\AloneDev\\src\\PMTool.Application\\obj\\",
+        "projectPath": "d:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj",
+        "packagesPath": "d:\\AloneDev\\.nuget\\packages",
+        "outputPath": "d:\\AloneDev\\src\\PMTool.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+          "d:\\AloneDev\\NuGet.Config",
           "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
@@ -26,8 +27,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {
-                "projectPath": "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj"
+              "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {
+                "projectPath": "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj"
               }
             }
           }
@@ -73,16 +74,17 @@
         }
       }
     },
-    "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {
+    "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
+        "projectUniqueName": "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
         "projectName": "PMTool.Core",
-        "projectPath": "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
-        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "D:\\AloneDev\\src\\PMTool.Core\\obj\\",
+        "projectPath": "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj",
+        "packagesPath": "d:\\AloneDev\\.nuget\\packages",
+        "outputPath": "d:\\AloneDev\\src\\PMTool.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+          "d:\\AloneDev\\NuGet.Config",
           "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [

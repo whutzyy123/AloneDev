@@ -6,4 +6,7 @@ namespace PMTool.Core.Abstractions;
 public interface IDataRootProvider
 {
     string GetDataRootPath();
+
+    /// <summary>迁移成功或启动解析锚点后更新；须为绝对路径。</summary>
+    void SetDataRootPath(string absolutePath);
 }

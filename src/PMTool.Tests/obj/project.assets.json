@@ -348,6 +348,15 @@
           "build/netcoreapp3.1/Microsoft.TestPlatform.TestHost.props": {}
         }
       },
+      "MiniExcel/1.41.4": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/MiniExcel.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/MiniExcel.dll": {}
+        }
+      },
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
@@ -640,6 +649,7 @@
         "dependencies": {
           "Microsoft.Data.Sqlite": "8.0.8",
           "Microsoft.Extensions.DependencyInjection": "9.0.0",
+          "MiniExcel": "1.41.4",
           "PMTool.Core": "1.0.0"
         },
         "compile": {
@@ -1001,6 +1011,23 @@
         "microsoft.testplatform.testhost.nuspec"
       ]
     },
+    "MiniExcel/1.41.4": {
+      "sha512": "fQwTTA2awWICM4xqjkldGTkAEr+U8TfncNdd7CCdQIMo3khCXoFkA1F080Ts8el7oeuRNhRauYjQs8aU0Z6v9Q==",
+      "type": "package",
+      "path": "miniexcel/1.41.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.png",
+        "lib/net45/MiniExcel.dll",
+        "lib/net8.0/MiniExcel.dll",
+        "lib/net9.0/MiniExcel.dll",
+        "lib/netstandard2.0/MiniExcel.dll",
+        "miniexcel.1.41.4.nupkg.sha512",
+        "miniexcel.nuspec"
+      ]
+    },
     "Newtonsoft.Json/13.0.1": {
       "sha512": "ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
       "type": "package",
@@ -1330,18 +1357,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\DELL\\.nuget\\packages\\": {}
+    "d:\\AloneDev\\.nuget\\packages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\AloneDev\\src\\PMTool.Tests\\PMTool.Tests.csproj",
+      "projectUniqueName": "d:\\AloneDev\\src\\PMTool.Tests\\PMTool.Tests.csproj",
       "projectName": "PMTool.Tests",
-      "projectPath": "D:\\AloneDev\\src\\PMTool.Tests\\PMTool.Tests.csproj",
-      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "D:\\AloneDev\\src\\PMTool.Tests\\obj\\",
+      "projectPath": "d:\\AloneDev\\src\\PMTool.Tests\\PMTool.Tests.csproj",
+      "packagesPath": "d:\\AloneDev\\.nuget\\packages",
+      "outputPath": "d:\\AloneDev\\src\\PMTool.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
+        "d:\\AloneDev\\NuGet.Config",
         "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
@@ -1354,14 +1382,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj": {
-              "projectPath": "D:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj"
+            "d:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj": {
+              "projectPath": "d:\\AloneDev\\src\\PMTool.Application\\PMTool.Application.csproj"
             },
-            "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {
-              "projectPath": "D:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj"
+            "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj": {
+              "projectPath": "d:\\AloneDev\\src\\PMTool.Core\\PMTool.Core.csproj"
             },
-            "D:\\AloneDev\\src\\PMTool.Infrastructure\\PMTool.Infrastructure.csproj": {
-              "projectPath": "D:\\AloneDev\\src\\PMTool.Infrastructure\\PMTool.Infrastructure.csproj"
+            "d:\\AloneDev\\src\\PMTool.Infrastructure\\PMTool.Infrastructure.csproj": {
+              "projectPath": "d:\\AloneDev\\src\\PMTool.Infrastructure\\PMTool.Infrastructure.csproj"
             }
           }
         }

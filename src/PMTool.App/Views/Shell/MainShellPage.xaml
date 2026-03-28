@@ -10,167 +10,313 @@
     xmlns:vm="using:PMTool.App.ViewModels"
     x:Name="ShellRoot"
     x:DataType="local:MainShellPage"
-    Background="{StaticResource AloneSurfaceBrush}"
+    Background="Transparent"
     mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="NavRailItemTemplate" x:DataType="vm:NavEntryViewModel">
+            <Button
+                MinHeight="{StaticResource AloneNavItemHeight}"
+                Padding="0"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                Background="Transparent"
+                BorderThickness="0"
+                CornerRadius="{StaticResource DefaultCornerRadius}"
+                Command="{Binding ElementName=ShellRoot, Path=ViewModel.SelectNavCommand}"
+                CommandParameter="{x:Bind}"
+                ToolTipService.ToolTip="{x:Bind Label, Mode=OneWay}">
+                <Grid Padding="{StaticResource AloneNavItemPadding}">
+                    <Border
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Background="{ThemeResource AloneNavRailActiveOverlayBrush}"
+                        CornerRadius="{StaticResource DefaultCornerRadius}"
+                        Opacity="{x:Bind RowHighlightOpacity, Mode=OneWay}" />
+                    <Viewbox
+                        Width="{StaticResource AloneNavIconBox}"
+                        Height="{StaticResource AloneNavIconBox}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Visibility="{x:Bind IconOnly, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <SymbolIcon
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource AloneOnSurfaceBrush}"
+                            Opacity="0.92"
+                            Symbol="{x:Bind Glyph, Mode=OneWay}" />
+                    </Viewbox>
+                    <Grid
+                        ColumnSpacing="{StaticResource AloneSpace12}"
+                        Visibility="{x:Bind ShowExpandedNav, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Rectangle
+                            Width="4"
+                            Margin="-10,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Stretch"
+                            Fill="{ThemeResource AlonePrimaryBrush}"
+                            RadiusX="2"
+                            RadiusY="2"
+                            Opacity="{x:Bind AccentOpacity, Mode=OneWay}" />
+                        <StackPanel
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal"
+                            Spacing="{StaticResource AloneSpace12}">
+                            <Viewbox
+                                Width="{StaticResource AloneNavIconBox}"
+                                Height="{StaticResource AloneNavIconBox}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <SymbolIcon
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource AloneOnSurfaceBrush}"
+                                    Opacity="0.92"
+                                    Symbol="{x:Bind Glyph, Mode=OneWay}" />
+                            </Viewbox>
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontWeight="{x:Bind NavLabelFontWeight, Mode=OneWay}"
+                                Style="{StaticResource AloneBodyMdTextBlockStyle}"
+                                Text="{x:Bind Label, Mode=OneWay}" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Button>
+        </DataTemplate>
+    </Page.Resources>
+    <Page.KeyboardAccelerators>
+        <KeyboardAccelerator
+            Key="K"
+            Invoked="GlobalSearchAccelerator_Invoked"
+            Modifiers="Control" />
+    </Page.KeyboardAccelerators>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="256" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <!-- Left rail -->
+        <!-- 全宽自定义顶栏：系统按钮区在右侧保留空白列 -->
         <Grid
-            Grid.Column="0"
-            Padding="0,16,0,16"
-            Background="{StaticResource AloneSurfaceContainerLowBrush}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+            x:Name="TitleBarDragRegion"
+            Grid.Row="0"
+            MinHeight="{StaticResource ShellChromeBarHeight}">
+            <Border Background="{ThemeResource AloneChromeElevatedBrush}" Shadow="{StaticResource AloneFloatThemeShadow}">
+                <Grid Padding="{StaticResource AloneShellChromePadding}" ColumnSpacing="{StaticResource AloneSpace12}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="{StaticResource ShellChromeCaptionRightInsetGrid}" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Margin="12,0,8,0"
+                        Spacing="2">
+                        <TextBlock Style="{StaticResource AloneTitleSmTextBlockStyle}" Text="AloneDev" />
+                        <TextBlock
+                            Style="{StaticResource AloneCaptionTextBlockStyle}"
+                            Text="{x:Bind ViewModel.ModuleTitle, Mode=OneWay}" />
+                    </StackPanel>
+                    <AutoSuggestBox
+                        x:Name="ShellGlobalSearchBox"
+                        Grid.Column="1"
+                        MinWidth="260"
+                        MinHeight="40"
+                        MaxWidth="560"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        Background="{ThemeResource AloneSurfaceContainerLowBrush}"
+                        BorderThickness="0"
+                        CornerRadius="20"
+                        GotFocus="ShellGlobalSearchBox_GotFocus"
+                        PlaceholderText="全局搜索并跳转…（Ctrl+K）"
+                        QueryIcon="Find"
+                        Text="{x:Bind GlobalSearchVm.Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{StaticResource NavRailWidthGrid}" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left rail -->
+            <Grid
+                Grid.Column="0"
+                Padding="{StaticResource AloneNavRailOuterPadding}"
+                Background="{ThemeResource AloneSurfaceContainerLowBrush}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
             <StackPanel
                 Grid.Row="0"
-                Padding="16,0,16,16"
-                Spacing="12">
+                Padding="{StaticResource AloneNavHeaderStackPadding}"
+                Spacing="{StaticResource AloneSpace16}">
+                <StackPanel Spacing="{StaticResource AloneSpace8}">
+                    <StackPanel Orientation="Horizontal" Spacing="{StaticResource AloneSpace12}">
+                        <Border
+                            Width="40"
+                            Height="40"
+                            VerticalAlignment="Center"
+                            CornerRadius="{StaticResource CornerRadiusSmall}">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Offset="0" Color="#0067C0" />
+                                    <GradientStop Offset="1" Color="#0078D4" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <FontIcon
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                FontSize="20"
+                                Foreground="{ThemeResource AloneOnPrimaryBrush}"
+                                Glyph="&#xE8F1;" />
+                        </Border>
+                        <StackPanel VerticalAlignment="Center" Spacing="2">
+                            <TextBlock
+                                Style="{StaticResource AloneTitleLgTextBlockStyle}"
+                                Text="AloneDev" />
+                            <TextBlock
+                                CharacterSpacing="80"
+                                Style="{StaticResource AloneCaptionTextBlockStyle}"
+                                Text="本地工作区 · 离线" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
                 <Button
+                    x:Name="AccountMenuButton"
                     Width="40"
                     Height="40"
                     HorizontalAlignment="Left"
                     Padding="0"
-                    Background="{StaticResource AloneSurfaceContainerHighestBrush}"
+                    Background="{ThemeResource AloneSurfaceContainerHighestBrush}"
                     BorderThickness="0"
                     CornerRadius="20"
-                    ToolTipService.ToolTip="账号（占位）">
+                    ToolTipService.ToolTip="本地账号">
+                    <Button.Flyout>
+                        <Flyout FlyoutPresenterStyle="{StaticResource AloneFlyoutPresenterStyle}" Opening="AccountFlyout_Opening">
+                            <StackPanel MinWidth="280" Spacing="{StaticResource AloneSpace12}">
+                                <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="当前账号" />
+                                <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="{x:Bind AccountVm.CurrentAccountDisplay, Mode=OneWay}" />
+                                <TextBlock
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource AloneBodyMdTextBlockStyle}"
+                                    Text="账号列表" />
+                                <ListView
+                                    MaxHeight="200"
+                                    Padding="{StaticResource AloneListViewInlayPadding}"
+                                    Background="{ThemeResource AloneSurfaceContainerHighestBrush}"
+                                    CornerRadius="{StaticResource DefaultCornerRadius}"
+                                    ItemsSource="{x:Bind AccountVm.Accounts, Mode=OneWay}"
+                                    SelectedItem="{x:Bind AccountVm.SelectedAccountName, Mode=TwoWay}"
+                                    SelectionMode="Single" />
+                                <TextBox
+                                    Header="新账号名称"
+                                    PlaceholderText="例如：个人 / 工作"
+                                    Style="{StaticResource AloneFormTextBoxStyle}"
+                                    Text="{x:Bind AccountVm.NewAccountName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <Button
+                                    HorizontalAlignment="Stretch"
+                                    Command="{x:Bind AccountVm.AddAccountCommand}"
+                                    Content="创建账号"
+                                    Style="{StaticResource AloneSecondaryButtonStyle}" />
+                                <Button
+                                    HorizontalAlignment="Stretch"
+                                    Command="{x:Bind AccountVm.SwitchAccountCommand}"
+                                    Content="切换到选中账号"
+                                    Style="{StaticResource AloneSecondaryButtonStyle}" />
+                                <Button
+                                    HorizontalAlignment="Stretch"
+                                    Click="DeleteAccountButton_Click"
+                                    Content="删除选中账号…"
+                                    Style="{StaticResource AloneSecondaryButtonStyle}" />
+                                <Button
+                                    HorizontalAlignment="Stretch"
+                                    Command="{x:Bind AccountVm.InsertProbeCommand}"
+                                    Content="写入验收探针（iteration1）"
+                                    Style="{StaticResource AloneSecondaryButtonStyle}" />
+                                <TextBlock
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Text="{x:Bind AccountVm.StatusMessage, Mode=OneWay}"
+                                    TextWrapping="WrapWholeWords" />
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
                     <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE77B;" />
-                </Button>
-                <Button
-                    x:Name="OpenSearchButton"
-                    HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Center"
-                    BorderThickness="0"
-                    CornerRadius="{StaticResource DefaultCornerRadius}"
-                    Style="{StaticResource AloneSecondaryButtonStyle}"
-                    ToolTipService.ToolTip="全局搜索">
-                    <StackPanel Orientation="Horizontal" Spacing="8">
-                        <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE721;" />
-                        <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="搜索" />
-                    </StackPanel>
                 </Button>
             </StackPanel>
 
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                <ItemsControl ItemsSource="{x:Bind ViewModel.PrimaryNavEntries, Mode=OneWay}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="vm:NavEntryViewModel">
-                            <Button
-                                Padding="0"
-                                HorizontalAlignment="Stretch"
-                                HorizontalContentAlignment="Stretch"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                CornerRadius="0"
-                                Command="{Binding ElementName=ShellRoot, Path=ViewModel.SelectNavCommand}"
-                                CommandParameter="{x:Bind}">
-                                <Grid Padding="12,10,16,10">
-                                    <Border
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Background="{StaticResource AloneSurfaceContainerHighestBrush}"
-                                        Opacity="{x:Bind RowHighlightOpacity, Mode=OneWay}" />
-                                    <Grid ColumnSpacing="12" ColumnDefinitions="Auto,*">
-                                        <Rectangle
-                                            Width="4"
-                                            Margin="-12,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Stretch"
-                                            Fill="{StaticResource AlonePrimaryBrush}"
-                                            RadiusX="2"
-                                            RadiusY="2"
-                                            Opacity="{x:Bind AccentOpacity, Mode=OneWay}" />
-                                        <StackPanel
-                                            Grid.Column="1"
-                                            VerticalAlignment="Center"
-                                            Orientation="Horizontal"
-                                            Spacing="12">
-                                            <SymbolIcon VerticalAlignment="Center" Symbol="{x:Bind Glyph, Mode=OneWay}" />
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                Style="{StaticResource AloneBodyMdTextBlockStyle}"
-                                                Text="{x:Bind Label, Mode=OneWay}" />
-                                        </StackPanel>
-                                    </Grid>
-                                </Grid>
-                            </Button>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <ItemsControl ItemTemplate="{StaticResource NavRailItemTemplate}" ItemsSource="{x:Bind ViewModel.PrimaryNavEntries, Mode=OneWay}" />
             </ScrollViewer>
 
-            <StackPanel
-                Grid.Row="2"
-                Padding="0,16,0,0"
-                Background="{StaticResource AloneSurfaceContainerLowBrush}">
-                <ItemsControl ItemsSource="{x:Bind ViewModel.FooterNavEntries, Mode=OneWay}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="vm:NavEntryViewModel">
-                            <Button
-                                Padding="0"
-                                HorizontalAlignment="Stretch"
-                                HorizontalContentAlignment="Stretch"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                CornerRadius="0"
-                                Command="{Binding ElementName=ShellRoot, Path=ViewModel.SelectNavCommand}"
-                                CommandParameter="{x:Bind}">
-                                <Grid Padding="12,10,16,10">
-                                    <Border
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Background="{StaticResource AloneSurfaceContainerHighestBrush}"
-                                        Opacity="{x:Bind RowHighlightOpacity, Mode=OneWay}" />
-                                    <Grid ColumnSpacing="12" ColumnDefinitions="Auto,*">
-                                        <Rectangle
-                                            Width="4"
-                                            Margin="-12,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Stretch"
-                                            Fill="{StaticResource AlonePrimaryBrush}"
-                                            RadiusX="2"
-                                            RadiusY="2"
-                                            Opacity="{x:Bind AccentOpacity, Mode=OneWay}" />
-                                        <StackPanel
-                                            Grid.Column="1"
-                                            VerticalAlignment="Center"
-                                            Orientation="Horizontal"
-                                            Spacing="12">
-                                            <SymbolIcon VerticalAlignment="Center" Symbol="{x:Bind Glyph, Mode=OneWay}" />
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                Style="{StaticResource AloneBodyMdTextBlockStyle}"
-                                                Text="{x:Bind Label, Mode=OneWay}" />
-                                        </StackPanel>
-                                    </Grid>
-                                </Grid>
-                            </Button>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
-        </Grid>
+                <Border
+                    Grid.Row="2"
+                    Margin="12,4,12,0"
+                    Padding="12,8,12,8"
+                    Background="{ThemeResource AloneSurfaceBrush}"
+                    CornerRadius="{StaticResource DefaultCornerRadius}">
+                    <ItemsControl ItemTemplate="{StaticResource NavRailItemTemplate}" ItemsSource="{x:Bind ViewModel.FooterNavEntries, Mode=OneWay}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="{StaticResource AloneSpace8}" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Border>
+            </Grid>
 
-        <!-- Main column -->
-        <Grid Grid.Column="1">
+            <!-- Main column -->
+            <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="56" />
+                <RowDefinition Height="{StaticResource OperationBarHeightGrid}" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <controls:OperationBar
+                x:Name="MainOperationBar"
                 Grid.Row="0"
-                Title="{x:Bind ViewModel.ModuleTitle, Mode=OneWay}" />
+                Title="{x:Bind ViewModel.ModuleTitle, Mode=OneWay}"
+                DataContext="{x:Bind ViewModel.CurrentOperationBar, Mode=OneWay}" />
 
-            <Frame x:Name="ContentFrame" Grid.Row="1" />
+            <Grid
+                Grid.Row="1"
+                Padding="{StaticResource AloneContentHostPadding}"
+                Background="{ThemeResource AloneSurfaceBrush}">
+                <!-- Frame 必须在本行获得明确垂直空间；外包 Center 的 Grid 会导致部分布局下 Frame 高度为 0，子页整片空白 -->
+                <Border
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Background="{ThemeResource AloneSurfaceContainerLowBrush}"
+                    CornerRadius="{StaticResource DefaultCornerRadius}">
+                    <Frame
+                        x:Name="ContentFrame"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch" />
+                </Border>
+            </Grid>
+            </Grid>
         </Grid>
+
+        <TeachingTip
+            x:Name="GlobalSearchShortcutTip"
+            Grid.RowSpan="2"
+            Title="全局搜索"
+            Subtitle="使用顶栏搜索框或 Ctrl+K，在项目、特性、任务等内容间快速跳转。"
+            PreferredPlacement="Right"
+            IsLightDismissEnabled="True"
+            ActionButtonContent="知道了"
+            ActionButtonClick="GlobalSearchShortcutTip_ActionButtonClick"
+            Closing="GlobalSearchShortcutTip_Closing" />
     </Grid>
 </Page>

@@ -3,88 +3,189 @@
     x:Class="PMTool.App.Views.Projects.ProjectListPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:PMTool.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:PMTool.App.Views.Projects"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:PMTool.App.ViewModels"
     x:Name="ProjectPageRoot"
     x:DataType="local:ProjectListPage"
-    Background="{StaticResource AloneSurfaceBrush}"
+    Background="{ThemeResource AloneSurfaceBrush}"
     mc:Ignorable="d">
-    <Grid Padding="24">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-
-        <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <StackPanel Spacing="{StaticResource Spacing4}">
-                <ItemsControl ItemsSource="{x:Bind ViewModel.Projects, Mode=OneWay}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="vm:ProjectRowViewModel">
-                            <Button
-                                Padding="0"
-                                Margin="0,0,0,16"
-                                HorizontalAlignment="Stretch"
-                                HorizontalContentAlignment="Stretch"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                Command="{Binding ElementName=ProjectPageRoot, Path=ViewModel.SelectProjectCommand}"
-                                CommandParameter="{x:Bind}"
-                                CornerRadius="{StaticResource DefaultCornerRadius}">
-                                <Border
-                                    Padding="16"
-                                    HorizontalAlignment="Stretch"
-                                    Background="{StaticResource AloneSurfaceContainerLowestBrush}"
-                                    CornerRadius="{StaticResource DefaultCornerRadius}">
-                                    <StackPanel Spacing="6">
-                                        <TextBlock Style="{StaticResource AloneTitleSmTextBlockStyle}" Text="{x:Bind Name, Mode=OneWay}" />
-                                        <TextBlock
-                                            Opacity="0.85"
-                                            Style="{StaticResource AloneLabelMdTextBlockStyle}"
-                                            Text="{x:Bind Status, Mode=OneWay}" />
-                                        <TextBlock
-                                            Opacity="0.9"
-                                            Style="{StaticResource AloneBodyMdTextBlockStyle}"
-                                            Text="{x:Bind SummaryLine, Mode=OneWay}" />
-                                    </StackPanel>
-                                </Border>
-                            </Button>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
-        </ScrollViewer>
-
-        <Border
-            x:Name="DetailPanel"
-            Grid.Column="1"
-            Margin="24,0,0,0"
-            Padding="16"
-            Width="{StaticResource DetailPanelWidth}"
-            HorizontalAlignment="Stretch"
-            Background="{StaticResource AloneSurfaceContainerLowestBrush}"
-            CornerRadius="{StaticResource DefaultCornerRadius}"
-            Visibility="{x:Bind ViewModel.DetailPanelVisibility, Mode=OneWay}">
-            <StackPanel Spacing="12">
-                <TextBlock Style="{StaticResource AloneTitleLgTextBlockStyle}" Text="{x:Bind ViewModel.DetailTitle, Mode=OneWay}" />
-                <TextBlock Style="{StaticResource AloneLabelMdTextBlockStyle}" Text="{x:Bind ViewModel.DetailStatus, Mode=OneWay}" />
-                <TextBlock
-                    TextWrapping="WrapWholeWords"
-                    Style="{StaticResource AloneBodyMdTextBlockStyle}"
-                    Text="{x:Bind ViewModel.DetailBody, Mode=OneWay}" />
-                <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="{x:Bind ViewModel.DetailStats, Mode=OneWay}" />
-                <StackPanel Orientation="Horizontal" Spacing="8">
-                    <Button Content="编辑" Style="{StaticResource AloneSecondaryButtonStyle}" />
-                    <Button Content="归档" Style="{StaticResource AloneSecondaryButtonStyle}" />
-                    <Button Content="删除" Style="{StaticResource AloneSecondaryButtonStyle}" />
-                </StackPanel>
-                <Button
+    <Page.Resources>
+        <DataTemplate x:Key="ProjectRowCardTemplate" x:DataType="vm:ProjectRowViewModel">
+            <Button
+                Padding="0"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                Background="Transparent"
+                BorderThickness="0"
+                Command="{Binding ElementName=ProjectPageRoot, Path=ViewModel.SelectProjectCommand}"
+                CommandParameter="{x:Bind}"
+                CornerRadius="{StaticResource CornerRadiusLarge}">
+                <Border
                     HorizontalAlignment="Stretch"
-                    Command="{x:Bind ViewModel.ClearSelectionCommand, Mode=OneWay}"
-                    Content="关闭详情"
-                    Style="{StaticResource AloneSecondaryButtonStyle}" />
-            </StackPanel>
-        </Border>
+                    Background="{x:Bind IsSearchHighlight, Converter={StaticResource SearchRowBackgroundConverter}, Mode=OneWay}"
+                    CornerRadius="{StaticResource CornerRadiusLarge}"
+                    Style="{StaticResource AloneElevatedCardBorderStyle}">
+                    <Grid Padding="{StaticResource AloneListCardPadding}" ColumnSpacing="{StaticResource AloneSpace16}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border
+                            Grid.Column="0"
+                            Width="52"
+                            Height="52"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Background="{ThemeResource AloneSurfaceContainerHighBrush}"
+                            CornerRadius="{StaticResource CornerRadiusSmall}">
+                            <Viewbox
+                                Width="26"
+                                Height="26"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                                <SymbolIcon Foreground="{ThemeResource AlonePrimaryBrush}" Symbol="Library" />
+                            </Viewbox>
+                        </Border>
+                        <StackPanel Grid.Column="1" Spacing="{StaticResource AloneSpace8}">
+                            <Grid ColumnSpacing="{StaticResource AloneSpace12}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource AloneListCardTitleStyle}"
+                                    Text="{x:Bind Name, Mode=OneWay}" />
+                                <Border
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Background="{x:Bind Status, Converter={StaticResource ProjectStatusChipBrushConverter}, Mode=OneWay}"
+                                    Style="{StaticResource AloneStatusChipBorderStyle}">
+                                    <TextBlock
+                                        MaxWidth="120"
+                                        Foreground="{ThemeResource AloneOnSurfaceVariantBrush}"
+                                        Style="{StaticResource AloneStatusChipTextStyle}"
+                                        Text="{x:Bind Status, Mode=OneWay}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </Border>
+                            </Grid>
+                            <TextBlock
+                                Style="{StaticResource AloneListCardMetaStyle}"
+                                Text="{x:Bind SummaryLine, Mode=OneWay}" />
+                            <ProgressBar
+                                Height="4"
+                                Maximum="1"
+                                Value="{x:Bind VitalityRatio, Mode=OneWay}"
+                                Foreground="{ThemeResource AloneSecondaryContainerBrush}"
+                                Background="{ThemeResource AloneSurfaceContainerHighBrush}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Button>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid Padding="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <InfoBar
+            Grid.Row="0"
+            Margin="{StaticResource AloneMarginBottom12}"
+            IsClosable="True"
+            IsOpen="{x:Bind ViewModel.ErrorBanner, Mode=OneWay, Converter={StaticResource StringNotEmptyToBoolConverter}}"
+            Message="{x:Bind ViewModel.ErrorBanner, Mode=OneWay}"
+            Severity="Error"
+            Closing="ErrorInfoBar_Closing" />
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <controls:ListEmptyState
+                    Margin="{StaticResource AloneMarginTop24}"
+                    Title="准备好开启你的下一个伟大的 Side Project 了吗？"
+                    Description="代码还没写，Bug 还没来，真香。先建个项目，把想法落进 SQLite。"
+                    Glyph="&#xE8F1;"
+                    PrimaryCommand="{x:Bind ViewModel.RequestNewProjectUiCommand, Mode=OneWay}"
+                    PrimaryLabel="新建项目"
+                    Visibility="{x:Bind ViewModel.EmptyStateVisibility, Mode=OneWay}" />
+
+                <StackPanel
+                    Margin="{StaticResource AloneMarginTop24}"
+                    HorizontalAlignment="Center"
+                    Spacing="{StaticResource AloneSpace8}"
+                    Visibility="{x:Bind ViewModel.NoMatchVisibility, Mode=OneWay}">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource AloneListCardMetaStyle}"
+                        Text="无匹配项目，请调整筛选或搜索关键词。" />
+                </StackPanel>
+
+                <ScrollViewer
+                    HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="Auto"
+                    Visibility="{x:Bind ViewModel.ListVisibility, Mode=OneWay}">
+                    <StackPanel Spacing="{StaticResource AloneListCardSpacing}">
+                        <ItemsControl
+                            ItemTemplate="{StaticResource ProjectRowCardTemplate}"
+                            ItemsSource="{x:Bind ViewModel.Projects, Mode=OneWay}" />
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <Border
+                x:Name="DetailPanel"
+                Grid.Column="1"
+                Margin="{StaticResource AloneDetailPanelMargin}"
+                Width="{StaticResource DetailPanelWidth}"
+                HorizontalAlignment="Stretch"
+                Style="{StaticResource AloneDetailPanelBorderStyle}"
+                Visibility="{x:Bind ViewModel.DetailPanelVisibility, Mode=OneWay}">
+                <StackPanel Spacing="{StaticResource AloneSpace12}">
+                    <TextBlock Style="{StaticResource AloneTitleLgTextBlockStyle}" Text="{x:Bind ViewModel.DetailTitle, Mode=OneWay}" />
+                    <TextBlock Style="{StaticResource AloneLabelMdTextBlockStyle}" Text="{x:Bind ViewModel.DetailStatus, Mode=OneWay}" />
+                    <TextBlock
+                        TextWrapping="WrapWholeWords"
+                        Style="{StaticResource AloneBodyMdTextBlockStyle}"
+                        Text="{x:Bind ViewModel.DetailBody, Mode=OneWay}" />
+                    <TextBlock Style="{StaticResource AloneBodyMdTextBlockStyle}" Text="{x:Bind ViewModel.DetailStats, Mode=OneWay}" />
+                    <StackPanel Orientation="Horizontal" Spacing="{StaticResource AloneSpace8}">
+                        <Button
+                            Command="{x:Bind ViewModel.RequestEditProjectUiCommand, Mode=OneWay}"
+                            Content="编辑"
+                            IsEnabled="{x:Bind ViewModel.CanEditDetail, Mode=OneWay}"
+                            Style="{StaticResource AloneSecondaryButtonStyle}" />
+                        <Button
+                            Command="{x:Bind ViewModel.ArchiveSelectedCommand, Mode=OneWay}"
+                            Content="归档"
+                            Style="{StaticResource AloneSecondaryButtonStyle}"
+                            Visibility="{x:Bind ViewModel.ArchiveButtonVisibility, Mode=OneWay}" />
+                        <Button
+                            Command="{x:Bind ViewModel.RestoreSelectedCommand, Mode=OneWay}"
+                            Content="恢复"
+                            Style="{StaticResource AloneSecondaryButtonStyle}"
+                            Visibility="{x:Bind ViewModel.RestoreButtonVisibility, Mode=OneWay}" />
+                        <Button
+                            Click="DeleteProject_Click"
+                            Content="删除"
+                            Style="{StaticResource AloneSecondaryButtonStyle}" />
+                    </StackPanel>
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{x:Bind ViewModel.ClearSelectionCommand, Mode=OneWay}"
+                        Content="关闭详情"
+                        Style="{StaticResource AloneSecondaryButtonStyle}" />
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Page>
